@@ -278,6 +278,15 @@
             120
         ]
     },
+    "entree_entrepot_10868613": {
+        "area": [
+            373,
+            150,
+            373,
+            90
+        ],
+        "properties": "bottom_right"
+    },
     "entree_entrepot_72aaf874": {
         "area": [
             373,
@@ -352,12 +361,28 @@
             150
         ]
     },
+    "fin_explication_4f70197a": {
+        "area": [
+            320,
+            30,
+            426,
+            150
+        ]
+    },
     "fin_explication_510b29ac": {
         "area": [
             320,
             30,
             426,
             120
+        ]
+    },
+    "fin_explication_6ad57729": {
+        "area": [
+            320,
+            30,
+            426,
+            150
         ]
     },
     "fin_explication_77bfaaaa": {
@@ -591,6 +616,14 @@
     },
     "start_d71c0497": {
         "properties": "bottom_left"
+    },
+    "start_da57825f": {
+        "area": [
+            320,
+            30,
+            319,
+            120
+        ]
     },
     "start_ed01ce6b": {
         "area": [

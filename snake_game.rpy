@@ -23,11 +23,12 @@ init python:
          
 
             # Some displayables we use.
-            self.player = Image("images/player_right.png")
+            self.player = Image("images/snake_game/player_right.png")
          
-            self.apple = [Image("images/apple0.png"),Image("images/apple1.png"),Image("images/apple2.png"),Image("images/apple3.png"),Image("images/apple4.png"),Image("images/apple5.png"),Image("images/apple6.png"),Image("images/apple7.png")]
+            self.apple = [Image("images/snake_game/apple0.png"),Image("images/snake_game/apple1.png"),Image("images/snake_game/apple2.png"),Image("images/snake_game/apple3.png"),Image("images/snake_game/apple4.png"),Image("images/snake_game/apple5.png"),Image("images/snake_game/apple6.png"),Image("images/snake_game/apple7.png")]
             self.index_apple=len(self.apple)-1
-            self.snake_head=Image("images/snake_head_left.png")
+            self.snake_head=Image("images/snake_game/snake_head_left.png")
+            self.snake_head_bite=Image("images/snake_game/snake_head_bite_left.png")
             
             # The positions of the two displayables.
  
@@ -123,13 +124,13 @@ init python:
                             self.end_text="GAGNÉ !\nAppuyez sur Entrée"
                         #compute tail direction from previous element of snake body
                         if(body[0]==sxy[len(sxy)-2][0]+self.CELL_SIZE):
-                            snake_tail = renpy.render( Image("images/snake_tail_left.png"), width, height, st, at)
+                            snake_tail = renpy.render( Image("images/snake_game/snake_tail_left.png"), width, height, st, at)
                         elif (body[0]==sxy[len(sxy)-2][0]-self.CELL_SIZE):
-                            snake_tail = renpy.render( Image("images/snake_tail_right.png"), width, height, st, at)
+                            snake_tail = renpy.render( Image("images/snake_game/snake_tail_right.png"), width, height, st, at)
                         elif (body[1]==sxy[len(sxy)-2][1]+self.CELL_SIZE):
-                            snake_tail = renpy.render( Image("images/snake_tail_up.png"), width, height, st, at)
+                            snake_tail = renpy.render( Image("images/snake_game/snake_tail_up.png"), width, height, st, at)
                         else:
-                            snake_tail = renpy.render( Image("images/snake_tail_down.png"), width, height, st, at)
+                            snake_tail = renpy.render( Image("images/snake_game/snake_tail_down.png"), width, height, st, at)
                         r.blit(snake_tail, (int(body[0]), int(body[1])))
                     else:
                         if(body[0]==self.ax and body[1]==self.ay ):
@@ -147,41 +148,41 @@ init python:
                         if(self.sxy[i-1][0]==body[0]-self.CELL_SIZE and self.sxy[i-1][1]==body[1] ):
                             #previous part of body is left
                             if(self.sxy[i+1][0]==body[0]+self.CELL_SIZE and self.sxy[i+1][1]==body[1] ):
-                                snake_body = renpy.render(Image("images/snake_body_left_right.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_left_right.png"), width, height, st, at)
                             elif(self.sxy[i+1][0]==body[0] and self.sxy[i+1][1]==body[1]-self.CELL_SIZE):
-                                snake_body = renpy.render(Image("images/snake_body_left_up.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_left_up.png"), width, height, st, at)
                             else:
-                                snake_body = renpy.render(Image("images/snake_body_left_down.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_left_down.png"), width, height, st, at)
 
                         elif(self.sxy[i-1][0]==body[0]+self.CELL_SIZE  and self.sxy[i-1][1]==body[1] ):
                             #previous part of body is right
                             if(self.sxy[i+1][0]==body[0]-self.CELL_SIZE and self.sxy[i+1][1]==body[1] ):
-                                snake_body = renpy.render(Image("images/snake_body_right_left.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_right_left.png"), width, height, st, at)
                             elif(self.sxy[i+1][0]==body[0] and self.sxy[i+1][1]==body[1]-self.CELL_SIZE):
-                                snake_body = renpy.render(Image("images/snake_body_right_up.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_right_up.png"), width, height, st, at)
                             else:
-                                snake_body = renpy.render(Image("images/snake_body_right_down.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_right_down.png"), width, height, st, at)
                             
 
                         elif(self.sxy[i-1][0]==body[0] and self.sxy[i-1][1]==body[1]-self.CELL_SIZE ):
                             #previous part of body is up
                             if(self.sxy[i+1][0]==body[0] and self.sxy[i+1][1]==body[1]+self.CELL_SIZE ):
-                                snake_body = renpy.render(Image("images/snake_body_up_down.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_up_down.png"), width, height, st, at)
                             elif(self.sxy[i+1][0]==body[0]-self.CELL_SIZE and self.sxy[i+1][1]==body[1]):
-                                snake_body = renpy.render(Image("images/snake_body_up_left.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_up_left.png"), width, height, st, at)
                             else:
-                                snake_body = renpy.render(Image("images/snake_body_up_right.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_up_right.png"), width, height, st, at)
                             
                             
 
                         else :
                             #previous part of body is down
                             if(self.sxy[i+1][0]==body[0] and self.sxy[i+1][1]==body[1]-self.CELL_SIZE ):
-                                snake_body = renpy.render(Image("images/snake_body_down_up.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_down_up.png"), width, height, st, at)
                             elif(self.sxy[i+1][0]==body[0]-self.CELL_SIZE and self.sxy[i+1][1]==body[1]):
-                                snake_body = renpy.render(Image("images/snake_body_down_left.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_down_left.png"), width, height, st, at)
                             else:
-                                snake_body = renpy.render(Image("images/snake_body_down_right.png"), width, height, st, at)
+                                snake_body = renpy.render(Image("images/snake_game/snake_body_down_right.png"), width, height, st, at)
                             
                             
                            
@@ -209,56 +210,73 @@ init python:
                     if(abs(self.sxy[0][0]-self.px)>abs(self.sxy[0][1]-self.py)):
                         #move horizontally
                         if(self.sxy[0][0]>self.px ):
-                            if(self.snake_head !=  Image("images/snake_head_right.png")):
+                            if(self.snake_head !=  Image("images/snake_game/snake_head_right.png")):
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_right.png")
                                 self.sxy.insert(0, (self.sxy[0][0]-self.CELL_SIZE, self.sxy[0][1]))
-                                self.snake_head =  Image("images/snake_head_left.png")
+                                self.snake_head =  Image("images/snake_game/snake_head_left.png")
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_left.png")
                             else:
                                 #move vertically
                                 if(self.sxy[0][1]>self.py):
                                     self.sxy.insert(0, (self.sxy[0][0], self.sxy[0][1]-self.CELL_SIZE))
-                                    self.snake_head =  Image("images/snake_head_up.png")
+                                    self.snake_head =  Image("images/snake_game/snake_head_up.png")
+                                    self.snake_head_bite =  Image("images/snake_game/snake_head_bite_up.png")
                                 else:
                                     self.sxy.insert(0, (self.sxy[0][0], self.sxy[0][1]+self.CELL_SIZE))
-                                    self.snake_head =  Image("images/snake_head_down.png")
+                                    self.snake_head =  Image("images/snake_game/snake_head_down.png")
+                                    self.snake_head_bite =  Image("images/snake_game/snake_head_bite_down.png")
                         else:
-                            if(self.snake_head !=  Image("images/snake_head_left.png")):
+                            if(self.snake_head !=  Image("images/snake_game/snake_head_left.png")):
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_left.png")
                                 self.sxy.insert(0, (self.sxy[0][0]+self.CELL_SIZE, self.sxy[0][1]))
-                                self.snake_head =  Image("images/snake_head_right.png")
+                                self.snake_head =  Image("images/snake_game/snake_head_right.png")
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_right.png")
                             else:
                                 #move vertically
                                 if(self.sxy[0][1]>self.py):
                                     self.sxy.insert(0, (self.sxy[0][0], self.sxy[0][1]-self.CELL_SIZE))
-                                    self.snake_head =  Image("images/snake_head_up.png")
+                                    self.snake_head =  Image("images/snake_game/snake_head_up.png")
+                                    self.snake_head_bite =  Image("images/snake_game/snake_head_bite_up.png")
                                 else:
                                     self.sxy.insert(0, (self.sxy[0][0], self.sxy[0][1]+self.CELL_SIZE))
-                                    self.snake_head =  Image("images/snake_head_down.png")
+                                    self.snake_head =  Image("images/snake_game/snake_head_down.png")
+                                    self.snake_head_bite =  Image("images/snake_game/snake_head_bite_down.png")
                     else:
                         #move vertically
                         if(self.sxy[0][1]>self.py):
-                            if(self.snake_head !=  Image("images/snake_head_down.png")):
+                            if(self.snake_head !=  Image("images/snake_game/snake_head_down.png")):
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_down.png")
                                 self.sxy.insert(0, (self.sxy[0][0], self.sxy[0][1]-self.CELL_SIZE))
-                                self.snake_head =  Image("images/snake_head_up.png")
+                                self.snake_head =  Image("images/snake_game/snake_head_up.png")
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_up.png")
                             else:
                                 if(self.sxy[0][0]>self.px  ):
                                         self.sxy.insert(0, (self.sxy[0][0]-self.CELL_SIZE, self.sxy[0][1]))
-                                        self.snake_head =  Image("images/snake_head_left.png")
+                                        self.snake_head =  Image("images/snake_game/snake_head_left.png")
+                                        self.snake_head_bite =  Image("images/snake_game/snake_head_bite_left.png")
                                 else:
                                         self.sxy.insert(0, (self.sxy[0][0]+self.CELL_SIZE, self.sxy[0][1]))
-                                        self.snake_head =  Image("images/snake_head_right.png")
+                                        self.snake_head =  Image("images/snake_game/snake_head_right.png")
+                                        self.snake_head_bite =  Image("images/snake_game/snake_head_bite_right.png")
                         else:
-                            if(self.snake_head !=  Image("images/snake_head_up.png")):
+                            if(self.snake_head !=  Image("images/snake_game/snake_head_up.png")):
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_up.png")
                                 self.sxy.insert(0, (self.sxy[0][0], self.sxy[0][1]+self.CELL_SIZE))
-                                self.snake_head =  Image("images/snake_head_down.png")
+                                self.snake_head =  Image("images/snake_game/snake_head_down.png")
+                                self.snake_head_bite =  Image("images/snake_game/snake_head_bite_down.png")
                             else:
                                 if(self.sxy[0][0]>self.px  ):
                                     self.sxy.insert(0, (self.sxy[0][0]-self.CELL_SIZE, self.sxy[0][1]))
-                                    self.snake_head =  Image("images/snake_head_left.png")
+                                    self.snake_head =  Image("images/snake_game/snake_head_left.png")
+                                    self.snake_head_bite =  Image("images/snake_game/snake_head_bite_left.png")
                                 else:
                                     self.sxy.insert(0, (self.sxy[0][0]+self.CELL_SIZE, self.sxy[0][1]))
-                                    self.snake_head =  Image("images/snake_head_right.png")
+                                    self.snake_head =  Image("images/snake_game/snake_head_right.png")
+                                    self.snake_head_bite =  Image("images/snake_game/snake_head_bite_right.png")
                         
                     # snake head collides with player
                     if(self.sxy[0][0]==self.px and self.sxy[0][1]==self.py):
+                        self.snake_head=self.snake_head_bite
                         renpy.sound.play(snake_eating_sound)
                         self.end_game=True
                         if mini_game==True:
@@ -271,7 +289,7 @@ init python:
 
                     # snake collides with apple
                     if(self.sxy[0][0]==self.ax and self.sxy[0][1]==self.ay):
-
+                        self.snake_head=self.snake_head_bite
                         renpy.sound.play(snake_eating_sound)
 
                         #draw apple somewhere else
@@ -296,7 +314,8 @@ init python:
          
             # draw everything
             apple(self.ax,self.ay)
-            player(self.px, self.py)
+            if self.end_game!=True:
+                player(self.px, self.py)
             snake(self.sxy)
             
 
@@ -345,7 +364,7 @@ init python:
                 
                 if collide != True:
                     self.py -= self.CELL_SIZE
-                    self.player = Image("images/player_up.png")
+                    self.player = Image("images/snake_game/player_up.png")
                     renpy.redraw(self, 0)
                 raise renpy.IgnoreEvent()
 
@@ -358,7 +377,7 @@ init python:
                 
                 if collide != True:
                     self.py += self.CELL_SIZE
-                    self.player = Image("images/player_down.png")
+                    self.player = Image("images/snake_game/player_down.png")
                     renpy.redraw(self, 0)
                 raise renpy.IgnoreEvent()
 
@@ -371,7 +390,7 @@ init python:
                 
                 if collide != True:
                     self.px += self.CELL_SIZE
-                    self.player = Image("images/player_right.png")
+                    self.player = Image("images/snake_game/player_right.png")
                     renpy.redraw(self, 0)
                 raise renpy.IgnoreEvent()
 
@@ -384,7 +403,7 @@ init python:
                 
                 if collide != True:
                     self.px -= self.CELL_SIZE
-                    self.player = Image("images/player_left.png")
+                    self.player = Image("images/snake_game/player_left.png")
                     renpy.redraw(self, 0)
                 raise renpy.IgnoreEvent()
 
@@ -397,7 +416,7 @@ init python:
 
     def display_end_game_background(st, at):
         if snake_game.end_game == True:
-            return Image("images/mini_game_end_background.png"), 30
+            return Image("images/snake_game/mini_game_end_background.png"), 30
         else :
             return Null(width=0), .1
 
@@ -416,7 +435,7 @@ label start_snake_game:
 
 #start snake game
 screen snake_game():
-    add "images/background_snake.png"
+    add "images/snake_game/background_snake.png"
 
   
 

@@ -1,4 +1,16 @@
-﻿
+﻿style dialog_text is text:
+    size 20
+    font "gui/ShortStack.ttf"
+    color "#000"
+    xalign 0.5
+    yalign 0.5
+
+style dialog_text_maj is text:
+    size 30
+    font "gui/Komika.ttf"
+    color "#000"
+    xalign 0.5
+    yalign 0.5
 
 
 # start mini game
@@ -11,13 +23,13 @@ label start_mini_game:
 
 
 # characters of the story
-define l = Character(image='lou', kind=bubble)
-define e = Character(image='ed' , kind=bubble)
-define s= Character(image='smartphone' , kind=bubble)
-define y= Character(image='yuri' , kind=bubble)
-define car= Character(image='car' , kind=bubble)
-define c= Character(image='chris' , kind=bubble)
-define sn= Character(image='snake' , kind=bubble)
+define l = Character(image='lou', kind=bubble, what_style="dialog_text")
+define e = Character(image='ed' , kind=bubble, what_style="dialog_text")
+define s= Character(image='smartphone' , kind=bubble, what_style="dialog_text_maj")
+define y= Character(image='yuri' , kind=bubble, what_style="dialog_text")
+define car= Character(image='car' , kind=bubble, what_style="dialog_text_maj")
+define c= Character(image='chris' , kind=bubble, what_style="dialog_text")
+define sn= Character(image='snake' , kind=bubble, what_style="dialog_text")
 
 
 # transformations
@@ -100,7 +112,7 @@ label start:
     l "Il y a du monde ?"
     e "Les sélections de Game Mast..."
     show ed shame at left  with dissolve
-    e "Holy crab !!!"
+    e "HOLY CRAB !!!"
     e "Mon réveil n'a pas sonné !"
     show lou angry at right  with dissolve
     l "Tu déconnes !?"
@@ -141,7 +153,7 @@ label cleTrouvee :
     show cles voiture at positionCles with dissolve
     show ed smile at left with dissolve
     e "Ah, les voilà !"
-    e "Let's-a go !"
+    e "LET'S-A GO !"
 
 
     hide cles voiture
@@ -184,7 +196,7 @@ label fin_explication:
     hide chris
     show yuri smile with dissolve
     y "Bonjour messieurs !"
-    y "Je suis {b}Yuri Tanaka{/b}, et je m'occupe des sélections dans votre région."
+    y "Je suis {b}Sylvie Cristal{/b}, et je serai l'animatrice de cette compétition."
     y "Vous pouvez me donner vos noms ?"
     hide yuri
     show chris smile at right with dissolve
@@ -199,9 +211,9 @@ label fin_explication:
 
     scene bg entrepot
     show yuri smile at left with dissolve
-    y "Messieurs dames,\n les sélections de {b}Game Master{/b}\nvont commencer !"
-    y "Cette compétition est organisée par {b}Virgile Brizor{/b},\npdg de B-Tech et pionnier de l'I.A."
-    y "Le principe est simple : à chaque épreuve,\n vous devrez affronter des robots conçus par B-Tech."
+    y "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
+    y "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de l'I.A."
+    y "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
     hide yuri
     show ed surprised at left with dissolve
     e "Des robots géants, c'est trop cool !"
@@ -222,7 +234,7 @@ label fin_explication:
     hide chris
     hide ed
     show yuri smile at left with dissolve
-    y "Le gagnant de la compétition remportera la somme de {b}100 000 €{/b}."
+    y "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
     hide yuri
     show chris smile at right with dissolve
     c "Ok, je vais me donner à fond !"
@@ -230,14 +242,14 @@ label fin_explication:
     show yuri smile at left with dissolve
     y "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     y "Si vous remportez l'épreuve, vous serez qualifiés."
-    y "La suite de la compétition se passera au siège de la B-Tech."
+    y "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
 
     scene bg entree entrepot
     show yuri smile at right with dissolve
     y "Candidat suivant : Edouard Pinson !"
     show ed shame at left with dissolve
     e "Je suis là..."
-    y "Veuillez signer cette décharge.\n C'est pour nous couvrir en cas d'accident."
+    y "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
     show ed surprised at left with dissolve
     e "D'accident ?"
     y "Je vous l'ai dit, cette compétition n'est pas sans risque."
@@ -268,7 +280,7 @@ label entree_entrepot :
     scene bg interieur entrepot
     show apple big at applePos with dissolve
     show snake at snakePos with dissolve
-    sn "SSSSSSSSSSSSSS"
+    sn "Sssssssssssssss"
     show ed smile at left with dissolve
     e "C'est ça leur robot géant ?"
     e "Ha ha ha !"
@@ -281,7 +293,7 @@ label entree_entrepot :
     show snake at snakeMove2
     e "Euh... Attends..."
     show snake at snakeMove3
-    e "Holy crab !!!"
+    e "HOLY CRAB !!!"
     e "C'est après moi qu'il en a !"
     "Attention, ça va commencer !\nUtilisez les flèches de direction pour vous déplacer. "
     jump start_snake_game
