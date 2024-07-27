@@ -1,6 +1,8 @@
 init:
     define main_menu_music = "audio/music/main_menu.mp3"
     define snake_game_music = "audio/music/snake_game.mp3"
-
+    define ringtone_music = "audio/music/ringtone.mp3"
     
     define snake_eating_sound = "audio/sound/snake_eating.mp3"
+    define snake_coming_sound = "audio/sound/snake_coming.mp3"
+    define car_pass_by_sound = "audio/sound/car_pass_by.mp3"

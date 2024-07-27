@@ -5,12 +5,6 @@
     xalign 0.5
     yalign 0.5
 
-style dialog_text_maj is text:
-    size 30
-    font "gui/Komika.ttf"
-    color "#000"
-    xalign 0.5
-    yalign 0.5
 
 
 # start mini game
@@ -23,19 +17,19 @@ label start_mini_game:
 
 
 # characters of the story
-define l = Character(image='lou', kind=bubble, what_style="dialog_text")
-define e = Character(image='ed' , kind=bubble, what_style="dialog_text")
-define s= Character(image='smartphone' , kind=bubble, what_style="dialog_text_maj")
-define y= Character(image='yuri' , kind=bubble, what_style="dialog_text")
-define car= Character(image='car' , kind=bubble, what_style="dialog_text_maj")
-define c= Character(image='chris' , kind=bubble, what_style="dialog_text")
-define sn= Character(image='snake' , kind=bubble, what_style="dialog_text")
+define lou = Character(image='lou', kind=bubble, what_style="dialog_text")
+define ed = Character(image='ed' , kind=bubble, what_style="dialog_text")
+define smartphone= Character(image='smartphone' , kind=bubble, what_style="dialog_text")
+define sylvie= Character(image='sylvie' , kind=bubble, what_style="dialog_text")
+define car= Character(image='car' , kind=bubble, what_style="dialog_text")
+define chris= Character(image='chris' , kind=bubble, what_style="dialog_text")
+define snake= Character(image='snake' , kind=bubble, what_style="dialog_text")
 
 
 # transformations
 transform shake(rate=0.090):
-    xalign 0.5
-    yalign 0.2
+    xalign 0.8
+    yalign 0.5
     linear rate xoffset 2 yoffset -6
     linear rate xoffset -2.8 yoffset -2
     linear rate xoffset 2.8 yoffset -2
@@ -61,10 +55,11 @@ transform snakePos:
     
 transform middlePause:
     zoom 0
-    pause 1
+    pause 2.5
     zoom 1
     xalign 0.3
     yalign 0.1
+
 
 
 transform snakeMove:
@@ -96,38 +91,44 @@ label start:
    
 
     scene black
+    pause 2
     show smartphone at shake
-    s "DRIIIIIIIIIIIIIING !"
+    play music ringtone
+    pause 2
+    ed "Hum ?"
+    ed "Je dors !"
+    ed "Elle insiste, la sadique..."
     hide smartphone
+    stop music
 
     scene bg maison chambre
     show ed smile  at left with dissolve
-    e "Oui, allo ?"
+    ed "Oui, allo ?"
     show lou smile at right with dissolve
-    l "Salut frangin, ça roule ?"
-    l "Je venais juste aux nouvelles..."
+    lou "Salut frangin, ça roule ?"
+    lou "Je venais juste aux nouvelles..."
     show ed surprised at left  with dissolve
-    e "A propos de quoi ?"
-    l "Des sélections de {b}Game Master{/b}, bien sûr !"
-    l "Il y a du monde ?"
-    e "Les sélections de Game Mast..."
+    ed "A propos de quoi ?"
+    lou "Des sélections de {b}Game Master{/b}, bien sûr !"
+    lou "Il y a du monde ?"
+    ed "Les sélections de Game Mast..."
     show ed shame at left  with dissolve
-    e "HOLY CRAB !!!"
-    e "Mon réveil n'a pas sonné !"
+    ed "HOLY CRAB !!!"
+    ed "Mon réveil n'a pas sonné !"
     show lou angry at right  with dissolve
-    l "Tu déconnes !?"
-    l "Les candidats sont attendus à 10h, et il est 9h30 !"
+    lou "Tu déconnes !?"
+    lou "Les candidats sont attendus à 10h, et il est 9h30 !"
     show ed think at left with dissolve
     #ed regarde sa montre
-    e "Le rendez-vous est bien dans la zone industrielle ?"
-    l "Oui, ils ont loué un entrepôt..."
-    e "Alors c'est encore jouable !"
-    e "Je m'habille en vitesse, et je file."
-    e "Je te tiens au courant."
-    e "A plus, frangine !"
+    ed "Le rendez-vous est bien dans la zone industrielle ?"
+    lou "Oui, ils ont loué un entrepôt..."
+    ed "Alors c'est encore jouable !"
+    ed "Je m'habille en vitesse, et je file."
+    ed "Je te tiens au courant."
+    ed "A plus, frangine !"
     #leo content
     show lou smile with dissolve
-    l "A plus, Ed..."
+    lou "A plus, Ed..."
 
     scene bg maison sejour
     #TODO il ne faut pouvoir cliquer sur les clés que après
@@ -136,8 +137,8 @@ label start:
 
     show cles voiture miniature at positionClesMiniature
     #ed pas content
-    e "Rah, la poisse !"
-    e "Où j'ai mis mes clés de voiture ?"
+    ed "Rah, la poisse !"
+    ed "Où j'ai mis mes clés de voiture ?"
     call screen cles_voiture
 
 screen cles_voiture:
@@ -152,31 +153,34 @@ label cleTrouvee :
   
     show cles voiture at positionCles with dissolve
     show ed smile at left with dissolve
-    e "Ah, les voilà !"
-    e "LET'S-A GO !"
+    ed "Ah, les voilà !"
+    ed "LET'S-A GO !"
 
 
     hide cles voiture
     hide ed
 
     show bg road
+    play sound car_pass_by_sound
     show car at middlePause
-    pause 1
-    car "VRRRRRRRRRRROAR  !"
+    pause 5
     hide car
+    pause 8
+  
 
+    stop sound
     show bg parking
     show ed smile at left with dissolve
-    e "Il est 9h55, ça devrait être bon...."
-    c "Toi aussi tu es à la bourre ?"
-    e"Pardon ?"
+    ed "Il est 9h55, ça devrait être bon...."
+    chris "Toi aussi tu es à la bourre ?"
+    ed "Pardon ?"
     show chris sad at right with dissolve
-    c "Ma voiture est tombée en panne à 10 kms d'ici."
-    c "J'ai été obligé de venir en courant..."
+    chris "Ma voiture est tombée en panne à 10 kms d'ici."
+    chris "J'ai été obligé de venir en courant..."
     show chris smile at right with dissolve
-    c "Et toi, qu'est-ce qui t'est arrivé ?"
+    chris "Et toi, qu'est-ce qui t'est arrivé ?"
     show ed shame at left with dissolve
-    e "Moi ? Euh..."
+    ed "Moi ? Euh..."
     menu:
         "J'ai eu une panne de réveil":
             jump panne_reveil
@@ -184,75 +188,75 @@ label cleTrouvee :
             jump longue_histoire
 
 label panne_reveil:
-    c "Ha ha, ça arrive toujours au mauvais moment !"
+    chris "Ha ha, ça arrive toujours au mauvais moment !"
     jump fin_explication
 
 label longue_histoire:
-    c "Ha ha, ça sent la panne de réveil,  ça !"
+    chris "Ha ha, ça sent la panne de réveil,  ça !"
     jump fin_explication
 
 label fin_explication:
     hide ed
     hide chris
-    show yuri smile with dissolve
-    y "Bonjour messieurs !"
-    y "Je suis {b}Sylvie Cristal{/b}, et je serai l'animatrice de cette compétition."
-    y "Vous pouvez me donner vos noms ?"
-    hide yuri
+    show sylvie smile with dissolve
+    sylvie "Bonjour messieurs !"
+    sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de votre région."
+    sylvie "Vous pouvez me donner vos noms ?"
+    hide sylvie
     show chris smile at right with dissolve
-    c "Bien sûr ! Je suis {b}Christophe Tonga{/b}."
+    chris "Bien sûr ! Je suis {b}Christophe Tonga{/b}."
     show ed smile at left with dissolve
-    e "Et moi {b}Edouard Pinson{/b}."
+    ed "Et moi {b}Edouard Pinson{/b}."
     hide ed
     hide chris
-    show yuri smile with dissolve
-    y "Très bien, c'est noté !"
-    y "Veuillez me suivre, nous allons rejoindre les autres candidats."
+    show sylvie smile with dissolve
+    sylvie "Très bien, c'est noté !"
+    sylvie "Veuillez me suivre, nous allons rejoindre les autres candidats."
 
     scene bg entrepot
-    show yuri smile at left with dissolve
-    y "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
-    y "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de l'I.A."
-    y "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
-    hide yuri
+    show sylvie smile at left with dissolve
+    sylvie "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
+    sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de l'I.A."
+    sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
+    hide sylvie
     show ed surprised at left with dissolve
-    e "Des robots géants, c'est trop cool !"
-    e "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
+    ed "Des robots géants, c'est trop cool !"
+    ed "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
     hide ed
-    show yuri smile at left with dissolve
-    y "Je pense qu'il y a méprise..."
-    y "Pour que ce soit plus fun, les épreuves sont inspirées de jeux vidéo célèbres."
-    y "Mais les créatures que vous affronterez seront bien réelles !"
-    hide yuri
+    show sylvie smile at left with dissolve
+    sylvie "Je pense qu'il y a méprise..."
+    sylvie "Pour que ce soit plus fun, les épreuves sont inspirées de jeux vidéo célèbres."
+    sylvie "Mais les créatures que vous affronterez seront bien réelles !"
+    hide sylvie
     show ed surprised at left with dissolve
-    e "Ah... Ce n'est pas un peu dangereux ?"
+    ed "Ah... Ce n'est pas un peu dangereux ?"
     hide ed
-    show yuri smile at left with dissolve
-    y "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
+    show sylvie smile at left with dissolve
+    sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
     show chris smile at right with dissolve
-    c "Et quel est le prix pour le gagnant ?"
+    chris "Et quel est le prix pour le gagnant ?"
     hide chris
     hide ed
-    show yuri smile at left with dissolve
-    y "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
-    hide yuri
+    show sylvie smile at left with dissolve
+    sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
+    hide sylvie
     show chris smile at right with dissolve
-    c "Ok, je vais me donner à fond !"
+    chris "Ok, je vais me donner à fond !"
     hide chris
-    show yuri smile at left with dissolve
-    y "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
-    y "Si vous remportez l'épreuve, vous serez qualifiés."
-    y "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
+    show sylvie smile at left with dissolve
+    sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
+    sylvie "Si vous remportez l'épreuve, vous serez qualifiés."
+    sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
 
     scene bg entree entrepot
-    show yuri smile at right with dissolve
-    y "Candidat suivant : Edouard Pinson !"
+    show sylvie smile at right with dissolve
+    sylvie "Candidat suivant : Edouard Pinson !"
     show ed shame at left with dissolve
-    e "Je suis là..."
-    y "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
+    ed "Je suis là..."
+    sylvie "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
     show ed surprised at left with dissolve
-    e "D'accident ?"
-    y "Je vous l'ai dit, cette compétition n'est pas sans risque."
+    ed "D'accident ?"
+    sylvie "Je vous l'ai dit, cette compétition n'est pas sans risque."
 
     menu:
         "Ok, je signe.\n Si c'est basé sur les jeux vidéo, j'ai mes chances.":
@@ -264,8 +268,8 @@ label fin_explication:
 
 label again_entree:
     show ed surprised at left with dissolve
-    e "Quand même..."
-    e "Il y a 100 000 € à la clé... Ce n'est pas rien."
+    ed "Quand même..."
+    ed "Il y a 100 000 € à la clé... Ce n'est pas rien."
 
     menu:
         "Bon d'accord, je signe.":
@@ -275,26 +279,28 @@ label again_entree:
             jump again_entree
 
 label entree_entrepot :
-    y "Merci, tout est en ordre."
-    y "Amusez-vous bien !"
+    sylvie "Merci, tout est en ordre."
+    sylvie "Amusez-vous bien !"
     scene bg interieur entrepot
     show apple big at applePos with dissolve
     show snake at snakePos with dissolve
-    sn "Sssssssssssssss"
+    play sound snake_coming_sound
+    snake "Sssssssssssssss"
     show ed smile at left with dissolve
-    e "C'est ça leur robot géant ?"
-    e "Ha ha ha !"
-    e "Il n'a pas l'air très menaçant."
-    e "Voyons... Il y a aussi une pomme."
-    e "C'est comme dans ce vieux jeu sur portable."
+    ed "C'est ça leur robot géant ?"
+    ed "Ha ha ha !"
+    ed "Il n'a pas l'air très menaçant."
+    ed "Voyons... Il y a aussi une pomme."
+    ed "C'est comme dans ce vieux jeu sur portable."
     show snake at snakeMove
     show ed surprised at left with dissolve
-    e "Tiens, il bouge !\n Trop stylé !"
+    ed "Tiens, il bouge !\n Trop stylé !"
     show snake at snakeMove2
-    e "Euh... Attends..."
+    play sound snake_coming_sound
+    ed "Euh... Attends..."
     show snake at snakeMove3
-    e "HOLY CRAB !!!"
-    e "C'est après moi qu'il en a !"
+    ed "HOLY CRAB !!!"
+    ed "C'est après moi qu'il en a !"
     "Attention, ça va commencer !\nUtilisez les flèches de direction pour vous déplacer. "
     jump start_snake_game
 
@@ -307,8 +313,8 @@ label after_snake_game:
     $ quick_menu = True
     if mini_game==False:
         scene bg entree entrepot
-        show yuri smile at right with dissolve
-        y "Bravo Mr Pinson, vous êtes qualifiés !"
+        show sylvie smile at right with dissolve
+        sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
     else :
         play music main_menu
         call screen main_menu
