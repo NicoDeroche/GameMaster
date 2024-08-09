@@ -53,13 +53,25 @@ transform snakePos:
 
 
     
-transform middlePause:
+transform carPosition:
     zoom 0
     pause 2.5
     zoom 1
     xalign 0.3
     yalign 0.1
 
+
+transform birdsEatPosition:
+    xalign 0.4
+    yalign 0.95
+
+transform breadPosition:
+    xalign 0.4
+    yalign 0.97
+
+transform birdsFlyPosition:
+    xalign 0.999
+    yalign 0.05
 
 
 transform snakeMove:
@@ -90,7 +102,7 @@ label start:
     $ mini_game=False
    
 
-    scene black
+    scene bg maison nuit
     pause 2
     show smartphone at shake
     play music ringtone
@@ -162,9 +174,15 @@ label cleTrouvee :
 
     show bg road
     play sound car_pass_by_sound
-    show car at middlePause
-    pause 5
+    show car at carPosition
+    show birds eat at birdsEatPosition
+    show bread  at breadPosition
+    pause 2.5
+    show birds fly at birdsFlyPosition with dissolve
+    pause 2.5
+    hide birds
     hide car
+    hide bread
     pause 8
   
 
@@ -198,7 +216,7 @@ label longue_histoire:
 label fin_explication:
     hide ed
     hide chris
-    show sylvie smile with dissolve
+    show sylvie write with dissolve
     sylvie "Bonjour messieurs !"
     sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de votre région."
     sylvie "Vous pouvez me donner vos noms ?"
