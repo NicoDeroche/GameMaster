@@ -17,7 +17,7 @@ label start_mini_game:
 
 
 # characters of the story
-define lou = Character(image='lou', kind=bubble, what_style="dialog_text")
+define julie = Character(image='julie', kind=bubble, what_style="dialog_text")
 define ed = Character(image='ed' , kind=bubble, what_style="dialog_text")
 define smartphone= Character(image='smartphone' , kind=bubble, what_style="dialog_text")
 define sylvie= Character(image='sylvie' , kind=bubble, what_style="dialog_text")
@@ -54,24 +54,10 @@ transform snakePos:
 
     
 transform carPosition:
-    zoom 0
-    pause 2.5
-    zoom 1
-    xalign 0.3
-    yalign 0.1
+    ypos 500
+    xpos -200
+    linear 5 xpos 1500
 
-
-transform birdsEatPosition:
-    xalign 0.4
-    yalign 0.95
-
-transform breadPosition:
-    xalign 0.4
-    yalign 0.97
-
-transform birdsFlyPosition:
-    xalign 0.999
-    yalign 0.05
 
 
 transform snakeMove:
@@ -116,31 +102,31 @@ label start:
     scene bg maison chambre
     show ed smile  at left with dissolve
     ed "Oui, allo ?"
-    show lou smile at right with dissolve
-    lou "Salut frangin, ça roule ?"
-    lou "Je venais juste aux nouvelles..."
+    show julie talk at right with dissolve
+    julie "Salut frangin, ça roule ?"
+    julie "Je venais juste aux nouvelles..."
     show ed surprised at left  with dissolve
     ed "A propos de quoi ?"
-    lou "Des sélections de {b}Game Master{/b}, bien sûr !"
-    lou "Il y a du monde ?"
+    julie "Des sélections de {b}Game Master{/b}, bien sûr !"
+    julie "Il y a du monde ?"
     ed "Les sélections de Game Mast..."
     show ed shame at left  with dissolve
-    ed "HOLY CRAB !!!"
+    ed "Nom d'un ouistiti !"
     ed "Mon réveil n'a pas sonné !"
-    show lou angry at right  with dissolve
-    lou "Tu déconnes !?"
-    lou "Les candidats sont attendus à 10h, et il est 9h30 !"
+    show julie smile at right  with dissolve
+    julie "Tu déconnes !?"
+    julie "Les candidats sont attendus à 10h, et il est 9h30 !"
     show ed think at left with dissolve
     #ed regarde sa montre
     ed "Le rendez-vous est bien dans la zone industrielle ?"
-    lou "Oui, ils ont loué un entrepôt..."
+    julie "Oui, ils ont loué un entrepôt..."
     ed "Alors c'est encore jouable !"
     ed "Je m'habille en vitesse, et je file."
     ed "Je te tiens au courant."
     ed "A plus, frangine !"
     #leo content
-    show lou smile with dissolve
-    lou "A plus, Ed..."
+    show julie smile with dissolve
+    julie "A plus, Ed..."
 
     scene bg maison sejour
     #TODO il ne faut pouvoir cliquer sur les clés que après
@@ -166,25 +152,18 @@ label cleTrouvee :
     show cles voiture at positionCles with dissolve
     show ed smile at left with dissolve
     ed "Ah, les voilà !"
-    ed "LET'S-A GO !"
+    ed "C'est parti !"
 
 
     hide cles voiture
     hide ed
 
-    show bg road
+    show bg car transition
     play sound car_pass_by_sound
-    show car at carPosition
-    show birds eat at birdsEatPosition
-    show bread  at breadPosition
-    pause 2.5
-    show birds fly at birdsFlyPosition with dissolve
-    pause 2.5
-    hide birds
-    hide car
-    hide bread
-    pause 8
-  
+    show car transition at carPosition
+    pause 5
+    hide car transition
+
 
     stop sound
     show bg parking
@@ -317,7 +296,7 @@ label entree_entrepot :
     play sound snake_coming_sound
     ed "Euh... Attends..."
     show snake at snakeMove3
-    ed "HOLY CRAB !!!"
+    ed "Nom d'un clafoutis !"
     ed "C'est après moi qu'il en a !"
     "Attention, ça va commencer !\nUtilisez les flèches de direction pour vous déplacer. "
     jump start_snake_game
@@ -332,7 +311,13 @@ label after_snake_game:
     if mini_game==False:
         scene bg entree entrepot
         show sylvie smile at right with dissolve
+        show ed smile at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
+        sylvie "Un hélicoptère va nous amener au siège de la B-Tech.\nIL est stationné derrière l'entrepôt."
+        sylvie "Je vous laisse prendre votre sac de voyage dans votre véhicule."
+        show ed surprised at left with dissolve
+        ed "Nom d'une salsifi !!!"
+        ed "J'ai oublié mon sac à l'appart' !"
     else :
         play music main_menu
         call screen main_menu

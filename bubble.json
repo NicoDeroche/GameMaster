@@ -23,6 +23,22 @@
             120
         ]
     },
+    "after_snake_game_472b44cc": {
+        "area": [
+            320,
+            30,
+            479,
+            90
+        ]
+    },
+    "after_snake_game_5d8c530a": {
+        "area": [
+            480,
+            30,
+            480,
+            150
+        ]
+    },
     "after_snake_game_703d47b2": {
         "area": [
             533,
@@ -32,12 +48,36 @@
         ],
         "properties": "bottom_right"
     },
+    "after_snake_game_75150f3d": {
+        "area": [
+            533,
+            30,
+            426,
+            150
+        ]
+    },
     "after_snake_game_76185672": {
         "area": [
             320,
             30,
             373,
             120
+        ]
+    },
+    "after_snake_game_87d33d8c": {
+        "area": [
+            320,
+            30,
+            319,
+            90
+        ]
+    },
+    "after_snake_game_b47a9bfb": {
+        "area": [
+            533,
+            30,
+            426,
+            150
         ]
     },
     "after_snake_game_fe81d56e": {
@@ -570,11 +610,29 @@
         ],
         "properties": "bottom_right"
     },
+    "panne_reveil_efe746d1": {
+        "area": [
+            586,
+            30,
+            373,
+            120
+        ],
+        "properties": "bottom_right"
+    },
     "snake_victory_fe81d56e": {
         "area": [
             640,
             60,
             320,
+            120
+        ],
+        "properties": "bottom_right"
+    },
+    "start_13a02202": {
+        "area": [
+            533,
+            30,
+            480,
             120
         ],
         "properties": "bottom_right"
@@ -665,6 +723,14 @@
             180
         ]
     },
+    "start_64f5a909": {
+        "area": [
+            533,
+            30,
+            426,
+            120
+        ]
+    },
     "start_6815fd4d": {
         "area": [
             320,
@@ -733,6 +799,14 @@
             150
         ],
         "properties": "bottom_right"
+    },
+    "start_c3e06d23": {
+        "area": [
+            533,
+            30,
+            480,
+            120
+        ]
     },
     "start_cc56aa87": {
         "area": [
