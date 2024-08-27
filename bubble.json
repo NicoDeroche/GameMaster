@@ -7,12 +7,36 @@
             120
         ]
     },
+    "after_snake_game_06a4dcdf": {
+        "area": [
+            533,
+            30,
+            373,
+            150
+        ]
+    },
     "after_snake_game_23a35956": {
         "area": [
             373,
             30,
             320,
             150
+        ]
+    },
+    "after_snake_game_26b3ddf1": {
+        "area": [
+            533,
+            30,
+            426,
+            120
+        ]
+    },
+    "after_snake_game_2b301e32": {
+        "area": [
+            320,
+            30,
+            373,
+            120
         ]
     },
     "after_snake_game_37ae0c0f": {
@@ -41,10 +65,10 @@
     },
     "after_snake_game_703d47b2": {
         "area": [
-            533,
-            30,
+            586,
+            60,
             320,
-            150
+            120
         ],
         "properties": "bottom_right"
     },
@@ -72,12 +96,23 @@
             90
         ]
     },
+    "after_snake_game_a0e0bc88": {
+        "properties": "bottom_right"
+    },
     "after_snake_game_b47a9bfb": {
         "area": [
             533,
             30,
             426,
             150
+        ]
+    },
+    "after_snake_game_b5be1517": {
+        "area": [
+            480,
+            30,
+            426,
+            120
         ]
     },
     "after_snake_game_fe81d56e": {

@@ -313,11 +313,20 @@ label after_snake_game:
         show sylvie smile at right with dissolve
         show ed smile at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
-        sylvie "Un hélicoptère va nous amener au siège de la B-Tech.\nIL est stationné derrière l'entrepôt."
-        sylvie "Je vous laisse prendre votre sac de voyage dans votre véhicule."
+        hide sylvie
+        chris "Bien joué mec !"
+        show chris smile at right with dissolve
+        chris "Tu as un gabarit de crevette, mais je savais que tu allais assurer !"
+        ed "Euh... merci."
+        hide chris
+        show sylvie smile at right with dissolve
+        sylvie "Mr Tonga fait également partie des compétiteurs qualifiés."
+        sylvie "L'hélicoptère qui nous conduira à la B-Tech est stationné derrière l'entrepôt."
+        sylvie "Il reste une dizaine de candidats à faire passer."
+        sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
         show ed surprised at left with dissolve
         ed "Nom d'une salsifi !!!"
-        ed "J'ai oublié mon sac à l'appart' !"
+        ed "Je n'ai pas pris de sac !"
     else :
         play music main_menu
         call screen main_menu
