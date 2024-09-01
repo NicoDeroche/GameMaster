@@ -78,8 +78,8 @@ transform positionCles:
 
 
 transform positionClesMiniature:
-        xpos 0.40
-        ypos 0.75
+        xpos 0.3
+        ypos 0.68
 
 
 # start of the game
@@ -89,6 +89,7 @@ label start:
    
 
     scene bg maison nuit
+    show cles voiture miniature at positionClesMiniature
     pause 2
     show smartphone at shake
     play music ringtone
@@ -99,7 +100,8 @@ label start:
     hide smartphone
     stop music
 
-    scene bg maison chambre
+    scene bg maison matin
+    show cles voiture miniature at positionClesMiniature
     show ed smile  at left with dissolve
     ed "Oui, allo ?"
     show julie talk at right with dissolve
@@ -128,7 +130,7 @@ label start:
     show julie smile with dissolve
     julie "A plus, Ed..."
 
-    scene bg maison sejour
+    scene bg maison jour
     #TODO il ne faut pouvoir cliquer sur les clés que après
     
     show ed shame at left with dissolve
@@ -141,13 +143,13 @@ label start:
 
 screen cles_voiture:
     imagebutton:
-        xpos 0.40
-        ypos 0.75
+        xpos 0.3
+        ypos 0.68
         idle "cles voiture miniature.png"
         action Jump("cleTrouvee")
 
 label cleTrouvee :
-    scene bg maison sejour
+    scene bg maison jour
   
     show cles voiture at positionCles with dissolve
     show ed smile at left with dissolve
@@ -316,13 +318,13 @@ label after_snake_game:
         hide sylvie
         chris "Bien joué mec !"
         show chris smile at right with dissolve
-        chris "Tu as un gabarit de crevette, mais je savais que tu allais assurer !"
+        chris "Tu as un physique de crevette, mais je savais que tu allais assurer !"
         ed "Euh... merci."
         hide chris
         show sylvie smile at right with dissolve
-        sylvie "Mr Tonga fait également partie des compétiteurs qualifiés."
-        sylvie "L'hélicoptère qui nous conduira à la B-Tech est stationné derrière l'entrepôt."
-        sylvie "Il reste une dizaine de candidats à faire passer."
+        sylvie "Mr Tonga a également réussi cette épreuve."
+        sylvie "Il me reste quelques candidats à faire passer."
+        sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
         show ed surprised at left with dissolve
         ed "Nom d'une salsifi !!!"
