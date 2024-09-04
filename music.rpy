@@ -6,3 +6,5 @@ init:
     define snake_eating_sound = "audio/sound/snake_eating.mp3"
     define snake_coming_sound = "audio/sound/snake_coming.mp3"
     define car_pass_by_sound = "audio/sound/car_pass_by.mp3"
+
+

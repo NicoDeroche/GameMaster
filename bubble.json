@@ -156,6 +156,25 @@
             120
         ]
     },
+    "chaussuresTrouvees_1c78780d": {
+        "area": [
+            533,
+            30,
+            426,
+            120
+        ]
+    },
+    "chaussuresTrouvees_35b6c6f7": {
+        "area": [
+            320,
+            60,
+            320,
+            120
+        ]
+    },
+    "chaussuresTrouvees_4e859e7b": {
+        "properties": "bottom_right"
+    },
     "cleTrouvee_15cb8561": {
         "area": [
             480,
@@ -864,6 +883,14 @@
             320,
             30,
             373,
+            120
+        ]
+    },
+    "start_ce3e6232": {
+        "area": [
+            320,
+            30,
+            426,
             120
         ]
     },

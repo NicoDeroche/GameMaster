@@ -26,6 +26,7 @@ define chris= Character(image='chris' , kind=bubble, what_style="dialog_text")
 define snake= Character(image='snake' , kind=bubble, what_style="dialog_text")
 
 
+
 # transformations
 transform shake(rate=0.090):
     xalign 0.8
@@ -59,6 +60,20 @@ transform carPosition:
     linear 5 xpos 1500
 
 
+transform zoomOut:
+    xalign 0.5
+    yalign 0.5
+    linear 2.5 rotate 360 zoom 0
+
+
+transform zoomIn:
+    xalign 0.5
+    yalign 0.5
+    zoom 0
+    linear 2.5 rotate 360 zoom 1
+
+
+
 
 transform snakeMove:
     linear 1 xoffset -10 yoffset +10 zoom 1.15
@@ -72,14 +87,11 @@ transform snakeMove3:
     linear 1 xoffset -30 yoffset +30 zoom 1.45
     
 
-transform positionCles:
+transform positionChaussures:
     xalign 0.7
     yalign 0.5
 
 
-transform positionClesMiniature:
-        xpos 0.3
-        ypos 0.68
 
 
 # start of the game
@@ -89,7 +101,6 @@ label start:
    
 
     scene bg maison nuit
-    show cles voiture miniature at positionClesMiniature
     pause 2
     show smartphone at shake
     play music ringtone
@@ -101,7 +112,6 @@ label start:
     stop music
 
     scene bg maison matin
-    show cles voiture miniature at positionClesMiniature
     show ed smile  at left with dissolve
     ed "Oui, allo ?"
     show julie talk at right with dissolve
@@ -130,34 +140,46 @@ label start:
     show julie smile with dissolve
     julie "A plus, Ed..."
 
+    hide ed
+    hide julie
+
+    show bg car transition
+    show car transition at zoomOut
+    pause 2.5
+    show chaussures at zoomIn
+    pause 2.5
+    hide car transition
+    hide chaussures
+
     scene bg maison jour
     #TODO il ne faut pouvoir cliquer sur les clés que après
     
     show ed shame at left with dissolve
 
-    show cles voiture miniature at positionClesMiniature
+
     #ed pas content
-    ed "Rah, la poisse !"
-    ed "Où j'ai mis mes clés de voiture ?"
-    call screen cles_voiture
+    ed "L'entrepôt se situe dans la Z.I. de la Coquillette"
+    ed "J'y serai dans 10 mn"
+    ed "il faut juste que je me rappelle où j'ai rangé mes chaussures"
+    call screen chaussures_click
 
-screen cles_voiture:
+screen chaussures_click:
     imagebutton:
-        xpos 0.3
-        ypos 0.68
-        idle "cles voiture miniature.png"
-        action Jump("cleTrouvee")
+        xpos 0.76
+        ypos 0.9
+        idle "chaussures click.png"
+        action Jump("chaussuresTrouvees")
 
-label cleTrouvee :
+label chaussuresTrouvees :
     scene bg maison jour
   
-    show cles voiture at positionCles with dissolve
+    show chaussures at positionChaussures with dissolve
     show ed smile at left with dissolve
     ed "Ah, les voilà !"
     ed "C'est parti !"
 
 
-    hide cles voiture
+    hide chaussures
     hide ed
 
     show bg car transition
