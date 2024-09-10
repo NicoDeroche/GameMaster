@@ -55,23 +55,9 @@ transform snakePos:
 
     
 transform carPosition:
-    ypos 500
+    ypos 280
     xpos -200
     linear 5 xpos 1500
-
-
-transform zoomOut:
-    xalign 0.5
-    yalign 0.5
-    linear 2.5 rotate 360 zoom 0
-
-
-transform zoomIn:
-    xalign 0.5
-    yalign 0.5
-    zoom 0
-    linear 2.5 rotate 360 zoom 1
-
 
 
 
@@ -88,8 +74,8 @@ transform snakeMove3:
     
 
 transform positionChaussures:
-    xalign 0.7
-    yalign 0.5
+    xalign 0.65
+    yalign 0.55
 
 
 
@@ -143,30 +129,23 @@ label start:
     hide ed
     hide julie
 
-    show bg car transition
-    show car transition at zoomOut
-    pause 2.5
-    show chaussures at zoomIn
-    pause 2.5
-    hide car transition
-    hide chaussures
 
-    scene bg maison jour
-    #TODO il ne faut pouvoir cliquer sur les clés que après
-    
+
+    scene bg maison jour with Pixellate(5,5)
+
     show ed shame at left with dissolve
 
 
     #ed pas content
-    ed "L'entrepôt se situe dans la Z.I. de la Coquillette"
-    ed "J'y serai dans 10 mn"
-    ed "il faut juste que je me rappelle où j'ai rangé mes chaussures"
+    ed "L'entrepôt se situe dans la Z.I. de la Coquillette."
+    ed "J'y serai dans 10 mn."
+    ed "Il faut juste que je me rappelle où j'ai rangé mes chaussures..."
     call screen chaussures_click
 
 screen chaussures_click:
     imagebutton:
-        xpos 0.76
-        ypos 0.9
+        xpos 0.65
+        ypos 0.76
         idle "chaussures click.png"
         action Jump("chaussuresTrouvees")
 

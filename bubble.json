@@ -63,6 +63,14 @@
             120
         ]
     },
+    "after_snake_game_5bd09bea": {
+        "area": [
+            480,
+            30,
+            426,
+            150
+        ]
+    },
     "after_snake_game_5d8c530a": {
         "area": [
             480,
@@ -125,10 +133,10 @@
     },
     "after_snake_game_c4f6d625": {
         "area": [
-            533,
+            480,
             30,
-            373,
-            150
+            426,
+            120
         ]
     },
     "after_snake_game_fe81d56e": {
@@ -870,6 +878,14 @@
         ],
         "properties": "bottom_right"
     },
+    "start_b868d4f2": {
+        "area": [
+            320,
+            30,
+            426,
+            150
+        ]
+    },
     "start_c3e06d23": {
         "area": [
             533,
@@ -966,10 +982,10 @@
     },
     "start_f90bf4f7": {
         "area": [
-            53,
-            390,
             320,
-            150
+            360,
+            320,
+            120
         ]
     },
     "start_f9e06f1e": {
