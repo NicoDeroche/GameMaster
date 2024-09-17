@@ -23,7 +23,7 @@ init python:
          
 
             # Some displayables we use.
-            self.player = Image("images/snake_game/player_right.png")
+            self.player = Image("images/snake_game/player_stand.png")
          
             self.apple = [Image("images/snake_game/apple0.png"),Image("images/snake_game/apple1.png"),Image("images/snake_game/apple2.png"),Image("images/snake_game/apple3.png"),Image("images/snake_game/apple4.png"),Image("images/snake_game/apple5.png"),Image("images/snake_game/apple6.png"),Image("images/snake_game/apple7.png")]
             self.index_apple=len(self.apple)-1
@@ -54,13 +54,18 @@ init python:
             self.sxy.append( (sx+self.CELL_SIZE*4,sy))
             self.snake_accumulated_time=0
             self.apple_accumulated_time=0
-
+            self.last_player_move_accumulated_time=0
+            self.start_player_move=0
+            self.player_moving=False
             # The time of the past render-frame.
             self.oldst = None
             # time between snake movements
             self.SNAKE_FRAME_DURATION=0.5
+            # time between images during apple display
             self.APPLE_FRAME_DURATION=0.3
-
+            # time before we show stand image for player
+            self.PLAYER_STANDING=0.5
+            self.PLAYER_MOVE_DURATION=0.15
             
 
             # initial position of apple
@@ -322,6 +327,23 @@ init python:
             # make snake move at interval
             self.snake_accumulated_time += dtime
             self.apple_accumulated_time += dtime
+            self.last_player_move_accumulated_time += dtime
+            self.start_player_move += dtime
+
+            if self.last_player_move_accumulated_time >= self.PLAYER_STANDING:
+                self.last_player_move_accumulated_time -= self.PLAYER_STANDING
+                self.player = Image("images/snake_game/player_stand.png")
+                
+
+            if self.start_player_move >= self.PLAYER_MOVE_DURATION and self.player_moving:
+                if not  self.player == Image("images/snake_game/player_right.png"):
+                    self.start_player_move -= self.PLAYER_MOVE_DURATION
+                    self.player = Image("images/snake_game/player_right.png")
+                    self.px+=self.CELL_SIZE/2
+                    self.last_player_move_accumulated_time=0
+                else :
+                    self.player_moving=False
+
             if self.snake_accumulated_time >= self.SNAKE_FRAME_DURATION:
                 self.snake_accumulated_time -= self.SNAKE_FRAME_DURATION
                 process_game_step()
@@ -353,7 +375,7 @@ init python:
                     self.__init__()
 
 
-
+            
                 
 
             if self.end_game == False and ev.type == pygame.KEYDOWN   and ev.key == pygame.K_UP and (self.py != self.ay + self.CELL_SIZE or  self.px!=self.ax):
@@ -371,6 +393,7 @@ init python:
                 
             if self.end_game == False and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN and (self.py != self.ay - self.CELL_SIZE or self.px!=self.ax ):
                 collide=False
+                self.last_player_move_accumulated_time=0
                 for body in self.sxy:
                     if (self.py == body[1] - self.CELL_SIZE and self.px==body[0]):
                         collide=True
@@ -383,27 +406,33 @@ init python:
 
 
             if self.end_game == False and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and (self.px != self.ax - self.CELL_SIZE or self.py!=self.ay):
-                collide=False
-                for body in self.sxy:
-                    if (self.px == body[0] - self.CELL_SIZE and self.py==body[1]):
-                        collide=True
-                
-                if collide != True:
-                    self.px += self.CELL_SIZE
-                    self.player = Image("images/snake_game/player_right.png")
-                    renpy.redraw(self, 0)
+               
+                if not self.player_moving:
+                    collide=False
+                    self.last_player_move_accumulated_time=0
+                    for body in self.sxy:
+                        if (self.px == body[0] - self.CELL_SIZE and self.py==body[1]):
+                            collide=True
+                    
+                    if collide != True:
+                        self.start_player_move=0
+                        self.player_moving=True
+                        self.px += self.CELL_SIZE/2
+                        self.player = Image("images/snake_game/player_right_2.png")
+                        
                 raise renpy.IgnoreEvent()
 
 
             if self.end_game == False and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and (self.px != self.ax + self.CELL_SIZE or self.py!=self.ay):
                 collide=False
+                self.last_player_move_accumulated_time=0
                 for body in self.sxy:
                     if (self.px == body[0] + self.CELL_SIZE and self.py==body[1]):
                         collide=True
                 
                 if collide != True:
                     self.px -= self.CELL_SIZE
-                    self.player = Image("images/snake_game/player_left.png")
+                    self.player = Image("images/snake_game/player_left_2.png")
                     renpy.redraw(self, 0)
                 raise renpy.IgnoreEvent()
 

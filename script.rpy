@@ -216,7 +216,7 @@ label fin_explication:
     scene bg entrepot
     show sylvie smile at left with dissolve
     sylvie "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
-    sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de l'I.A."
+    sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de la robotique."
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
     hide sylvie
     show ed surprised at left with dissolve
