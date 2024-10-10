@@ -98,32 +98,26 @@ label start:
     stop music
 
     scene bg maison matin
-    show ed smile  at left with dissolve
+    show ed pyjama neutral  at left with dissolve
     ed "Oui, allo ?"
     show julie talk at right with dissolve
     julie "Salut frangin, ça roule ?"
     julie "Je venais juste aux nouvelles..."
-    show ed surprised at left  with dissolve
     ed "A propos de quoi ?"
     julie "Des sélections de {b}Game Master{/b}, bien sûr !"
     julie "Il y a du monde ?"
     ed "Les sélections de Game Mast..."
-    show ed shame at left  with dissolve
-    ed "Nom d'un ouistiti !"
+    ed "Holy crab !"
     ed "Mon réveil n'a pas sonné !"
-    show julie smile at right  with dissolve
     julie "Tu déconnes !?"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
-    show ed think at left with dissolve
-    #ed regarde sa montre
     ed "Le rendez-vous est bien dans la zone industrielle ?"
     julie "Oui, ils ont loué un entrepôt..."
     ed "Alors c'est encore jouable !"
     ed "Je m'habille en vitesse, et je file."
     ed "Je te tiens au courant."
     ed "A plus, frangine !"
-    #leo content
-    show julie smile with dissolve
+    show julie smile at right with dissolve
     julie "A plus, Ed..."
 
     hide ed
@@ -131,9 +125,9 @@ label start:
 
 
 
-    scene bg maison jour with Pixellate(5,5)
+    scene bg maison jour with Pixellate(3,5)
 
-    show ed shame at left with dissolve
+    show ed chemise think at left with dissolve
 
 
     #ed pas content
@@ -153,9 +147,9 @@ label chaussuresTrouvees :
     scene bg maison jour
   
     show chaussures at positionChaussures with dissolve
-    show ed smile at left with dissolve
+    show ed chemise think at left with dissolve
     ed "Ah, les voilà !"
-    ed "C'est parti !"
+    ed "Let's a go !"
 
 
     hide chaussures
@@ -170,16 +164,14 @@ label chaussuresTrouvees :
 
     stop sound
     show bg parking
-    show ed smile at left with dissolve
+    show ed chemise think at left with dissolve
     ed "Il est 9h55, ça devrait être bon...."
     chris "Toi aussi tu es à la bourre ?"
     ed "Pardon ?"
-    show chris sad at right with dissolve
+    show chris bras croises at right with dissolve
     chris "Ma voiture est tombée en panne à 10 kms d'ici."
     chris "J'ai été obligé de venir en courant..."
-    show chris smile at right with dissolve
     chris "Et toi, qu'est-ce qui t'est arrivé ?"
-    show ed shame at left with dissolve
     ed "Moi ? Euh..."
     menu:
         "J'ai eu une panne de réveil":
@@ -203,9 +195,9 @@ label fin_explication:
     sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de votre région."
     sylvie "Vous pouvez me donner vos noms ?"
     hide sylvie
-    show chris smile at right with dissolve
+    show chris bras croises at right with dissolve
     chris "Bien sûr ! Je suis {b}Christophe Tonga{/b}."
-    show ed smile at left with dissolve
+    show ed chemise think at left with dissolve
     ed "Et moi {b}Edouard Pinson{/b}."
     hide ed
     hide chris
@@ -218,43 +210,31 @@ label fin_explication:
     sylvie "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
     sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de la robotique."
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
-    hide sylvie
-    show ed surprised at left with dissolve
+    show ed chemise think at right with dissolve
     ed "Des robots géants, c'est trop cool !"
     ed "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
-    hide ed
-    show sylvie smile at left with dissolve
     sylvie "Je pense qu'il y a méprise..."
     sylvie "Pour que ce soit plus fun, les épreuves sont inspirées de jeux vidéo célèbres."
     sylvie "Mais les créatures que vous affronterez seront bien réelles !"
-    hide sylvie
-    show ed surprised at left with dissolve
     ed "Ah... Ce n'est pas un peu dangereux ?"
-    hide ed
-    show sylvie smile at left with dissolve
+
+
     sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
-    show chris smile at right with dissolve
-    chris "Et quel est le prix pour le gagnant ?"
-    hide chris
     hide ed
-    show sylvie smile at left with dissolve
+    show chris bras croises at right with dissolve
+    chris "Et quel est le prix pour le gagnant ?"
     sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
-    hide sylvie
-    show chris smile at right with dissolve
     chris "Ok, je vais me donner à fond !"
-    hide chris
-    show sylvie smile at left with dissolve
     sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     sylvie "Si vous remportez l'épreuve, vous serez qualifiés."
     sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
 
-    scene bg entree entrepot
-    show sylvie smile at right with dissolve
+    scene bg entree entrepot with Pixellate(3,5)
+    show sylvie smile at left with dissolve
     sylvie "Candidat suivant : Edouard Pinson !"
-    show ed shame at left with dissolve
+    show ed chemise think at right with dissolve
     ed "Je suis là..."
     sylvie "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
-    show ed surprised at left with dissolve
     ed "D'accident ?"
     sylvie "Je vous l'ai dit, cette compétition n'est pas sans risque."
 
@@ -266,8 +246,8 @@ label fin_explication:
             jump again_entree
 
 
-label again_entree:
-    show ed surprised at left with dissolve
+label again_entree :
+    show ed chemise think at left with dissolve
     ed "Quand même..."
     ed "Il y a 100 000 € à la clé... Ce n'est pas rien."
 
@@ -282,25 +262,28 @@ label entree_entrepot :
     sylvie "Merci, tout est en ordre."
     sylvie "Amusez-vous bien !"
     scene bg interieur entrepot
-    show apple big at applePos with dissolve
-    show snake at snakePos with dissolve
+    #show apple big at applePos with dissolve
+    #show snake at snakePos with dissolve
+    show ed chemise think at right with dissolve
+    ed "J'hallucine !\nUn robot serpent !"
+    ed "Il y a aussi une pomme..."
+    ed "C'est comme dans ce vieux jeu sur portable."
+    scene bg interieur entrepot bis
+    show ed chemise think at right 
     play sound snake_coming_sound
     snake "Sssssssssssssss"
-    show ed smile at left with dissolve
-    ed "C'est ça leur robot géant ?"
-    ed "Ha ha ha !"
-    ed "Il n'a pas l'air très menaçant."
-    ed "Voyons... Il y a aussi une pomme."
-    ed "C'est comme dans ce vieux jeu sur portable."
-    show snake at snakeMove
-    show ed surprised at left with dissolve
-    ed "Tiens, il bouge !\n Trop stylé !"
-    show snake at snakeMove2
+    #show snake at snakeMove
+    
+    ed "Et en plus il fait du bruit et il bouge !"
+    ed "Trop stylé !"
+    scene bg interieur entrepot ter
+    show ed chemise think at right 
     play sound snake_coming_sound
+
     ed "Euh... Attends..."
-    show snake at snakeMove3
-    ed "Nom d'un clafoutis !"
-    ed "C'est après moi qu'il en a !"
+    #show snake at snakeMove3
+    ed "Holy crab !"
+    ed "Il veut me bouffer !"
     "Attention, ça va commencer !\nUtilisez les flèches de direction pour vous déplacer. "
     jump start_snake_game
 
@@ -313,22 +296,21 @@ label after_snake_game:
     $ quick_menu = True
     if mini_game==False:
         scene bg entree entrepot
-        show sylvie smile at right with dissolve
-        show ed smile at left with dissolve
+        show sylvie smile at left with dissolve
+        show ed chemise think at right with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
         hide sylvie
         chris "Bien joué mec !"
-        show chris smile at right with dissolve
+        show chris bras croises at left with dissolve
         chris "Tu as un physique de crevette, mais je savais que tu allais assurer !"
         ed "Euh... merci."
         hide chris
-        show sylvie smile at right with dissolve
+        show sylvie smile at left with dissolve
         sylvie "Mr Tonga a également réussi cette épreuve."
         sylvie "Il me reste quelques candidats à faire passer."
         sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
-        show ed surprised at left with dissolve
-        ed "Nom d'une salsifi !!!"
+        ed "Holy crab !!!"
         ed "Je n'ai pas pris de sac !"
     else :
         play music main_menu

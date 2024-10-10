@@ -240,7 +240,7 @@ init python:
 
         def check_game_over(self):
                 # snake head collides with player
-                if(self.sxy[0][0]==self.px and self.sxy[0][1]==self.py):
+                if(self.sxy[0][0]==self.px and self.sxy[0][1]==self.py and not self.end_game):
                     self.snake_head=self.snake_head_bite
                     renpy.sound.play(snake_eating_sound)
                     self.end_game=True
