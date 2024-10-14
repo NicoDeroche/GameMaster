@@ -755,6 +755,12 @@ screen preferences():
                     textbutton _("Après les choix") action Preference("after choices", "toggle")
                     textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
 
+                vbox:
+                    style_prefix "radio"
+                    label _("Language")
+                    textbutton "Français" text_font "DejaVuSans.ttf" action Language(None)
+                    textbutton "English" text_font "DejaVuSans.ttf" action Language("english")
+
                 ## Des boites vbox additionnelles de type "radio_pref" ou
                 ## "check_pref" peuvent être ajoutées ici pour ajouter des
                 ## préférences définies par le créateur du jeu.
