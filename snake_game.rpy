@@ -474,7 +474,6 @@ default snake_game = SnakeGameDisplayable()
 label start_snake_game:
     play music snake_game_music
     window hide  # Hide the window and quick menu while in mini game
-    $ quick_menu = False
     call screen snake_game
 
 

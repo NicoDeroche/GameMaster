@@ -10,7 +10,8 @@
 # start mini game
 label start_mini_game:
     $ mini_game=True
-    jump start_snake_game
+    #jump start_snake_game
+    jump start_bubble_shooter_game
 
 
 
@@ -294,7 +295,6 @@ label entree_entrepot :
 label after_snake_game:
     stop music
     window auto  
-    $ quick_menu = True
     if mini_game==False:
         scene bg entree entrepot
         show sylvie smile at left with dissolve
