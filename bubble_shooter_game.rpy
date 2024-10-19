@@ -27,12 +27,12 @@ init python:
 
             self.last_bubble_launch=0
             #temps entre les lancements des bubbles
-            self.BUBBLE_LAUNCH_DELAY=3
+            self.BUBBLE_LAUNCH_DELAY=5
             self.last_iteration_time=0
             # temps entre chaque deplacement d'une bubble
             self.BUBBLE_TIME_DELAY = 0.1
             #temps maximal pour une bubble pour arriver à la cible la plus lointaine
-            self.MAX_TIME = 5
+            self.MAX_TIME = 3
 
             # The time of the past render-frame.
             self.last_frame_rendering = None
@@ -100,7 +100,7 @@ init python:
         #affichage de la bubble lancee
         def draw_current_bubble(self,render, width, height, st, at, dtime):
             self.last_bubble_launch += dtime
-            # self.last_iteration_time += dtime
+            self.last_iteration_time += dtime
             # show player standing when not moving
             if self.last_bubble_launch >= self.BUBBLE_LAUNCH_DELAY:
                 self.last_bubble_launch -= self.BUBBLE_LAUNCH_DELAY
@@ -150,6 +150,7 @@ init python:
             b = y1 - a * x1
             return (a,b)
 
+        #distance a parcourir entre la position de depart et la cible
         def compute_distance_to_target(self):
             return ((self.target_pos[0] - self.launch_pos[0]) ** 2 + (self.target_pos[1] - self.launch_pos[1]) ** 2) ** 0.5
 
@@ -180,7 +181,8 @@ init python:
                             #regarde la couleur du parent candidat et de son voisin de gauche
                             if (((cols - 1) not in self.bubble_properties[rows] or self.bubble_properties[rows][cols - 1] != color) and
                                     self.bubble_properties[rows][cols] != color):
-                                candidate_position=self.compute_target_candidate_bubble_position(rows,cols)
+                                #on ajoute un à la ligne des colonnes puisqu'on a identifié le PARENT candidat
+                                candidate_position=self.compute_target_candidate_bubble_position(rows+1,cols)
                                 #equation de la droite passant par les deux points
                                 # on enlève le self.RAYON pour avoir la position "haute" des bubbles, qui peuvent intersectées
                                 if not self.check_if_intersection(launch_pos, candidate_position,rows):
@@ -194,15 +196,15 @@ init python:
                                     if (self.bubble_properties[rows][cols] != color and (
                                             (cols + 1) not in self.bubble_properties[rows] or self.bubble_properties[rows][
                                         cols + 1] != color)):
-                                        candidate_position=self.compute_target_candidate_bubble_position(rows,cols)
+                                        candidate_position=self.compute_target_candidate_bubble_position(rows+1,cols)
                                         if not self.check_if_intersection(launch_pos, candidate_position,rows):
-                                            #on ajoute un à la ligne des colonnes puisqu'on a identifié le PARENT candidat
+                                            
                                             return (candidate_position,rows+1,cols)  # Identify target bubble for even rows
                 #ligne paire : on a une colonne de plus
                 if self.is_odd(rows):
                     if (((rows + 1) not in self.bubble_properties or self.MAX_LINE_SIZE not in self.bubble_properties[rows + 1]) and
                             self.bubble_properties[rows][self.MAX_LINE_SIZE - 1] != color):
-                        candidate_position=self.compute_target_candidate_bubble_position(rows,self.MAX_LINE_SIZE)
+                        candidate_position=self.compute_target_candidate_bubble_position(rows+1,self.MAX_LINE_SIZE)
                         if not self.check_if_intersection(launch_pos, candidate_position,rows):
                             return  (candidate_position,rows+1,self.MAX_LINE_SIZE)
 
@@ -220,10 +222,10 @@ init python:
             if self.is_odd(rows):
                 return (
                     cols * self.RAYON * 2 + self.BORDER_WIDTH - self.RAYON,
-                    self.RAYON + self.BORDER_WIDTH + rows * self.RAYON * 2)  # End position of the bubble
+                    self.BORDER_WIDTH + rows * self.RAYON * 2 - (self.RAYON*2))  # End position of the bubble
             else:
                 return (
-                        cols * self.RAYON * 2 + self.BORDER_WIDTH, self.RAYON + self.BORDER_WIDTH + rows * self.RAYON * 2)  # End position of the bubble
+                        cols * self.RAYON * 2 + self.BORDER_WIDTH -self.RAYON * 2, self.BORDER_WIDTH + rows * self.RAYON * 2 - (self.RAYON*2))  # End position of the bubble
 
 
 
