@@ -41,10 +41,10 @@ init python:
             
  
             # limit of the game (border size is 10px)
-            self.pymin = 10
-            self.pymax = 720 - 10 - self.CELL_SIZE 
-            self.pxmin = 10
-            self.pxmax = 1280 - 10 - self.CELL_SIZE 
+            self.PY_MIN = 10
+            self.PY_MAX = 720 - 10 - self.CELL_SIZE 
+            self.PX_MIN = 10
+            self.PX_MAX = 1280 - 10 - self.CELL_SIZE 
 
 
             #position of player
@@ -228,14 +228,14 @@ init python:
 
         #player should stay in the frame
         def check_player_keep_in(self):
-            if self.py < self.pymin:
-                self.py = self.pymin
-            if self.py > self.pymax:
-                self.py = self.pymax
-            if self.px < self.pxmin:
-                self.px = self.pxmin
-            if self.px > self.pxmax:
-                self.px = self.pxmax
+            if self.py < self.PY_MIN:
+                self.py = self.PY_MIN
+            if self.py > self.PY_MAX:
+                self.py = self.PY_MAX
+            if self.px < self.PX_MIN:
+                self.px = self.PX_MIN
+            if self.px > self.PX_MAX:
+                self.px = self.PX_MAX
 
 
         def check_game_over(self):
@@ -458,10 +458,10 @@ init python:
             renpy.restart_interaction()
             raise renpy.IgnoreEvent()    
 
-    def display_end_game_text(st, at):
+    def display_end_snake_game_text(st, at):
             return Text( snake_game.end_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1
 
-    def display_end_game_background(st, at):
+    def display_end_snake_game_background(st, at):
         if snake_game.end_game == True:
             return Image("images/snake_game/mini_game_end_background.png"), 30
         else :
@@ -481,7 +481,7 @@ label start_snake_game:
 screen snake_game():
     add "images/snake_game/background_snake.png"
     add snake_game
-    add DynamicDisplayable(display_end_game_background) 
-    add DynamicDisplayable(display_end_game_text) xalign 0.5 yalign 0.5 
+    add DynamicDisplayable(display_end_snake_game_background) 
+    add DynamicDisplayable(display_end_snake_game_text) xalign 0.5 yalign 0.5 
     
    
