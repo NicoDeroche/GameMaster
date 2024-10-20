@@ -14,31 +14,35 @@ init python:
 
             renpy.Displayable.__init__(self)
 
+            
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
             self.RAYON=35
             self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png"),Image("images/bubble_shooter_game/golden_bubble.png")]
-            #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
-            self.MAX_LINE_SIZE = 18
+            
             self.bubble_properties = dict()  # Map to store properties of the bubbles
             
             self.SCREEN_HEIGHT= 720  
             self.SCREEN_WIDTH = 1280
+            #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
+            self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.RAYON*2))
+            self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2)/(self.RAYON*2))
 
             self.last_bubble_launch=0
             #temps entre les lancements des bubbles
-            self.BUBBLE_LAUNCH_DELAY=5
+            self.BUBBLE_LAUNCH_DELAY=3
             self.last_iteration_time=0
             # temps entre chaque deplacement d'une bubble
             self.BUBBLE_TIME_DELAY = 0.1
             #temps maximal pour une bubble pour arriver à la cible la plus lointaine
-            self.MAX_TIME = 3
+            self.MAX_TIME = 1
 
             # The time of the past render-frame.
             self.last_frame_rendering = None
 
 
-
+            #position du lancement (gauche ou droite)
+            self.launch_side=1
             self.current_bubble_color = None
             self.current_iteration= None
             self.current_bubble_x = None
@@ -162,53 +166,71 @@ init python:
             return self.BUBBLE_TIME_DELAY * max_distance / self.MAX_TIME
 
 
-        def identify_bubble_to_target(self,color,launch_pos):
+        def identify_bubble_to_target(self):
             #parcours des lignes
-            for rows in sorted(self.bubble_properties, key=lambda x: int(x)):
-                #parcours des colonnes
-                for cols in sorted(self.bubble_properties[rows], key=lambda x: int(x)):
-                    #on cherche un "parent candidat"
+            for row in range(1,self.MAX_LINE_NUMBER+1):
+                #parcours des colonnes : si on lance à gauche, on lance vers la gauche
+                #si on lance à droite, on lance vers la droite
+                if(self.launch_side==0):
+                    #on ne parcourt que la moitié des lignes (sinon risque d'intersection)
+                    for col in range(1,int(self.MAX_LINE_SIZE/2)+2):
+                        if self.is_candidat(row,col,self.current_bubble_color) :
 
-                    #on s'assure qu'il n'y a pas d'élément dessous (ou carrément pas de ligne dessous)
-                    # sinon on ne peut pas être parent candidat
-            
-                    if ((rows + 1) not in self.bubble_properties or cols not in self.bubble_properties[rows + 1]):
-                        #si ligne paire (la premiere ligne = 1 )
-                        # ligne 1 :   1 2 3 4
-                        # ligne 2 :    1 2 3 4
-                        # ligne 3 :   1 2 3 4
-                        if self.is_odd(rows):
-                            #regarde la couleur du parent candidat et de son voisin de gauche
-                            if (((cols - 1) not in self.bubble_properties[rows] or self.bubble_properties[rows][cols - 1] != color) and
-                                    self.bubble_properties[rows][cols] != color):
-                                #on ajoute un à la ligne des colonnes puisqu'on a identifié le PARENT candidat
-                                candidate_position=self.compute_target_candidate_bubble_position(rows+1,cols)
-                                #equation de la droite passant par les deux points
-                                # on enlève le self.RAYON pour avoir la position "haute" des bubbles, qui peuvent intersectées
-                                if not self.check_if_intersection(launch_pos, candidate_position,rows):
-                                    return (candidate_position,rows+1,cols)  # Identify target bubble for odd rows
-                        #si ligne impaire
-                        else:
-                            #les lignes impaires ont une colonne de plus qui est ne peut pas etre parent candidat
-                            if cols != self.MAX_LINE_SIZE:
-                                if ((rows + 1) not in self.bubble_properties or cols not in self.bubble_properties[rows + 1]):
-                                    #regarde la couleur du parent candidat et de son voisin de droite
-                                    if (self.bubble_properties[rows][cols] != color and (
-                                            (cols + 1) not in self.bubble_properties[rows] or self.bubble_properties[rows][
-                                        cols + 1] != color)):
-                                        candidate_position=self.compute_target_candidate_bubble_position(rows+1,cols)
-                                        if not self.check_if_intersection(launch_pos, candidate_position,rows):
-                                            
-                                            return (candidate_position,rows+1,cols)  # Identify target bubble for even rows
-                #ligne paire : on a une colonne de plus
-                if self.is_odd(rows):
-                    if (((rows + 1) not in self.bubble_properties or self.MAX_LINE_SIZE not in self.bubble_properties[rows + 1]) and
-                            self.bubble_properties[rows][self.MAX_LINE_SIZE - 1] != color):
-                        candidate_position=self.compute_target_candidate_bubble_position(rows+1,self.MAX_LINE_SIZE)
-                        if not self.check_if_intersection(launch_pos, candidate_position,rows):
-                            return  (candidate_position,rows+1,self.MAX_LINE_SIZE)
+                            candidate_position=self.compute_target_candidate_bubble_position(row,col)
+                            
+                            #on a un candidat, mais il ne faut pas que le trajet vers ce candidat
+                            #intersecte une bubble deja en place
+                            #equation de la droite passant par les deux points
+                            # on enlève le self.RAYON pour avoir la position "haute" des bubbles, qui peuvent intersectées
+                            if not self.check_if_intersection(self.launch_pos, candidate_position,row):
+                                return (candidate_position,row,col)
+                else:
+                    for col in range(self.MAX_LINE_SIZE,int(self.MAX_LINE_SIZE/2)-2,-1):
+                        if self.is_candidat(row,col,self.current_bubble_color) :
 
-        def check_if_intersection(self,launch_pos, target_pos,rows):
+                            candidate_position=self.compute_target_candidate_bubble_position(row,col)
+                            
+                            #on a un candidat, mais il ne faut pas que le trajet vers ce candidat
+                            #intersecte une bubble deja en place
+                            #equation de la droite passant par les deux points
+                            # on enlève le self.RAYON pour avoir la position "haute" des bubbles, qui peuvent intersectées
+                            if not self.check_if_intersection(self.launch_pos, candidate_position,row):
+                                return (candidate_position,row,col)
+
+            candidate_position=self.compute_target_candidate_bubble_position(1,1)
+            return (candidate_position,1,1)
+
+
+        def is_candidat(self,row,col,color):
+            #candidat si :
+            #  pas encore de ligne ou 
+            #( pas de bubble a la position et (pas de voisin gauche ou couleur voisin gauche != couleur)
+            # et (pas de voisin droite ou couleur voisin droite != couleur))
+            verification_ligne_courante_ok = row not in self.bubble_properties or\
+            ( col not in self.bubble_properties[row] \
+            and ((col-1) not in self.bubble_properties[row] or self.bubble_properties[row][col-1] != color) \
+            and ((col+1) not in self.bubble_properties[row] or self.bubble_properties[row][col+1] != color))
+            # MAX_LINE_SIZE uniquement pour les lignes paires (not odd)
+            verification_derniere_colonne_ok=(col != self.MAX_LINE_SIZE or not self.is_odd(row))
+            # et ligne 1 ou ((au moins un parent) et (pas de parent gauche ou couleur parent gauche != couleur) et (pas de parent droite ou couleur parent droite != couleur))
+            # ligne 1 :   1 2 3 4
+            # ligne 2 :    1 2 3 4
+            # ligne 3 :   1 2 3 4
+            if self.is_odd(row):
+                col_parent_gauche=col
+                col_parent_droite=col+1
+            else:
+                col_parent_gauche=col-1
+                col_parent_droite=col
+ 
+            verification_ligne_dessus_ok =  row==1  or ( \
+            not((col_parent_gauche) not in self.bubble_properties[row-1] and (col_parent_droite) not in self.bubble_properties[row-1])\
+            and  ((col_parent_gauche) not in self.bubble_properties[row-1] or self.bubble_properties[row-1][col_parent_gauche] != color)\
+            and ((col_parent_droite) not in self.bubble_properties[row-1] or self.bubble_properties[row-1][col_parent_droite] != color)\
+            )
+            return verification_ligne_courante_ok and verification_derniere_colonne_ok and verification_ligne_dessus_ok
+        
+        def check_if_intersection(self,launch_pos, target_pos,row):
             (x1, y1) = launch_pos
             (x2, y2) = target_pos
             if (x1 != x2) and (y1 != y2):
@@ -218,14 +240,17 @@ init python:
                 #cas où les deux points sur la même colonne ou la même ligne : pas d'intersaction
                 return False
 
-        def compute_target_candidate_bubble_position(self,rows,cols):
-            if self.is_odd(rows):
+        #calcule de la position (x,y) de la bubble
+        def compute_target_candidate_bubble_position(self,row,col):
+            
+            
+            if self.is_odd(row):
                 return (
-                    cols * self.RAYON * 2 + self.BORDER_WIDTH - self.RAYON,
-                    self.BORDER_WIDTH + rows * self.RAYON * 2 - (self.RAYON*2))  # End position of the bubble
+                    col * self.RAYON * 2 + self.BORDER_WIDTH - self.RAYON,
+                    self.BORDER_WIDTH + row * self.RAYON * 2 - (self.RAYON*2))  
             else:
                 return (
-                        cols * self.RAYON * 2 + self.BORDER_WIDTH -self.RAYON * 2, self.BORDER_WIDTH + rows * self.RAYON * 2 - (self.RAYON*2))  # End position of the bubble
+                        col * self.RAYON * 2 + self.BORDER_WIDTH -self.RAYON * 2, self.BORDER_WIDTH + row * self.RAYON * 2 - (self.RAYON*2))  
 
 
 
@@ -234,18 +259,23 @@ init python:
             self.current_bubble_color = random.randint(0, len(self.BUBBLE_IMAGES) - 2)    # Randomly choose a color for the bubble
 
             #(x,y)=position en haut à gauche du carré englobant la bubble
-            self.launch_pos = (self.BORDER_WIDTH,
+            if self.launch_side==0:
+                #on lançait depuis la gauche, on lance depuis la droite
+                self.launch_side=1
+                self.launch_pos = (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
+                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)  # Start position of the bubble
+            else:
+                #on lançait depuis la droite, on lance depuis la gauche
+                self.launch_side=0
+                self.launch_pos = (self.BORDER_WIDTH,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)  # Start position of the bubble
 
-            # launch_pos = (screen.get_width() - self.RAYON - self.BORDER_WIDTH,
-            #              screen.get_height() - self.RAYON - self.BORDER_WIDTH)  # Start position of the bubble
-
-            (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target( self.current_bubble_color ,self.launch_pos)  # Find target position for the bubble
+        
+            (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target( )  # Find target position for the bubble
          
             distance_to_target = self.compute_distance_to_target()
             self.bubble_launched=True
-            #debug
-            #self.end_text=format(self.target_row, 'f')
+            
             self.iteration_number = math.trunc(distance_to_target / self.DISTANCE_BUBBLE_MOVES_EACH_DELAY)
             self.last_iteration_time=0
             self.current_iteration=0
