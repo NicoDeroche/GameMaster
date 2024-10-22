@@ -72,6 +72,8 @@ init python:
             for i in range(50):
                 self.init_launch()
                 self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
+                #suppression des éventuelles bubbles voisines de même couleur
+                self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
 
             
 
@@ -114,7 +116,8 @@ init python:
                     if self.current_iteration==self.iteration_number-1:
                         self.bubble_launched=False
                         #ajoute (definitivement) la bubble à la liste des bubbles
-                        self.add_bubble(self.target_row, self.target_col, self.current_bubble_color) 
+                        self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
+                        self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
                     else:
                         self.current_bubble_x= self.launch_pos[0] + (self.target_pos[0] - self.launch_pos[0]) * self.current_iteration / self.iteration_number  # Calculate x position
                         self.current_bubble_y = self.launch_pos[1] + (self.target_pos[1] - self.launch_pos[1]) * self.current_iteration / self.iteration_number  # Calculate y position
@@ -285,14 +288,41 @@ init python:
                 return (
                         col * self.RAYON * 2 + self.BORDER_WIDTH -self.RAYON * 2, self.BORDER_WIDTH + row * self.RAYON * 2 - (self.RAYON*2))  
 
+        #supprime les bubbles de même couleur (s'il y en a)
+        def delete_bubbles_same_color(self,row,col,color):
+            if self.is_odd(row):
+                col_parent_gauche=col
+                col_parent_droite=col+1
+            else:
+                col_parent_gauche=col-1
+                col_parent_droite=col
 
+            #voisins meme ligne
+            deleted=self.delete_bubble_same_color(row,col-1,color)
+            deleted=deleted or self.delete_bubble_same_color(row,col+1,color)
+            #voisins du dessus
+            deleted=deleted or self.delete_bubble_same_color(row-1,col_parent_gauche,color)
+            deleted=deleted or self.delete_bubble_same_color(row-1,col_parent_droite,color)
+            #voisins du dessous
+            deleted=deleted or self.delete_bubble_same_color(row+1,col_parent_gauche,color)
+            deleted=deleted or self.delete_bubble_same_color(row+1,col_parent_droite,color)
 
+            if deleted:
+                #au moins un voisin de meme couleur
+                #on supprime aussi la bubble en paramètre
+                del self.bubble_properties[row][col]
 
-        
-
+        #suppression de la bulle si elle est la couleur en paramètre
+        def delete_bubble_same_color(self,row,col,color):
+            if row in self.bubble_properties and col in self.bubble_properties[row]\
+            and self.bubble_properties[row][col]==color:
+                del self.bubble_properties[row][col]
+                return True
+            return False
 
         def launch_bubble(self):
-            
+         
+
             
             if not self.end_game:
 
@@ -300,6 +330,7 @@ init python:
                 self.current_bubble_x = self.target_pos[0]   # Calculate x position
                 self.current_bubble_y = self.target_pos[1] 
                 
+
                 distance_to_target = self.compute_distance_to_target()
                 self.bubble_launched=True
                 
