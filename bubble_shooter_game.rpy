@@ -21,7 +21,7 @@ init python:
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
             self.RAYON=35
-            self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png"),Image("images/bubble_shooter_game/golden_bubble.png")]
+            self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),Image("images/bubble_shooter_game/explode_bubble.png"),Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")]
             
             self.bubble_properties = dict()  # Map to store properties of the bubbles
             
@@ -29,7 +29,7 @@ init python:
             self.SCREEN_WIDTH = 1280
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
             self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.RAYON*2))
-            self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2)/(self.RAYON*2))
+            self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.RAYON*2)/(self.RAYON*2))
             self.LAUNCH_POS_LEFT=(self.BORDER_WIDTH,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
             self.LAUNCH_POS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
@@ -67,13 +67,13 @@ init python:
     
             self.end_text=""
             #couleur speciale pour une bubble
-            self.add_bubble(1,self.MAX_LINE_SIZE/2, len(self.BUBBLE_IMAGES) - 1) 
+            self.add_bubble(1,self.MAX_LINE_SIZE/2, 0) 
             #initialisation des 50 premières bubbles
-            # for i in range(50):
-            #     self.init_launch()
-            #     self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
-            #     #suppression des éventuelles bubbles voisines de même couleur
-            #     self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
+            for i in range(50):
+                self.init_launch()
+                self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
+                #suppression des éventuelles bubbles voisines de même couleur
+                self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
 
             
 
@@ -130,16 +130,23 @@ init python:
         #affichage de toutes les bubbles
         def display_bubbles(self,render, width, height, st, at, dtime):
            
-            for rows in sorted(self.bubble_properties, key=lambda x: int(x)):
+            for row in sorted(self.bubble_properties, key=lambda x: int(x)):
                 increment = 1
-                if (rows % 2 == 0):
+                if (row % 2 == 0):
                     increment = 0
                 #parcours des bubbles
-                for cols in sorted(self.bubble_properties[rows], key=lambda x: int(x)):
+                for col in sorted(self.bubble_properties[row], key=lambda x: int(x)):
                     #(x,y)=position en haut à gauche du carré englobant la bubble
-                    self.draw_bubble( render, width, height, st, at,  self.bubble_properties[rows][cols],
-                    self.BORDER_WIDTH + (cols - 1) * self.RAYON * 2 + increment * self.RAYON,
-                    self.BORDER_WIDTH + (rows-1) * self.RAYON * 2  )
+                    self.draw_bubble( render, width, height, st, at,  self.bubble_properties[row][col],
+                    self.BORDER_WIDTH + (col - 1) * self.RAYON * 2 + increment * self.RAYON,
+                    self.BORDER_WIDTH + (row-1) * self.RAYON * 2  )
+                    if col in  self.bubble_properties[row] and self.bubble_properties[row][col]==-1:
+                        #on supprime
+                        del self.bubble_properties[row][col]
+                    if col in  self.bubble_properties[row] and self.bubble_properties[row][col]==1:
+                        #si couleur d'explosion, on met à une couleur fake pour la prochaine fois
+                        self.bubble_properties[row][col]=-1
+                    
  
         def is_odd(self,line_number):
             return line_number % 2 != 0  # Check if the line number is odd
@@ -168,8 +175,8 @@ init python:
 
         def identify_bubble_to_target(self):
 
-            #parcours des lignes en commançant par le haut
-            for row in range(1,self.MAX_LINE_NUMBER+1):
+            #parcours des lignes en commançant par le haut, on évite la dernière (pour ne pas perdre)
+            for row in range(1,self.MAX_LINE_NUMBER):
 
                 #si on est dans ce cas, on n'a pas de cas optimal : on sera à côté d'une bubble de même couleur
                 #on prend le dernier
@@ -188,8 +195,8 @@ init python:
         #pas le choix : on aura un voisin de meme couleur
         def identify_bubble_to_target_ignore_color(self):
             #self.logger.debug("on ignore la couleur")
-            #parcours des lignes en commençant par le bas
-            for row in range(max(self.bubble_properties.keys()),0,-1):
+            #parcours des lignes en ignorant la couleur et en acceptant la dernière ligne
+            for row in range(1,self.MAX_LINE_NUMBER+1):
                 #on ignore la couleur
                 candidate= self.iterate_col_to_find_candidate(row,True)
                 if candidate is not None:
@@ -355,13 +362,15 @@ init python:
             if deleted:
                 #au moins un voisin de meme couleur
                 #on supprime aussi la bubble en paramètre
-                del self.bubble_properties[row][col]
+                #couleur d'explosion
+                self.bubble_properties[row][col]=1
 
         #suppression de la bulle si elle est la couleur en paramètre
         def delete_bubble_same_color(self,row,col,color):
             if row in self.bubble_properties and col in self.bubble_properties[row]\
             and self.bubble_properties[row][col]==color:
-                del self.bubble_properties[row][col]
+                #couleur d'explosion
+                self.bubble_properties[row][col]=1
                 return True
             return False
 
@@ -387,7 +396,7 @@ init python:
             
          
         def init_launch(self):
-            self.current_bubble_color = random.randint(0, len(self.BUBBLE_IMAGES) - 2)    # Randomly choose a color for the bubble
+            self.current_bubble_color = random.randint(2, len(self.BUBBLE_IMAGES) - 1)    # Randomly choose a color for the bubble
 
             #(x,y)=position en haut à gauche du carré englobant la bubble
             if self.launch_side==0:
