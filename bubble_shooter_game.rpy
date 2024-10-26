@@ -22,11 +22,14 @@ init python:
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
             self.RAYON=35
             self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),Image("images/bubble_shooter_game/explode_bubble.png"),Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")]
-            
+            self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/socle_canon.png")
+            self.CANNON_IMAGE=Image("images/bubble_shooter_game/canon.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
             
             self.SCREEN_HEIGHT= 720  
             self.SCREEN_WIDTH = 1280
+            self.CANNON_BASE_WIDTH=120
+            self.CANNON_WIDTH=90
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
             self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.RAYON*2))
             self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.RAYON*2)/(self.RAYON*2))
@@ -34,6 +37,8 @@ init python:
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
             self.LAUNCH_POS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
+
+                
 
             self.last_bubble_launch=0
             #temps entre les lancements des bubbles
@@ -87,10 +92,33 @@ init python:
             self.bubble_properties[row][col] = color  # Set color for the bubble at specific row and column
 
 
+        #draw cannon
+        def draw_cannon( self, render, width, height, st, at, xpos, ypos,angle):
+            # Render the cannon  image
+            cannon= renpy.render(Transform(self.CANNON_IMAGE,rotate=angle), width, height, st, at)
+            # renpy.render returns a Render object, which we can
+            # blit to the Render we're making
+            render.blit(cannon, (xpos, ypos))
+
+
+            
+            
+
+
+        # dessin du socle du canon
+        def draw_cannon_base( self, render, width, height, st, at, xpos, ypos,zoom):
+
+            # Render the cannon base image
+            cannon_base= renpy.render(Transform(self.CANNON_BASE_IMAGE,xzoom=zoom), width, height, st, at)
+     
+            # renpy.render returns a Render object, which we can
+            # blit to the Render we're making
+            render.blit(cannon_base, (xpos, ypos))
+
         # dessin de la bubble
         def draw_bubble( self, render, width, height, st, at, color, xpos, ypos):
 
-            # Render the apple image
+            # Render the bubble image
             bubble = renpy.render(self.BUBBLE_IMAGES[color], width, height, st, at)
                 
             # renpy.render returns a Render object, which we can
@@ -431,6 +459,18 @@ init python:
             # Display all bubbles
             self.display_bubbles(render, width, height, st, at,dtime)
 
+
+            #canons
+            x=self.BORDER_WIDTH+self.CANNON_BASE_WIDTH/2-self.CANNON_WIDTH/2-80
+            y=height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH*3+227
+            self.draw_cannon(render, width, height, st, at,x,y,45)
+            #self.draw_cannon(render, width, height, st, at,width-self.CANNON_BASE_WIDTH-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH/2,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH*1.5,-30)
+            # Render the cannon  image
+
+            #socles des canons
+            self.draw_cannon_base(render, width, height, st, at,0,height-self.CANNON_BASE_WIDTH,1)
+            #self.draw_cannon_base(render, width, height, st, at,width-self.CANNON_BASE_WIDTH-self.BORDER_WIDTH,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,-1)
+
             # redraw the screen
             renpy.redraw(self, 0)
 
@@ -492,3 +532,6 @@ screen bubble_shooter_game():
     add bubble_shooter_game
     add DynamicDisplayable(display_end_bubble_shooter_game_background) 
     add DynamicDisplayable(display_end_bubble_shooter_game_text) xalign 0.5 yalign 0.5 
+
+
+
