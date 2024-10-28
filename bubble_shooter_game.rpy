@@ -10,6 +10,7 @@ init python:
 
 
 
+
     class BubbleShooterGameDisplayable(renpy.Displayable):
 
         def __init__(self):
@@ -21,15 +22,38 @@ init python:
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
             self.RAYON=35
-            self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),Image("images/bubble_shooter_game/explode_bubble.png"),Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")]
+
+            self.init=True
+
+            #les images (oui, j'ai mis des doublons pour ne pas gérer le temps, shame on me)
+            self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),
+            Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
+            ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
+            ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
+            ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
+            ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
+            ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
+            ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
+          
+            ]
             self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/socle_canon.png")
             self.CANNON_IMAGE=Image("images/bubble_shooter_game/canon.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
-            
+
+
+     
             self.SCREEN_HEIGHT= 720  
             self.SCREEN_WIDTH = 1280
             self.CANNON_BASE_WIDTH=120
-            self.CANNON_WIDTH=90
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
             self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.RAYON*2))
             self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.RAYON*2)/(self.RAYON*2))
@@ -38,7 +62,8 @@ init python:
             self.LAUNCH_POS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
 
-                
+            #liste des angles des canons
+            self.angles=[0,0]
 
             self.last_bubble_launch=0
             #temps entre les lancements des bubbles
@@ -79,7 +104,9 @@ init python:
                 self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
                 #suppression des éventuelles bubbles voisines de même couleur
                 self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
-
+            self.init=False
+            #on reinitialise les canons
+            self.angles=[45,-45]  
             
 
 
@@ -117,13 +144,13 @@ init python:
 
         # dessin de la bubble
         def draw_bubble( self, render, width, height, st, at, color, xpos, ypos):
-
-            # Render the bubble image
-            bubble = renpy.render(self.BUBBLE_IMAGES[color], width, height, st, at)
-                
-            # renpy.render returns a Render object, which we can
-            # blit to the Render we're making
-            render.blit(bubble, (xpos, ypos))
+            if(color<len(self.BUBBLE_IMAGES)):
+                # Render the bubble image
+                bubble = renpy.render(self.BUBBLE_IMAGES[color], width, height, st, at)
+                    
+                # renpy.render returns a Render object, which we can
+                # blit to the Render we're making
+                render.blit(bubble, (xpos, ypos))
 
         #affichage de la bubble lancee
         def draw_current_bubble(self,render, width, height, st, at, dtime):
@@ -168,12 +195,12 @@ init python:
                     self.draw_bubble( render, width, height, st, at,  self.bubble_properties[row][col],
                     self.BORDER_WIDTH + (col - 1) * self.RAYON * 2 + increment * self.RAYON,
                     self.BORDER_WIDTH + (row-1) * self.RAYON * 2  )
-                    if col in  self.bubble_properties[row] and self.bubble_properties[row][col]==-1:
-                        #on supprime
+                    if col in  self.bubble_properties[row] and self.bubble_properties[row][col] >= len(self.BUBBLE_IMAGES):
+                        #on supprime car on est arrivé à la fin des animations d'explosion
                         del self.bubble_properties[row][col]
-                    if col in  self.bubble_properties[row] and self.bubble_properties[row][col]==1:
-                        #si couleur d'explosion, on met à une couleur fake pour la prochaine fois
-                        self.bubble_properties[row][col]=-1
+                    if col in  self.bubble_properties[row] and self.bubble_properties[row][col]>4:
+                        #si couleur d'explosion, on passe à l'animation d'explosion suivante
+                        self.bubble_properties[row][col]=self.bubble_properties[row][col]+4
                     
  
         def is_odd(self,line_number):
@@ -185,7 +212,7 @@ init python:
             (x2, y2) = target_pos
             a = (y2 - y1) / (x2 - x1)
             b = y1 - a * x1
-            self.logger.debug(f'{a} {b} {x1} {y1} {x2} {y2}')
+            #self.logger.debug(f'{a} {b} {x1} {y1} {x2} {y2}')
 
             return (a,b)
 
@@ -391,14 +418,20 @@ init python:
                 #au moins un voisin de meme couleur
                 #on supprime aussi la bubble en paramètre
                 #couleur d'explosion
-                self.bubble_properties[row][col]=1
+                if not self.init:
+                    self.bubble_properties[row][col]=self.bubble_properties[row][col]+4
+                else:
+                    del self.bubble_properties[row][col]
 
         #suppression de la bulle si elle est la couleur en paramètre
         def delete_bubble_same_color(self,row,col,color):
             if row in self.bubble_properties and col in self.bubble_properties[row]\
             and self.bubble_properties[row][col]==color:
                 #couleur d'explosion
-                self.bubble_properties[row][col]=1
+                if not self.init:
+                    self.bubble_properties[row][col]=self.bubble_properties[row][col]+4
+                else:
+                    del self.bubble_properties[row][col]
                 return True
             return False
 
@@ -421,10 +454,15 @@ init python:
                 self.current_iteration=0
                 self.current_bubble_x = self.launch_pos[0]   # Calculate x position
                 self.current_bubble_y = self.launch_pos[1]   # Calculate y position
-            
+
+
+        def get_angle(self,launch_pos, target_pos):
+            (x1, y1) = launch_pos
+            (x2, y2) = target_pos
+            return math.degrees(math.atan(math.fabs(x2 - x1) / math.fabs(y2 - y1) ))   
          
         def init_launch(self):
-            self.current_bubble_color = random.randint(2, len(self.BUBBLE_IMAGES) - 1)    # Randomly choose a color for the bubble
+            self.current_bubble_color = random.randint(1, 4)    # Randomly choose a color for the bubble
 
             #(x,y)=position en haut à gauche du carré englobant la bubble
             if self.launch_side==0:
@@ -438,6 +476,16 @@ init python:
 
            
             (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target()  # Find target position for the bubble
+            angle = self.get_angle(self.launch_pos,self.target_pos)
+            if self.launch_side==1:
+                angle=-angle
+            
+            self.angles[self.launch_side]=angle
+            
+
+
+        
+
 
 
 
@@ -461,15 +509,15 @@ init python:
 
 
             #canons
-            x=self.BORDER_WIDTH+self.CANNON_BASE_WIDTH/2-self.CANNON_WIDTH/2-80
-            y=height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH*3+227
-            self.draw_cannon(render, width, height, st, at,x,y,45)
-            #self.draw_cannon(render, width, height, st, at,width-self.CANNON_BASE_WIDTH-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH/2,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH*1.5,-30)
+            x=-55
+            y=height-143
+            self.draw_cannon(render, width, height, st, at,-55,height-143,self.angles[0])
+            self.draw_cannon(render, width, height, st, at,width-143,height-143,self.angles[1])
             # Render the cannon  image
 
             #socles des canons
             self.draw_cannon_base(render, width, height, st, at,0,height-self.CANNON_BASE_WIDTH,1)
-            #self.draw_cannon_base(render, width, height, st, at,width-self.CANNON_BASE_WIDTH-self.BORDER_WIDTH,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,-1)
+            self.draw_cannon_base(render, width, height, st, at,width-self.CANNON_BASE_WIDTH,height-self.CANNON_BASE_WIDTH,-1)
 
             # redraw the screen
             renpy.redraw(self, 0)

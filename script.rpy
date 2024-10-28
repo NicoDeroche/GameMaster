@@ -286,7 +286,7 @@ label entree_entrepot :
     #show snake at snakeMove3
     ed "Holy crab !"
     ed "Il veut me bouffer !"
-    "Attention, ça va commencer !\nUtilisez les flèches de direction pour vous déplacer. "
+    "Attention, ça va commencer !\nVous gagnez si vous mettez le serpent KO.\nUtilisez les flèches de direction pour vous déplacer. "
     jump start_snake_game
 
 
@@ -314,6 +314,7 @@ label after_snake_game:
         show ed chemise surprised at right with dissolve
         ed "Holy crab !!!"
         ed "Je n'ai pas pris de sac !"
+        "Le Chapitre 1 est terminé. Merci d'avoir joué à ce jeu !"
     else :
         play music main_menu
         call screen main_menu
