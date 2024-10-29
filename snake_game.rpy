@@ -15,8 +15,6 @@ init python:
     class DirectionEnum(Enum):
         LEFT = 1
         RIGHT = 2
-        UP = 3
-        DOWN = 4
 
     class SnakeGameDisplayable(renpy.Displayable):
 

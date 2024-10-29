@@ -25,6 +25,14 @@ init python:
 
             self.init=True
 
+            #angle de rotation à chaque fois qu'on appuie sur gauche ou droite
+            self.ANGLE_STEP=5
+            #angle maximum du canon
+            self.MAX_ANGLE=75
+            self.cannon_moving=False
+            self.start_cannon_move=0
+            self.CANNON_MOVE_DURATION=0.1
+
             #les images 
             self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),
             Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
@@ -101,7 +109,17 @@ init python:
             
 
 
-        
+        def initial_cannon_move(self,angle):
+            self.cannon_moving=True
+            self.angles[2]+=angle
+            #on a une limitation d'angle
+            if self.angles[2]<-self.MAX_ANGLE:
+                self.angles[2]=-self.MAX_ANGLE
+            if self.angles[2]>self.MAX_ANGLE:
+                self.angles[2]=self.MAX_ANGLE
+            renpy.redraw(self, 0)
+
+
 
         #construction d'une bubble
         def add_bubble(self,row, col, color):
@@ -158,7 +176,7 @@ init python:
             if not self.end_game:
                 self.last_bubble_launch += dtime
                 self.last_iteration_time += dtime
-                self.last_explode_step += dtime
+                
                 # show player standing when not moving
                 if self.last_bubble_launch >= self.BUBBLE_LAUNCH_DELAY:
                     self.last_bubble_launch -= self.BUBBLE_LAUNCH_DELAY
@@ -505,10 +523,26 @@ init python:
             render = renpy.Render(width, height)
 
             # Figure out the time elapsed since the previous frame.
-            if self.last_frame_rendering is None:
+            if not self.end_game:
+                if self.last_frame_rendering is None:
+                    self.last_frame_rendering = st
+                dtime = st - self.last_frame_rendering
                 self.last_frame_rendering = st
-            dtime = st - self.last_frame_rendering
-            self.last_frame_rendering = st
+
+                #iteration d'explostion
+                self.last_explode_step += dtime
+                self.start_cannon_move += dtime 
+
+
+                #mouvements du canon
+                if self.start_cannon_move >= self.CANNON_MOVE_DURATION and self.cannon_moving:
+                    self.start_cannon_move -= self.start_cannon_move
+                    self.cannon_moving=False
+
+
+
+
+            
 
             self.draw_current_bubble(render, width, height, st, at,dtime)
 
@@ -545,7 +579,21 @@ init python:
                     self.show_next_screen()
                 if self.end_game:
                     self.__init__()
-        
+
+
+            # canon move right
+            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT:
+                if not self.cannon_moving:
+                    self.initial_cannon_move(self.ANGLE_STEP)   
+                raise renpy.IgnoreEvent()
+
+
+            # player move left
+            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT :
+                if not self.cannon_moving:
+                    self.initial_cannon_move(-self.ANGLE_STEP)   
+                raise renpy.IgnoreEvent()
+
             # Ensure the screen updates
             renpy.restart_interaction()
             raise renpy.IgnoreEvent()  
