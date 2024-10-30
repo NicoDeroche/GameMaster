@@ -9,6 +9,21 @@ init python:
 
 
 
+    class CannonDirectionEnum(Enum):
+        LEFT = 1
+        RIGHT = 2
+
+
+    class CannonPositionEnum(Enum):
+        LEFT = 0
+        RIGHT = 1
+        MIDDLE= 2
+
+    class ColorEnum(Enum):
+        RED = 1
+        GREEN = 2
+        BLUE= 3
+        PURPLE = 4
 
 
     class BubbleShooterGameDisplayable(renpy.Displayable):
@@ -53,9 +68,11 @@ init python:
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
             self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.RAYON*2))
             self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.RAYON*2)/(self.RAYON*2))
-            self.LAUNCH_POS_LEFT=(self.BORDER_WIDTH,
+            self.LAUNCH_COORDS_LEFT=(self.BORDER_WIDTH,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
-            self.LAUNCH_POS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
+            self.LAUNCH_COORDS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
+                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
+            self.LAUNCH_COORDS_MIDDLE =   (self.SCREEN_WIDTH/2 - self.RAYON*2,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
 
             #liste des angles des canons
@@ -78,12 +95,12 @@ init python:
 
 
             #position du lancement (gauche ou droite)
-            self.launch_side=1
+            self.launch_position=CannonPositionEnum.RIGHT
             self.current_bubble_color = None
             self.current_iteration= None
             self.current_bubble_x = None
             self.current_bubble_y = None
-            self.launch_pos=None
+            self.launch_coords=None
             self.target_pos=None
             self.bubble_launched=False
             self.target_col=None
@@ -111,12 +128,12 @@ init python:
 
         def initial_cannon_move(self,angle):
             self.cannon_moving=True
-            self.angles[2]+=angle
+            self.angles[CannonPositionEnum.MIDDLE.value]+=angle
             #on a une limitation d'angle
-            if self.angles[2]<-self.MAX_ANGLE:
-                self.angles[2]=-self.MAX_ANGLE
-            if self.angles[2]>self.MAX_ANGLE:
-                self.angles[2]=self.MAX_ANGLE
+            if self.angles[CannonPositionEnum.MIDDLE.value]<-self.MAX_ANGLE:
+                self.angles[CannonPositionEnum.MIDDLE.value]=-self.MAX_ANGLE
+            if self.angles[CannonPositionEnum.MIDDLE.value]>self.MAX_ANGLE:
+                self.angles[CannonPositionEnum.MIDDLE.value]=self.MAX_ANGLE
             renpy.redraw(self, 0)
 
 
@@ -195,8 +212,8 @@ init python:
                             self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
                             self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
                         else:
-                            self.current_bubble_x= self.launch_pos[0] + (self.target_pos[0] - self.launch_pos[0]) * self.current_iteration / self.iteration_number  # Calculate x position
-                            self.current_bubble_y = self.launch_pos[1] + (self.target_pos[1] - self.launch_pos[1]) * self.current_iteration / self.iteration_number  # Calculate y position
+                            self.current_bubble_x= self.launch_coords[0] + (self.target_pos[0] - self.launch_coords[0]) * self.current_iteration / self.iteration_number  # Calculate x position
+                            self.current_bubble_y = self.launch_coords[1] + (self.target_pos[1] - self.launch_coords[1]) * self.current_iteration / self.iteration_number  # Calculate y position
 
                     self.draw_bubble(render, width, height, st, at, self.current_bubble_color, self.current_bubble_x, self.current_bubble_y)
 
@@ -233,8 +250,8 @@ init python:
             return line_number % 2 != 0  # Check if the line number is odd
            
         #equation d'une droite passant par deux points
-        def get_line_equation(self,launch_pos, target_pos):
-            (x1, y1) = launch_pos
+        def get_line_equation(self,launch_coords, target_pos):
+            (x1, y1) = launch_coords
             (x2, y2) = target_pos
             a = (y2 - y1) / (x2 - x1)
             b = y1 - a * x1
@@ -244,7 +261,7 @@ init python:
 
         #distance a parcourir entre la position de depart et la cible
         def compute_distance_to_target(self):
-            return ((self.target_pos[0] - self.launch_pos[0]) ** 2 + (self.target_pos[1] - self.launch_pos[1]) ** 2) ** 0.5
+            return ((self.target_pos[0] - self.launch_coords[0]) ** 2 + (self.target_pos[1] - self.launch_coords[1]) ** 2) ** 0.5
 
 
         def compute_distance_bubble_moves_each_delay(self):
@@ -288,7 +305,7 @@ init python:
             #self.logger.debug(f'ligne :{row}')
             #parcours des colonnes : si on lance à gauche, on lance vers la gauche
             #si on lance à droite, on lance vers la droite
-            if(self.launch_side==0):
+            if(self.launch_position==CannonPositionEnum.LEFT):
                 #on ne parcourt que la moitié des lignes (sinon risque d'intersection)
                 for col in range(int(self.MAX_LINE_SIZE/2),0,-1):
                     candidate=self.find_candidate(row,col,self.current_bubble_color,ignore_color)
@@ -348,7 +365,7 @@ init python:
                 #intersecte une bubble deja en place
                 #equation de la droite passant par les deux points
                 # on enlève le self.RAYON pour avoir la position "haute" des bubbles, qui peuvent intersectées
-                if not self.iterate_to_check_if_intersection(self.launch_pos, candidate_position,row,col):
+                if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
                     #c'est une bubble lancée par l'IA qui touche le bas ==> c'est gagné!
                     if max(self.bubble_properties.keys())==self.MAX_LINE_NUMBER:
                         self.end_game=True
@@ -357,8 +374,8 @@ init python:
                     return (candidate_position,row,col)
             return None
 
-        def iterate_to_check_if_intersection(self,launch_pos, target_pos,target_row,target_col):
-            (x1, y1) = launch_pos
+        def iterate_to_check_if_intersection(self,launch_coords, target_pos,target_row,target_col):
+            (x1, y1) = launch_coords
             (x2, y2) = target_pos
             if (x1 != x2) and (y1 != y2):
                 #calcul de l'équation de la droite
@@ -369,7 +386,7 @@ init python:
                 #self.logger.debug(f'target {target_row} {target_col}')
                 for row in range(max(self.bubble_properties.keys()),target_row-1,-1):
                     #self.logger.debug(f' row {row}')
-                    if(self.launch_side==0):
+                    if(self.launch_position==CannonPositionEnum.LEFT):
                         
                         #on ne parcourt que la moitié des lignes (sinon risque d'intersection)
                         for col in range(int(self.MAX_LINE_SIZE/2),0,-1):
@@ -478,35 +495,37 @@ init python:
                 self.iteration_number = math.trunc(distance_to_target / self.DISTANCE_BUBBLE_MOVES_EACH_DELAY)
                 self.last_iteration_time=0
                 self.current_iteration=0
-                self.current_bubble_x = self.launch_pos[0]   # Calculate x position
-                self.current_bubble_y = self.launch_pos[1]   # Calculate y position
+                self.current_bubble_x = self.launch_coords[0]   # Calculate x position
+                self.current_bubble_y = self.launch_coords[1]   # Calculate y position
 
 
-        def get_angle(self,launch_pos, target_pos):
-            (x1, y1) = launch_pos
+        def get_angle(self,launch_coords, target_pos):
+            (x1, y1) = launch_coords
             (x2, y2) = target_pos
             return math.degrees(math.atan(math.fabs(x2 - x1) / math.fabs(y2 - y1) ))   
          
         def init_launch(self):
-            self.current_bubble_color = random.randint(1, 4)    # Randomly choose a color for the bubble
+            self.current_bubble_color = random.choice(list(ColorEnum)).value    # Randomly choose a color for the bubble
 
             #(x,y)=position en haut à gauche du carré englobant la bubble
-            if self.launch_side==0:
+            if self.launch_position==CannonPositionEnum.LEFT:
                 #on lançait depuis la gauche, on lance depuis la droite
-                self.launch_side=1
-                self.launch_pos = self.LAUNCH_POS_RIGHT  # Start position of the bubble
+                self.launch_position=CannonPositionEnum.RIGHT
+                self.launch_coords = self.LAUNCH_COORDS_RIGHT  # Start position of the bubble
+
             else:
                 #on lançait depuis la droite, on lance depuis la gauche
-                self.launch_side=0
-                self.launch_pos = self.LAUNCH_POS_LEFT  # Start position of the bubble
+                self.launch_position=CannonPositionEnum.LEFT
+                self.launch_coords = self.LAUNCH_COORDS_LEFT  # Start position of the bubble
+
 
            
             (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target()  # Find target position for the bubble
-            angle = self.get_angle(self.launch_pos,self.target_pos)
-            if self.launch_side==1:
+            angle = self.get_angle(self.launch_coords,self.target_pos)
+            if self.launch_position==CannonPositionEnum.RIGHT:
                 angle=-angle
             
-            self.angles[self.launch_side]=angle
+            self.angles[self.launch_position.value]=angle
             
 
 
