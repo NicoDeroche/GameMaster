@@ -7,13 +7,6 @@
 
 
 
-# start mini game
-label start_mini_game:
-    $ mini_game=True
-    #jump start_snake_game
-    jump start_bubble_shooter_game
-
-
 
 
 

@@ -298,7 +298,7 @@ screen navigation():
         if main_menu:
 
             textbutton _("Histoire") action Start()
-            textbutton _("Mini jeux") action Jump("start_mini_game")
+            textbutton _("Mini jeux") action ShowMenu("mini_games")
 
         else:
 
@@ -599,6 +599,50 @@ screen load():
 
     use file_slots(_("Charger"))
 
+screen mini_games():
+
+    tag menu
+
+    use game_menu(_("Mini jeux")):
+
+        fixed:
+
+            ## Cette instruction s’assure que l’évènement enter aura lieu avant
+            ## que l’un des boutons ne fonctionne.
+            order_reverse True
+
+
+            ## La grille des emplacements de fichiers.
+            grid 3 2:
+                style_prefix "slot"
+
+                xalign 0.5
+                yalign 0.5
+
+                spacing gui.slot_spacing
+
+          
+
+                button:
+                    action Jump("start_snake_game") 
+  
+
+                    has vbox
+
+                    add "gui/snake_game.png" xalign 0.5
+
+
+           
+
+                button:
+                    action   Jump("start_bubble_shooter_game")  
+
+                    has vbox
+
+                    add "gui/bubble_shooter_game.png" xalign 0.5
+
+
+           
 
 screen file_slots(title):
 
@@ -815,6 +859,8 @@ screen preferences():
                         textbutton _("Couper tous les sons"):
                             action Preference("all mute", "toggle")
                             style "mute_all_button"
+
+
 
 
 style pref_label is gui_label
