@@ -299,34 +299,39 @@ screen navigation():
 
             textbutton _("Histoire") action Start()
             textbutton _("Mini jeux") action ShowMenu("mini_games")
+            textbutton _("À propos") action ShowMenu("about")
+            textbutton _("Aide") action ShowMenu("help")
+            textbutton _("Préférences") action ShowMenu("preferences")
+            textbutton _("Charger") action ShowMenu("load")
+        # else:
 
-        else:
+        #     # textbutton _("Historique") action ShowMenu("history")
 
-            # textbutton _("Historique") action ShowMenu("history")
+        #     textbutton _("Sauvegarde") action ShowMenu("save")
 
-            textbutton _("Sauvegarde") action ShowMenu("save")
+           
 
-        textbutton _("Charger") action ShowMenu("load")
+            
 
-        textbutton _("Préférences") action ShowMenu("preferences")
+            
 
-        if _in_replay:
+            
 
-            textbutton _("Fin de la rediffusion") action EndReplay(confirm=True)
+        # if _in_replay:
 
-        elif not main_menu:
+        #     textbutton _("Fin de la rediffusion") action EndReplay(confirm=True)
 
-            textbutton _("Menu principal") action MainMenu()
 
-        textbutton _("À propos") action ShowMenu("about")
 
-        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+        
+
+        #if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## L'aide n’est ni nécessaire ni pertinente sur les appareils
             ## mobiles.
-            textbutton _("Aide") action ShowMenu("help")
+        
 
-        if renpy.variant("pc"):
+        if main_menu and renpy.variant("pc"):
 
             ## Le bouton pour quitter est banni sur iOS et inutile sur Android
             ## et sur le Web.
@@ -474,12 +479,22 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
                     transclude
 
-    use navigation
+    if not main_menu:
+        use navigation
 
-    textbutton _("Retour"):
+
+
+            
+    textbutton _("Menu principal"):
         style "return_button"
 
-        action Return()
+        action MainMenu()
+
+    if main_menu:
+        textbutton _("Retour"):
+            style "return_button"
+
+            action Return()
 
     label title
 
@@ -534,7 +549,7 @@ style game_menu_label_text:
 style return_button:
     xpos gui.navigation_xpos
     yalign 1.0
-    yoffset -30
+    yoffset -60
 
 
 ## Écran « À propos... » #######################################################
@@ -630,7 +645,8 @@ screen mini_games():
                     has vbox
 
                     add "gui/snake_game.png" xalign 0.5
-
+                    text "Snake Game":
+                        style "slot_name_text"
 
            
 
@@ -640,13 +656,14 @@ screen mini_games():
                     has vbox
 
                     add "gui/bubble_shooter_game.png" xalign 0.5
-
+                    text "Bubble Shooter Game":
+                        style "slot_name_text"
 
            
 
 screen file_slots(title):
 
-    default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Sauvegardes automatiques"), quick=_("Sauvegardes rapides"))
+    #default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Sauvegardes automatiques"), quick=_("Sauvegardes rapides"))
 
     use game_menu(title):
 
@@ -658,19 +675,19 @@ screen file_slots(title):
 
             ## Le nom de la page, qui peut être modifié en cliquant sur un
             ## bouton.
-            button:
-                style "page_label"
+            # button:
+            #     style "page_label"
 
-                key_events True
-                xalign 0.5
-                action page_name_value.Toggle()
+            #     key_events True
+            #     xalign 0.5
+            #     action page_name_value.Toggle()
 
-                input:
-                    style "page_label_text"
-                    value page_name_value
+            #     input:
+            #         style "page_label_text"
+            #         value page_name_value
 
             ## La grille des emplacements de fichiers.
-            grid gui.file_slot_cols gui.file_slot_rows:
+            grid 3 3:
                 style_prefix "slot"
 
                 xalign 0.5
@@ -698,40 +715,40 @@ screen file_slots(title):
                         key "save_delete" action FileDelete(slot)
 
             ## Boutons pour accéder aux autres pages.
-            vbox:
-                style_prefix "page"
+            # vbox:
+            #     style_prefix "page"
 
-                xalign 0.5
-                yalign 1.0
+            #     xalign 0.5
+            #     yalign 1.0
 
-                hbox:
-                    xalign 0.5
+            #     hbox:
+            #         xalign 0.5
 
-                    spacing gui.page_spacing
+            #         spacing gui.page_spacing
 
-                    textbutton _("<") action FilePagePrevious()
+            #         textbutton _("<") action FilePagePrevious()
 
-                    if config.has_autosave:
-                        textbutton _("{#auto_page}A") action FilePage("auto")
+            #         if config.has_autosave:
+            #             textbutton _("{#auto_page}A") action FilePage("auto")
 
-                    if config.has_quicksave:
-                        textbutton _("{#quick_page}Q") action FilePage("quick")
+            #         if config.has_quicksave:
+            #             textbutton _("{#quick_page}Q") action FilePage("quick")
 
-                    ## range(1, 10) donne les nombres de 1 à 9.
-                    for page in range(1, 10):
-                        textbutton "[page]" action FilePage(page)
+            #         ## range(1, 10) donne les nombres de 1 à 9.
+            #         for page in range(1, 10):
+            #             textbutton "[page]" action FilePage(page)
 
-                    textbutton _(">") action FilePageNext()
+            #         textbutton _(">") action FilePageNext()
 
-                if config.has_sync:
-                    if CurrentScreenName() == "save":
-                        textbutton _("Uploader Sync"):
-                            action UploadSync()
-                            xalign 0.5
-                    else:
-                        textbutton _("Télécharger Sync"):
-                            action DownloadSync()
-                            xalign 0.5
+            #     if config.has_sync:
+            #         if CurrentScreenName() == "save":
+            #             textbutton _("Uploader Sync"):
+            #                 action UploadSync()
+            #                 xalign 0.5
+            #         else:
+            #             textbutton _("Télécharger Sync"):
+            #                 action DownloadSync()
+            #                 xalign 0.5
 
 
 style page_label is gui_label
@@ -1048,19 +1065,33 @@ screen help():
             spacing 15
 
             hbox:
+                label _("Entrée ou Espace\nClic gauche")
+                text _("Avancer dans les dialogues")
 
-                textbutton _("Clavier") action SetScreenVariable("device", "keyboard")
-                textbutton _("Souris") action SetScreenVariable("device", "mouse")
+            hbox:
+                label _("Clic gauche")
+                text _("Choisir un dialogue (si choix possible)")
 
-                if GamepadExists():
-                    textbutton _("Manette") action SetScreenVariable("device", "gamepad")
+            hbox:
+                label _("Clic gauche")
+                text _("Sélectionner un élément dans le décor")
 
-            if device == "keyboard":
-                use keyboard_help
-            elif device == "mouse":
-                use mouse_help
-            elif device == "gamepad":
-                use gamepad_help
+            hbox:
+                label _("Echap")
+                text _("Ouvrir le menu de sauvegarde")
+
+            #     #textbutton _("Clavier") action SetScreenVariable("device", "keyboard")
+            #     textbutton _("Souris") action SetScreenVariable("device", "mouse")
+
+            #     #if GamepadExists():
+            #         textbutton _("Manette") action SetScreenVariable("device", "gamepad")
+
+            # if device == "keyboard":
+            #     use keyboard_help
+            # elif device == "mouse":
+            #     use mouse_help
+            # elif device == "gamepad":
+            #     use gamepad_help
 
 
 screen keyboard_help():

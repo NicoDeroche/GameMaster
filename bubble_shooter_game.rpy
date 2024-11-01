@@ -122,11 +122,13 @@ init python:
             self.target_row=None
 
             self.end_game=False
+            self.wait_for_start=True
             self.victory=False
 
             self.DISTANCE_BUBBLE_MOVES_EACH_DELAY=self.compute_distance_bubble_moves_each_delay()
     
-            self.end_text=""
+            self.information_text="Attention, ça va commencer !\n\nVous gagnez si :\n- vous touchez la balle orange\n- ou si votre adversaire touche la ligne rouge.\nVous perdez si vous touchez la ligne rouge.\nUtilisez les flèches de direction pour vous déplacer.\nAppuyez sur Espace pour tirer.\n\nAppuyez sur Entrée pour lancer le jeu. "
+
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
             #initialisation des 50 premières bubbles
@@ -385,7 +387,7 @@ init python:
                     if row==self.MAX_LINE_NUMBER:
                         self.end_game=True
                         self.victory=True
-                        self.end_text="GAGNÉ !\nAppuyez sur Entrée"
+                        self.information_text="GAGNÉ !\nAppuyez sur Entrée"
                     return (candidate_position,row,col)
             return None
 
@@ -607,29 +609,33 @@ init python:
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
 
-            if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN and self.end_game==True :
+            if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN and (self.end_game or self.wait_for_start):
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
                     self.__init__()
+                if self.wait_for_start:
+                    #top à la vachette !
+                    self.information_text=""
+                    self.wait_for_start=False
 
 
             # canon move right
-            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and self.player_turn:
+            if not self.end_game  and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and self.player_turn:
                 if not self.cannon_moving:
                     self.initial_cannon_move(self.ANGLE_STEP)   
                 raise renpy.IgnoreEvent()
 
 
             # player move left
-            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and self.player_turn:
+            if not self.end_game and not self.wait_for_start  and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and self.player_turn:
                 if not self.cannon_moving:
                     self.initial_cannon_move(-self.ANGLE_STEP)   
                 raise renpy.IgnoreEvent()
 
 
             # player move left
-            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
+            if not self.end_game and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
                 self.player_shoot()  
                 raise renpy.IgnoreEvent()
 
@@ -645,10 +651,10 @@ init python:
             renpy.jump("after_bubble_shooter_game")  
 
     def display_end_bubble_shooter_game_text(st, at):
-        return Text( bubble_shooter_game.end_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1 
+        return Text( bubble_shooter_game.information_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1 
 
     def display_end_bubble_shooter_game_background(st, at):
-        if bubble_shooter_game.end_game :
+        if bubble_shooter_game.end_game or bubble_shooter_game.wait_for_start:
             return Image("images/bubble_shooter_game/mini_game_end_background.png"), 30
         else :
             return Null(width=0), .1
@@ -657,6 +663,7 @@ default bubble_shooter_game = BubbleShooterGameDisplayable()
 
 # label to start snake game
 label start_bubble_shooter_game:
+    stop music
     play music snake_game_music
     window hide  # Hide the window and quick menu while in mini game
     call screen bubble_shooter_game

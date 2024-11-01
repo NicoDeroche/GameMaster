@@ -995,6 +995,39 @@
             120
         ]
     },
+    "start_chapter_1_13a02202": {
+        "area": [
+            533,
+            30,
+            373,
+            150
+        ],
+        "properties": "bottom_right"
+    },
+    "start_chapter_1_473498a5": {
+        "area": [
+            320,
+            30,
+            319,
+            120
+        ]
+    },
+    "start_chapter_1_b868d4f2": {
+        "area": [
+            320,
+            30,
+            320,
+            150
+        ]
+    },
+    "start_chapter_1_f90bf4f7": {
+        "area": [
+            320,
+            330,
+            266,
+            120
+        ]
+    },
     "start_d71c0497": {
         "properties": "bottom_left"
     },

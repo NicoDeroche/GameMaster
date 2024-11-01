@@ -15,6 +15,8 @@ init python:
     class DirectionEnum(Enum):
         LEFT = 1
         RIGHT = 2
+        UP = 3
+        DOWN = 4
 
     class SnakeGameDisplayable(renpy.Displayable):
 
@@ -28,6 +30,7 @@ init python:
             #end game if victory or game over
             self.end_game=False
             self.victory=False
+            self.waiting_for_start=True
          
 
             # Some displayables we use.
@@ -91,7 +94,8 @@ init python:
             self.ax = 10+ 8*self.CELL_SIZE
             self.ay = 10+4*self.CELL_SIZE  
 
-            self.end_text=""
+            self.information_text= "Attention, ça va commencer !\n\nVous gagnez si vous mettez le serpent KO.\nUtilisez les flèches de direction pour vous déplacer.\n\nAppuyez sur Entrée pour lancer le jeu."
+
 
             return
 
@@ -115,7 +119,7 @@ init python:
                 #you won !
                 self.end_game=True
                 self.victory=True
-                self.end_text="GAGNÉ !\nAppuyez sur Entrée"
+                self.information_text="GAGNÉ !\nAppuyez sur Entrée"
 
 
         # This draws the player.
@@ -218,6 +222,7 @@ init python:
 
                 render.blit(image_to_draw, (int(body[0]), int(body[1])))
 
+
             self.snake_accumulated_time += dtime
             # move snake
             if self.snake_accumulated_time >= self.SNAKE_FRAME_DURATION:
@@ -243,13 +248,13 @@ init python:
                     renpy.sound.play(snake_eating_sound)
                     self.end_game=True
                     if mini_game==True:
-                        self.end_text="PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour quitter"
+                        self.information_text="PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour quitter"
                     else:
-                        self.end_text="PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour poursuivre l'histoire"
+                        self.information_text="PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour poursuivre l'histoire"
 
 
         def check_apple_bite(self):
-            if not self.end_game:
+            if not self.end_game and not self.waiting_for_start:
                 # snake collides with apple
                 if(self.sxy[0][0]==self.ax and self.sxy[0][1]==self.ay):
                     self.snake_head=self.snake_head_bite
@@ -266,7 +271,7 @@ init python:
 
         #snake move and collisions
         def process_game_step(self):
-            if not self.end_game:
+            if not self.end_game and not self.waiting_for_start:
                 # computes distance between snake head and player
                 # shorten the biggest distance (horizontal or vertical)
                 if(abs(self.sxy[0][0]-self.px)>abs(self.sxy[0][1]-self.py)):
@@ -382,15 +387,18 @@ init python:
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
 
-            if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN and self.end_game==True :
+            if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN and (self.end_game or self.waiting_for_start) :
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
                     self.__init__()
+                if self.waiting_for_start:
+                    self.information_text=""
+                    self.waiting_for_start=False
 
 
             # player move up
-            if not self.end_game  and ev.type == pygame.KEYDOWN   and ev.key == pygame.K_UP and (self.py != self.ay + self.CELL_SIZE or  self.px!=self.ax):
+            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN   and ev.key == pygame.K_UP and (self.py != self.ay + self.CELL_SIZE or  self.px!=self.ax):
                 if not self.player_moving:
                     collide=False
                     for body in self.sxy:
@@ -404,7 +412,7 @@ init python:
 
 
             # player move down
-            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN and (self.py != self.ay - self.CELL_SIZE or self.px!=self.ax ):
+            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN and (self.py != self.ay - self.CELL_SIZE or self.px!=self.ax ):
                 if not self.player_moving:
                     collide=False
                     
@@ -420,7 +428,7 @@ init python:
 
 
             # player move right
-            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and (self.px != self.ax - self.CELL_SIZE or self.py!=self.ay):
+            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and (self.px != self.ax - self.CELL_SIZE or self.py!=self.ay):
                
                 if not self.player_moving:
                     collide=False
@@ -438,7 +446,7 @@ init python:
 
 
             # player move left
-            if not self.end_game and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and (self.px != self.ax + self.CELL_SIZE or self.py!=self.ay):
+            if not self.end_game and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and (self.px != self.ax + self.CELL_SIZE or self.py!=self.ay):
                 
                 if not self.player_moving:
                     collide=False
@@ -457,10 +465,10 @@ init python:
             raise renpy.IgnoreEvent()    
 
     def display_end_snake_game_text(st, at):
-            return Text( snake_game.end_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1
+            return Text( snake_game.information_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1
 
     def display_end_snake_game_background(st, at):
-        if snake_game.end_game == True:
+        if snake_game.end_game or snake_game.waiting_for_start:
             return Image("images/snake_game/mini_game_end_background.png"), 30
         else :
             return Null(width=0), .1
@@ -470,6 +478,7 @@ default snake_game = SnakeGameDisplayable()
 
 # label to start snake game
 label start_snake_game:
+    stop music
     play music snake_game_music
     window hide  # Hide the window and quick menu while in mini game
     call screen snake_game
