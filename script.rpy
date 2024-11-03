@@ -20,10 +20,13 @@ define chris= Character(image='chris' , kind=bubble, what_style="dialog_text")
 define snake= Character(image='snake' , kind=bubble, what_style="dialog_text")
 
 
-
-
-
+        
 
 # start of the game
 label start:
     jump start_chapter_1
+  
+    #jump start_chapter_2
+    
+
+

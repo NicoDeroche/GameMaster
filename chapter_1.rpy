@@ -53,23 +53,12 @@ transform positionChaussures:
 
 
 
-    
-transform islandPosition:
-    xalign 0
-    yalign 0
-    xanchor 0.0
-    yanchor 0
-    linear 30 xoffset -3720
-
 
 # start of the first chapter
 label start_chapter_1:
     stop music
     $ mini_game=False
    
-    scene bg maison nuit
-    show bg ile at islandPosition
-    pause 33
 
     scene bg maison nuit
     pause 2
@@ -175,7 +164,7 @@ label fin_explication:
     hide chris
     show sylvie write with dissolve
     sylvie "Bonjour messieurs !"
-    sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections en Bretagne."
+    sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de la zone Ouest."
     sylvie "Vous pouvez me donner vos noms ?"
     hide sylvie
     show chris bras croises at right with dissolve
@@ -297,8 +286,24 @@ label after_snake_game:
         show ed chemise surprised at right with dissolve
         ed "Holy crab !!!"
         ed "Je n'ai pas pris de sac !"
-        "Le Chapitre 1 est terminé. Merci d'avoir joué à ce jeu !"
+
+        stop music
+        window hide  # Hide the window and quick menu while in mini game
+        call screen end_chapter
     else :
         play music main_menu
         call screen main_menu
   
+
+
+
+#end chapter
+screen end_chapter():
+
+    
+    add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
+    add Text("BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !", font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    textbutton _("Menu principal"):
+        style "return_button"
+
+        action MainMenu()

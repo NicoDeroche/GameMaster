@@ -1,6 +1,28 @@
 ﻿
+transform islandPosition:
+    xalign 0
+    yalign 0
+    xanchor 0.0
+    yanchor 0
+    linear 5 xoffset -3735
+
+
+
+
 # start of the second chapter
 label start_chapter_2:
+
+    stop music
+    $ mini_game=False
+   
+    scene bg maison nuit
+    show helico
+    show bg ile at islandPosition
+    pause 6
+    sylvie "Messieurs-dames,\nnous sommes arrivés !"
+
+    
+
     #helicoptère au dessus de la mer et se pose
 
     #scène avec plusieurs hélicos posés
