@@ -18,15 +18,14 @@ define sylvie= Character(image='sylvie' , kind=bubble, what_style="dialog_text")
 define car= Character(image='car' , kind=bubble, what_style="dialog_text")
 define chris= Character(image='chris' , kind=bubble, what_style="dialog_text")
 define snake= Character(image='snake' , kind=bubble, what_style="dialog_text")
-
+define virgile= Character(image='virgile' , kind=bubble, what_style="dialog_text")
 
         
 
 # start of the game
 label start:
-    jump start_chapter_1
-  
-    #jump start_chapter_2
+    #jump start_chapter_1
+    jump start_chapter_2
     
 
 

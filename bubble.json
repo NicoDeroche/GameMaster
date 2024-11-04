@@ -1028,6 +1028,82 @@
             120
         ]
     },
+    "start_chapter_2_3c944f44": {
+        "area": [
+            320,
+            30,
+            373,
+            150
+        ]
+    },
+    "start_chapter_2_53c03100": {
+        "area": [
+            586,
+            30,
+            373,
+            120
+        ]
+    },
+    "start_chapter_2_5d9c4e0e": {
+        "area": [
+            906,
+            30,
+            320,
+            150
+        ],
+        "properties": "bottom_right"
+    },
+    "start_chapter_2_694d0799": {
+        "area": [
+            533,
+            30,
+            426,
+            150
+        ],
+        "properties": "bottom_right"
+    },
+    "start_chapter_2_7cf829a5": {
+        "area": [
+            373,
+            30,
+            426,
+            150
+        ]
+    },
+    "start_chapter_2_8a0a4ae7": {
+        "area": [
+            320,
+            30,
+            586,
+            120
+        ]
+    },
+    "start_chapter_2_c70d9a1d": {
+        "area": [
+            533,
+            30,
+            373,
+            120
+        ],
+        "properties": "bottom_right"
+    },
+    "start_chapter_2_c972efa1": {
+        "area": [
+            533,
+            30,
+            373,
+            150
+        ],
+        "properties": "bottom_right"
+    },
+    "start_chapter_2_f26c7d4a": {
+        "area": [
+            373,
+            30,
+            426,
+            180
+        ]
+    },
     "start_d71c0497": {
         "properties": "bottom_left"
     },
