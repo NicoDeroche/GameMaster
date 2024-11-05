@@ -20,12 +20,22 @@ define chris= Character(image='chris' , kind=bubble, what_style="dialog_text")
 define snake= Character(image='snake' , kind=bubble, what_style="dialog_text")
 define virgile= Character(image='virgile' , kind=bubble, what_style="dialog_text")
 
+screen show_chapter :
+
+    add Text("[chapter_title]", font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    timer 2 action [Hide("show_chapter")]
+        
+screen show_chapter_optional_background :
+
+    add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
+    timer 3 action [Hide("show_chapter_optional_background")]
         
 
 # start of the game
 label start:
-    #jump start_chapter_1
-    jump start_chapter_2
+
+    jump start_chapter_1
+    #jump start_chapter_2
     
 
 

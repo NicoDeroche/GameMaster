@@ -58,10 +58,11 @@ transform positionChaussures:
 label start_chapter_1:
     stop music
     $ mini_game=False
-   
+    $ chapter_title="Chapitre 1 : Le serpent qui se mord la queue"
 
     scene bg maison nuit
-    pause 2
+    show screen show_chapter
+    pause 3
     show smartphone at shake
     play music ringtone
     pause 2
@@ -197,6 +198,7 @@ label fin_explication:
     show chris bras croises at right with dissolve
     chris "Et quel est le prix pour le gagnant ?"
     sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
+    show chris bras leves at right with dissolve
     chris "Ok, je vais me donner à fond !"
     sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     sylvie "Si vous remportez l'épreuve, vous serez qualifiés."

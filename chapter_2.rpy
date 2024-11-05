@@ -11,18 +11,22 @@ transform islandPosition:
 
 # start of the second chapter
 label start_chapter_2:
-
+    $ chapter_title="Chapitre 2 : Explosions en série"
     stop music
     $ mini_game=False
    
     scene bg maison nuit
-    show helico
     show bg ile at islandPosition
+    show screen show_chapter_optional_background
+    show screen show_chapter
+    show helico
+   
+    
     pause 6
     sylvie "Messieurs-dames,\nnous sommes arrivés !"
     hide helico
     hide bg ile
-
+    
     #devant hotel
     show sylvie smile at left with dissolve 
     sylvie  "Bienvenue sur {b}l'île de la Baleine Blanche{/b}, qui abrite le siège de la B-Tech."
