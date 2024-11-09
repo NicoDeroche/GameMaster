@@ -49,8 +49,9 @@ init python:
             
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
-            self.RAYON=35
-
+            self.BUBBLE_IMAGE_SIZE=70
+            self.BUBBLE_REAL_SIZE=60
+            
             self.init=True
 
             #angle de rotation à chaque fois qu'on appuie sur gauche ou droite
@@ -80,14 +81,14 @@ init python:
             self.SCREEN_WIDTH = 1280
             self.CANNON_BASE_WIDTH=120
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
-            self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.RAYON*2))
-            self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.RAYON*4)/(self.RAYON*2))
+            self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.BUBBLE_IMAGE_SIZE))
+            self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.BUBBLE_IMAGE_SIZE*2)/(self.BUBBLE_IMAGE_SIZE))
             self.LAUNCH_COORDS_LEFT=(self.BORDER_WIDTH,
-                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
-            self.LAUNCH_COORDS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON*2,
-                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
-            self.LAUNCH_COORDS_MIDDLE =   (self.SCREEN_WIDTH/2 - self.RAYON*2,
-                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.RAYON*2)
+                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.BUBBLE_IMAGE_SIZE)
+            self.LAUNCH_COORDS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE,
+                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.BUBBLE_IMAGE_SIZE)
+            self.LAUNCH_COORDS_MIDDLE =   (self.SCREEN_WIDTH/2 - self.BUBBLE_IMAGE_SIZE,
+                        self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.BUBBLE_IMAGE_SIZE)
 
             #liste des angles des canons
             self.angles=[0,0,0]
@@ -127,7 +128,7 @@ init python:
 
             self.DISTANCE_BUBBLE_MOVES_EACH_DELAY=self.compute_distance_bubble_moves_each_delay()
     
-            self.information_text="Attention, ça va commencer !\n\nVous gagnez si :\n- vous touchez la balle orange\n- ou si votre adversaire touche la ligne rouge.\nVous perdez si vous touchez la ligne rouge.\nUtilisez les flèches de direction pour vous déplacer.\nAppuyez sur Espace pour tirer.\n\nAppuyez sur Entrée pour lancer le jeu. "
+            self.information_text="Attention, ça va commencer !\n\nVous gagnez si :\n- vous touchez la balle orange\n- ou si votre adversaire touche la ligne rouge.\nVous perdez si vous touchez la ligne rouge.\nUtilisez les flèches de direction pour vous déplacer.\nAppuyez sur Espace pour tirer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu. "
 
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
@@ -260,8 +261,8 @@ init python:
                 for col in sorted(self.bubble_properties[row], key=lambda x: int(x)):
                     #(x,y)=position en haut à gauche du carré englobant la bubble
                     self.draw_bubble( render, width, height, st, at,  self.bubble_properties[row][col],
-                    self.BORDER_WIDTH + (col - 1) * self.RAYON * 2 + increment * self.RAYON,
-                    self.BORDER_WIDTH + (row-1) * self.RAYON * 2  )
+                    self.BORDER_WIDTH + (col - 1) * self.BUBBLE_IMAGE_SIZE  + increment * self.BUBBLE_IMAGE_SIZE/2,
+                    self.BORDER_WIDTH + (row-1) * self.BUBBLE_IMAGE_SIZE  )
                     
                     if draw_explode_step:
                         if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value+4 >= len(self.BUBBLE_IMAGES):
@@ -277,10 +278,13 @@ init python:
            
         #equation d'une droite passant par deux points
         def get_line_equation(self,launch_coords, target_pos):
+            
             (x1, y1) = launch_coords
             (x2, y2) = target_pos
+            
             a = (y2 - y1) / (x2 - x1)
             b = y1 - a * x1
+            #self.logger.debug(f'x launch {x1} y launch {y1} x target {x2} y target {y2} a {a} b {b}]')
             return (a,b)
 
         #distance a parcourir entre la position de depart et la cible
@@ -289,8 +293,8 @@ init python:
 
 
         def compute_distance_bubble_moves_each_delay(self):
-            max_distance = (((self.SCREEN_HEIGHT - self.BORDER_WIDTH - self.RAYON) - (self.BORDER_WIDTH + self.RAYON)) ** 2 + (
-                    (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.RAYON) - (self.BORDER_WIDTH + self.RAYON)) ** 2) ** 0.5
+            max_distance = (((self.SCREEN_HEIGHT - self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE/2) - (self.BORDER_WIDTH + self.BUBBLE_IMAGE_SIZE/2)) ** 2 + (
+                    (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE/2) - (self.BORDER_WIDTH + self.BUBBLE_IMAGE_SIZE/2.)) ** 2) ** 0.5
             
             return self.BUBBLE_TIME_DELAY * max_distance / self.MAX_TIME
 
@@ -345,10 +349,11 @@ init python:
             #  pas encore de ligne ou 
             #( pas de bubble a la position et (pas de voisin gauche ou couleur voisin gauche != couleur)
             # et (pas de voisin droite ou couleur voisin droite != couleur))
+            # et pas de voisin en train d'exploser
             verification_ligne_courante_ok = row not in self.bubble_properties or\
             ( col not in self.bubble_properties[row] \
-            and ((col-1) not in self.bubble_properties[row] or ignore_color or self.bubble_properties[row][col-1] != color) \
-            and ((col+1) not in self.bubble_properties[row] or ignore_color or  self.bubble_properties[row][col+1] != color))
+            and ((col-1) not in self.bubble_properties[row] or ((ignore_color or self.bubble_properties[row][col-1] != color) and self.bubble_properties[row][col-1].value<5)) \
+            and ((col+1) not in self.bubble_properties[row] or ((ignore_color or  self.bubble_properties[row][col+1] != color) and self.bubble_properties[row][col+1].value<5)))
             # MAX_LINE_SIZE uniquement pour les lignes paires (not odd)
             verification_derniere_colonne_ok=(col != self.MAX_LINE_SIZE or not self.is_odd(row))
             # et ligne 1 ou ((au moins un parent) et (pas de parent gauche ou couleur parent gauche != couleur) et (pas de parent droite ou couleur parent droite != couleur))
@@ -362,13 +367,12 @@ init python:
                 col_parent_gauche=col-1
                 col_parent_droite=col
  
-
+            
             verification_ligne_dessus_ok =  row==1  or ( \
             not((col_parent_gauche) not in self.bubble_properties[row-1] and (col_parent_droite) not in self.bubble_properties[row-1])\
             and  ((col_parent_gauche) not in self.bubble_properties[row-1] or ignore_color or self.bubble_properties[row-1][col_parent_gauche] != color)\
             and ((col_parent_droite) not in self.bubble_properties[row-1] or ignore_color or self.bubble_properties[row-1][col_parent_droite] != color)\
             )
-
 
             return verification_ligne_courante_ok and verification_derniere_colonne_ok and verification_ligne_dessus_ok
         
@@ -381,7 +385,7 @@ init python:
                 #on a un candidat, mais il ne faut pas que le trajet vers ce candidat
                 #intersecte une bubble deja en place
                 #equation de la droite passant par les deux points
-                # on enlève le self.RAYON pour avoir la position "haute" des bubbles, qui peuvent intersectées
+                # on enlève le self.BUBBLE_IMAGE_SIZE pour avoir la position "haute" des bubbles, qui peuvent intersectées
                 if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
                     #c'est une bubble lancée par l'IA qui touche la ligne rouge ==> c'est gagné!
                     if row==self.MAX_LINE_NUMBER:
@@ -396,22 +400,32 @@ init python:
             (x2, y2) = target_pos
             if (x1 != x2) and (y1 != y2):
                 #calcul de l'équation de la droite
-                #on prend le sommet de la bubble = en haut au milieu
+                #on prend le milieu de la bubble
                 # dans le cadre qui a (x,y)=coin en haut à gauche
-                (a,b)=self.get_line_equation((x1+self.RAYON,y1), (x2+self.RAYON,y2))
-                #parcours des lignes en partant du bas
+ 
+                (a,b)=self.get_line_equation((x1+self.BUBBLE_IMAGE_SIZE/2,y1+self.BUBBLE_IMAGE_SIZE/2),(x2+self.BUBBLE_IMAGE_SIZE/2,y2+self.BUBBLE_IMAGE_SIZE/2) )
+
+                angle = self.get_angle(launch_coords,target_pos)
+                #calcul du delta de y (on veut les deux équations qui couvrent toute la trajectoire de la bubble)
+
+                distance=(self.BUBBLE_REAL_SIZE)/(math.cos(math.radians(90-math.fabs(angle)))) 
+                bmin=b-distance/2
+                bmax=b+distance/2
+
+            
+                #parcours des lignes en partant du bas, on ignore la ligne où est la cible
                 for row in range(max(self.bubble_properties.keys()),target_row-1,-1):
 
                     if(self.launch_position==CannonPositionEnum.LEFT):
                         
                         #on ne parcourt que la moitié des lignes 
-                        for col in range(int(self.MAX_LINE_SIZE/2),0,-1):
-                            intersection=self.check_if_intersection(a,b,row,col)
+                        for col in range(target_col,0,-1):
+                            intersection=self.check_if_intersection(a,bmin,bmax,row,col)
                             if  intersection is True:
                                 return True
                     else:
-                        for col in range(int(self.MAX_LINE_SIZE/2)+1,self.MAX_LINE_SIZE+1):
-                            intersection=self.check_if_intersection(a,b,row,col)
+                        for col in range(target_col,self.MAX_LINE_SIZE+1):
+                            intersection=self.check_if_intersection(a,bmin,bmax,row,col)
                             if  intersection is True:
                                 return True 
                 return False
@@ -419,22 +433,34 @@ init python:
                 #cas où les deux points sur la même colonne ou la même ligne : pas d'intersaction
                 return False
 
-        def check_if_intersection(self,a,b,row,col):
+        def check_if_intersection(self,a,bmin,bmax,row,col):
             if col in self.bubble_properties[row]:
                 #calcule la position de la bubble qui pourrait intersectée
                 (x,y)=self.compute_target_candidate_bubble_position(row,col)
                
                 #calcule la position théorique de la bubble lancée (équation de la droite)
                 #on prend x+RAYON pour correspond au point inférieur de la bubble
-                for i in range(x,x+self.RAYON*2):
-                    y_bubble_lancee=a*(i+self.RAYON)+b
-                    if y_bubble_lancee >= y and y_bubble_lancee <= y+self.RAYON*2:
+
+                #difference entre la taille de l'image et la taille exacte de la bubble
+                diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
+                #self.logger.debug(f'{x} {diff_size} {self.BUBBLE_REAL_SIZE} ')
+                for i in range(int(x)+diff_size,int(x)+self.BUBBLE_REAL_SIZE):
+
+                    y_bubble_lancee=a*i+bmin
+                    #self.logger.debug(f'test intersection avec {row} {col} : {i} ymin {y_bubble_lancee}  ymax {a*i+bmax}, départ : 10 ymin {10*a+bmin}  ymax {10*a+bmax} {x_target_center} {y_target_center} { self.compute_distance(x_target_center,y_target_center,i,y_bubble_lancee)}')
+                    #si on est à moins de distance que le rayon (<=> on est dans le cercle)
+                    if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,i,y_bubble_lancee)<self.BUBBLE_REAL_SIZE/2:
+                        return True
+                    y_bubble_lancee=a*i+bmax
+                    if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,i,y_bubble_lancee)<self.BUBBLE_REAL_SIZE/2:
+                        #self.logger.debug(f'intersection avec {row} {col} sur fourchette max {bmin}  {bmax}')
                         return True
                 return False
             else:
                 return False
     
-
+        def compute_distance(self,x1,y1,x2,y2):
+            return ((x1 - x2)**2 + (y1 - y2)**2)**0.5
 
         #calcule de la position (x,y) de la bubble
         def compute_target_candidate_bubble_position(self,row,col):
@@ -442,11 +468,11 @@ init python:
             
             if self.is_odd(row):
                 return (
-                    col * self.RAYON * 2 + self.BORDER_WIDTH - self.RAYON,
-                    self.BORDER_WIDTH + row * self.RAYON * 2 - (self.RAYON*2))  
+                    col * self.BUBBLE_IMAGE_SIZE  + self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE/2,
+                    self.BORDER_WIDTH + row * self.BUBBLE_IMAGE_SIZE  - (self.BUBBLE_IMAGE_SIZE))  
             else:
                 return (
-                        col * self.RAYON * 2 + self.BORDER_WIDTH -self.RAYON * 2, self.BORDER_WIDTH + row * self.RAYON * 2 - (self.RAYON*2))  
+                        col * self.BUBBLE_IMAGE_SIZE + self.BORDER_WIDTH -self.BUBBLE_IMAGE_SIZE , self.BORDER_WIDTH + row * self.BUBBLE_IMAGE_SIZE  - (self.BUBBLE_IMAGE_SIZE))  
 
         #supprime les bubbles de même couleur (s'il y en a)
         def delete_bubbles_same_color(self,row,col,color):
@@ -531,6 +557,8 @@ init python:
                 self.launch_position=CannonPositionEnum.LEFT
                 self.launch_coords = self.LAUNCH_COORDS_LEFT  # Start position of the bubble
 
+
+  
             #pour alterner les canons ennemis
             self.last_launch_position=self.launch_position
 
@@ -609,7 +637,7 @@ init python:
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
 
-            if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN and (self.end_game or self.wait_for_start):
+            if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1)) and (self.end_game or self.wait_for_start):
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:

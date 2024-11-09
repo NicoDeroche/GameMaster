@@ -34,8 +34,8 @@ screen show_chapter_optional_background :
 # start of the game
 label start:
 
-    jump start_chapter_1
-    #jump start_chapter_2
+    #jump start_chapter_1
+    jump start_chapter_2
     
 
 

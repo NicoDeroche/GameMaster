@@ -94,7 +94,7 @@ init python:
             self.ax = 10+ 8*self.CELL_SIZE
             self.ay = 10+4*self.CELL_SIZE  
 
-            self.information_text= "Attention, ça va commencer !\n\nVous gagnez si vous mettez le serpent KO.\nUtilisez les flèches de direction pour vous déplacer.\n\nAppuyez sur Entrée pour lancer le jeu."
+            self.information_text= "Attention, ça va commencer !\n\nVous gagnez si vous mettez le serpent KO.\nUtilisez les flèches de direction pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu."
 
 
             return
@@ -387,7 +387,7 @@ init python:
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
 
-            if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN and (self.end_game or self.waiting_for_start) :
+            if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1)) and (self.end_game or self.waiting_for_start) :
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
