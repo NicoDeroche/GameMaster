@@ -133,11 +133,11 @@ init python:
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
             #initialisation des 50 premières bubbles
-            for i in range(50):
-                self.init_ennemy_launch()
-                self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
-                #suppression des éventuelles bubbles voisines de même couleur
-                self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
+            # for i in range(50):
+            #     self.init_ennemy_launch()
+            #     self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
+            #     #suppression des éventuelles bubbles voisines de même couleur
+            #     self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
             self.init=False
             #on reinitialise les canons (canon gauche, droite, milieu)
             self.angles=[45,-45,0]  
@@ -282,9 +282,9 @@ init python:
             (x1, y1) = launch_coords
             (x2, y2) = target_pos
             
-            a = (y2 - y1) / (x2 - x1)
-            b = y1 - a * x1
-            #self.logger.debug(f'x launch {x1} y launch {y1} x target {x2} y target {y2} a {a} b {b}]')
+            a = (x2 - x1) / (y2 - y1)
+            b = x1 - a * y1
+            self.logger.debug(f'x launch {x1} y launch {y1} x target {x2} y target {y2} a {a} b {b}]')
             return (a,b)
 
         #distance a parcourir entre la position de depart et la cible
@@ -398,7 +398,7 @@ init python:
         def iterate_to_check_if_intersection(self,launch_coords, target_pos,target_row,target_col):
             (x1, y1) = launch_coords
             (x2, y2) = target_pos
-            if (x1 != x2) and (y1 != y2):
+            if  (y1 != y2):
                 #calcul de l'équation de la droite
                 #on prend le milieu de la bubble
                 # dans le cadre qui a (x,y)=coin en haut à gauche
@@ -407,12 +407,12 @@ init python:
 
                 angle = self.get_angle(launch_coords,target_pos)
                 #calcul du delta de y (on veut les deux équations qui couvrent toute la trajectoire de la bubble)
-
-                distance=(self.BUBBLE_REAL_SIZE)/(math.cos(math.radians(90-math.fabs(angle)))) 
+                tolerance=10
+                distance=(self.BUBBLE_REAL_SIZE-tolerance)/(math.cos(math.radians(math.fabs(angle)))) 
                 bmin=b-distance/2
                 bmax=b+distance/2
 
-            
+                
                 #parcours des lignes en partant du bas, on ignore la ligne où est la cible
                 for row in range(max(self.bubble_properties.keys()),target_row-1,-1):
 
@@ -444,16 +444,17 @@ init python:
                 #difference entre la taille de l'image et la taille exacte de la bubble
                 diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
                 #self.logger.debug(f'{x} {diff_size} {self.BUBBLE_REAL_SIZE} ')
-                for i in range(int(x)+diff_size,int(x)+self.BUBBLE_REAL_SIZE):
+                for i in range(int(y)+diff_size,int(y)+self.BUBBLE_REAL_SIZE):
 
-                    y_bubble_lancee=a*i+bmin
-                    #self.logger.debug(f'test intersection avec {row} {col} : {i} ymin {y_bubble_lancee}  ymax {a*i+bmax}, départ : 10 ymin {10*a+bmin}  ymax {10*a+bmax} {x_target_center} {y_target_center} { self.compute_distance(x_target_center,y_target_center,i,y_bubble_lancee)}')
+                    x_bubble_lancee=a*i+bmin
+                   
                     #si on est à moins de distance que le rayon (<=> on est dans le cercle)
-                    if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,i,y_bubble_lancee)<self.BUBBLE_REAL_SIZE/2:
+                    if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
+                        self.logger.debug(f' intersection min avec {row} {col} : {i} {a*i+bmin} {a*i+bmin+(bmax-bmin)/2} {a*i+bmax}, départ : 710  {710*a+bmin}  {710*i+bmin+(bmax-bmin)/2} {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
                         return True
-                    y_bubble_lancee=a*i+bmax
-                    if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,i,y_bubble_lancee)<self.BUBBLE_REAL_SIZE/2:
-                        #self.logger.debug(f'intersection avec {row} {col} sur fourchette max {bmin}  {bmax}')
+                    x_bubble_lancee=a*i+bmax
+                    if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
+                        self.logger.debug(f'intersection max avec {row} {col} : {i} {a*i+bmin}  {a*i+bmax}, départ : 710  {710*a+bmin}   {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
                         return True
                 return False
             else:
@@ -700,8 +701,7 @@ label start_bubble_shooter_game:
 label after_bubble_shooter_game:
     stop music
     window auto  
-    play music main_menu
-    call screen main_menu
+    call screen mini_games
 
 
 #start bubble shooter game 

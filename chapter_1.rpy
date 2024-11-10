@@ -293,8 +293,7 @@ label after_snake_game:
         window hide  # Hide the window and quick menu while in mini game
         call screen end_chapter
     else :
-        play music main_menu
-        call screen main_menu
+        call screen mini_games
   
 
 
