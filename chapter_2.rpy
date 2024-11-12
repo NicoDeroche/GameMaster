@@ -28,7 +28,7 @@ label start_chapter_2:
     hide bg ile
     
     #devant hotel
-    show sylvie smile at left with dissolve 
+    show sylvie sourire at left with dissolve 
     sylvie  "Bienvenue sur {b}l'île de la Baleine Blanche{/b}, qui abrite le siège de la B-Tech."
     sylvie "Vous serez logés et nourris pendant la durée de votre séjour."
     sylvie "L'île dispose aussi de magasins, si vous avez besoin de faire des achats..."
@@ -37,7 +37,7 @@ label start_chapter_2:
     hide chris
     chris "Alors voici les participants de la zone Ouest ?"
     sylvie "Monsieur Brizor ? Je ne pensais pas vous voir aujourd'hui."
-    show virgile smile at right with dissolve
+    show virgile sourire at right with dissolve
     virgile "J'étais impatient de voir les premiers candidats !"
     sylvie "Messieurs-dames, voici votre hôte : Virgile Brizor !"
     hide sylvie
@@ -48,7 +48,7 @@ label start_chapter_2:
     virgile "Je compte sur vous pour vous battre, et donner le meilleur de vous-mêmes !"
     virgile "Vous savez, j'ai nommé cette île en référence au roman de Herman Melville, \"Moby-Dick\"."
     virgile "Le capitaine Achab est un modèle de ténacité et de résilience, je le trouve fascinant."
-    show ed chemise neutral at left with dissolve
+    show ed chemise main levee at left with dissolve
     ed "Le capitaine Achab ne périt-il pas noyé, à la fin de l'histoire ?"
     virgile "Ha ha ha !\nEn effet, il a une fin tragique."
     virgile "Mais il est mort en combattant, je trouve que c'est tout à son honneur."
@@ -56,7 +56,7 @@ label start_chapter_2:
     virgile "Bien, je dois vous laisser... On se revoit demain"
     virgile "Sylvie, vous pouvez continuer votre présentation."
     hide ed
-    show sylvie smile at left with dissolve
+    show sylvie sourire at left with dissolve
     sylvie "Bien, Monsieur Brizor."
     hide virgile
     sylvie "L'hôtel est juste à côté, si vous voulez bien me suivre..."
@@ -79,9 +79,9 @@ label start_chapter_2:
     hide sylvie
 
 
-    show ed chemise neutral at left with dissolve
+    show ed chemise sourire at left with dissolve
     ed "Allo frangine ?"
-    show julie talk at right with dissolve
+    show julie parle at right with dissolve
     julie "Salut Ed, ça va ?"
     ed "Pas trop mal, j'ai passé les sélections !"
     julie "Super, je suis trop contente !"

@@ -56,7 +56,7 @@ init python:
 
             #angle de rotation à chaque fois qu'on appuie sur gauche ou droite
             self.ANGLE_STEP=5
-            #angle maximum du canon
+            #angle maximum du distance
             self.MAX_ANGLE=75
             self.cannon_moving=False
             self.start_cannon_move=0
