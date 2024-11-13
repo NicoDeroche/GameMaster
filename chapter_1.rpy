@@ -84,7 +84,7 @@ label start_chapter_1:
     julie "Il y a du monde ?"
     ed "Les sélections de Game Mast..."
     show ed pyjama surpris with dissolve
-    ed "Holy crab !"
+    ed "{i}NOM D'UN CLAFOUTIS !{/i}"
     ed "Mon réveil n'a pas sonné !"
     julie "Tu déconnes !?"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
@@ -149,7 +149,7 @@ label chaussuresTrouvees :
     chris "Ma voiture est tombée en panne à 10 kms d'ici."
     chris "J'ai été obligé de venir en courant..."
     chris "Et toi, qu'est-ce qui t'est arrivé ?"
-    show ed chemise sourire at left with dissolve
+    show ed chemise gene at left with dissolve
     ed "Moi ? Euh..."
     menu:
         "J'ai eu une panne de réveil":
@@ -264,12 +264,12 @@ label entree_entrepot :
     show ed chemise heureux at right with dissolve
     ed "Trop stylé !"
     scene bg interieur entrepot ter
-    show ed chemise sceptique at right
+    show ed chemise sceptique at right with dissolve
     play sound snake_coming_sound
  
     ed "Euh... Attends..."
-    show ed chemise surpris at right
-    ed "Holy crab !"
+    show ed chemise surpris at right with dissolve
+    ed "{i}NOM D'UNE SALSIFIS !{/i}"
     ed "Il veut me bouffer !"
     jump start_snake_game
 
@@ -288,16 +288,17 @@ label after_snake_game:
         chris "Bien joué mec !"
         show chris bras croises at left with dissolve
         chris "Tu as un physique de crevette, mais je savais que tu allais assurer !"
-        show ed chemise sourire
+        show ed chemise gene at right with dissolve
         ed "Euh... merci."
         hide chris
         show sylvie sourire at left with dissolve
+        show ed chemise sourire at right with dissolve
         sylvie "Mr Tonga a également réussi cette épreuve."
         sylvie "Il me reste quelques candidats à faire passer."
         sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
         show ed chemise surpris at right with dissolve
-        ed "Holy crab !!!"
+        ed "{i}NOM D'UN OUISTITI !{/i}"
         ed "Je n'ai pas pris de sac !"
 
         stop music
