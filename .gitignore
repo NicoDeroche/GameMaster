@@ -4,3 +4,4 @@
 *.xcf
 *.save
 *.cache
+/xcf/*
