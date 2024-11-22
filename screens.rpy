@@ -821,6 +821,7 @@ screen preferences():
                     label _("Language")
                     textbutton "Français" text_font "DejaVuSans.ttf" action Language(None)
                     textbutton "English" text_font "DejaVuSans.ttf" action Language("english")
+                    textbutton "Español" text_font "DejaVuSans.ttf" action Language("spanish")
 
                 ## Des boites vbox additionnelles de type "radio_pref" ou
                 ## "check_pref" peuvent être ajoutées ici pour ajouter des
