@@ -1,14 +1,14 @@
 ﻿# TODO: Translation updated at 2024-11-22 19:31
 
-translate english strings:
+translate spanish strings:
 
     # game/screens.rpy:252
     old "Retour"
-    new "Back"
+    new "Volver"
 
     # game/screens.rpy:254
     old "Avance rapide"
-    new "Fast forward"
+    new "Avance rápido"
 
     # game/screens.rpy:255
     old "Auto"
@@ -16,15 +16,15 @@ translate english strings:
 
     # game/screens.rpy:256
     old "Sauvegarde"
-    new "Save"
+    new "Guardar"
 
     # game/screens.rpy:257
     old "Sauvegarde R."
-    new "Backup R."
+    new "Copia de seguridad R."
 
     # game/screens.rpy:258
     old "Chargement R."
-    new "Load R."
+    new "Cargar R."
 
     # game/screens.rpy:259
     old "Préf."
@@ -32,39 +32,39 @@ translate english strings:
 
     # game/screens.rpy:300
     old "Histoire"
-    new "Story"
+    new "Historia"
 
     # game/screens.rpy:301
     old "Mini jeux"
-    new "Mini games"
+    new "Minijuegos"
 
     # game/screens.rpy:302
     old "À propos"
-    new "Credits"
+    new "Creditos"
 
     # game/screens.rpy:303
     old "Aide"
-    new "Help"
+    new "Ayuda"
 
     # game/screens.rpy:304
     old "Préférences"
-    new "Settings"
+    new "Opciones"
 
     # game/screens.rpy:305
     old "Charger"
-    new "Load"
+    new "Cargar"
 
     # game/screens.rpy:338
     old "Quitter"
-    new "Exit"
+    new "Salir"
 
     # game/screens.rpy:488
     old "Menu principal"
-    new "Main menu"
+    new "Menú principal"
 
     # game/screens.rpy:583
     old "Créé par Nico Deroche\n\nMoteur du jeu : Ren'Py\n\nPolices de caractères :\nJD Scarabeo - JD Code - ShortStack\ntéléchargées sur dafont.com\n\nMusiques :\nRock and a Hard Space - Synapse\ntéléchargés sur freeSFX.co.uk\n\nArrière-plans réalisés avec My Sweet Home 3D\nModèles 3D téléchargés sur différents sites\nou réalisés avec Blender par l'auteur du jeu"
-    new "Created by Nico Deroche\n\nGame engine : Ren'Py\n\nCharacter fonts :\nJD Scarabeo - JD Code - ShortStack\ndownloaded from dafont.com\n\nMusic :\nRock and a Hard Space - Synapse\ndownloaded from freeSFX.co.uk\n\nBackgrounds made with My Sweet Home 3D\nModels downloaded from various sites\nor made with Blender by the author of the game"
+    new "Creado por Nico Deroche\n\nMotor del juego : Ren'Py\n\nFuentes de caracteres :\nJD Scarabeo - JD Code - ShortStack\ndescargado de dafont.com\n\nMúsica :\nRock and a Hard Space - Synapse\ndescargado de freeSFX.co.uk\n\nFondos de pantalla realizados con My Sweet Home 3D\nModelos descargados de varios sitios \no realizados con Blender por el autor del juego"
 
     # game/screens.rpy:709
     old "{#file_time}%A %d %B %Y, %H:%M"
@@ -72,91 +72,91 @@ translate english strings:
 
     # game/screens.rpy:709
     old "emplacement vide"
-    new "empty slot"
+    new "rainura vacía"
 
     # game/screens.rpy:808
     old "Affichage"
-    new "Display"
+    new "Mostrar"
 
     # game/screens.rpy:809
     old "Fenêtre"
-    new "Window"
+    new "Ventana"
 
     # game/screens.rpy:810
     old "Plein écran"
-    new "Full screen"
+    new "Pantalla completa"
 
     # game/screens.rpy:815
     old "Texte non lu"
-    new "Unread text"
+    new "Texto no leído"
 
     # game/screens.rpy:816
     old "Après les choix"
-    new "After choices"
+    new "Después de las elecciones"
 
     # game/screens.rpy:817
     old "Transitions"
-    new "Transitions"
+    new "Transiciones"
 
     # game/screens.rpy:821
     old "Language"
-    new "Language"
+    new "Idioma"
 
     # game/screens.rpy:837
     old "Vitesse du texte"
-    new "Text speed"
+    new "Velocidad del texto"
 
     # game/screens.rpy:841
     old "Avance automatique"
-    new "Auto advance"
+    new "Avance automático"
 
     # game/screens.rpy:848
     old "Volume de la musique"
-    new "Music volume"
+    new "Volumen de la música"
 
     # game/screens.rpy:855
     old "Volume des sons"
-    new "Sound volume"
+    new "Volumen del sonido"
 
     # game/screens.rpy:861
     old "Test"
-    new "Test"
+    new "Prueba"
 
     # game/screens.rpy:865
     old "Volume des voix"
-    new "Voice volume"
+    new "Volumen de voz"
 
     # game/screens.rpy:876
     old "Couper tous les sons"
-    new "Mute all sounds"
+    new "Silenciar todos los sonidos"
 
     # game/screens.rpy:970
     old "Historique"
-    new "History"
+    new "Historial"
 
     # game/screens.rpy:1000
     old "L'historique des dialogues est vide."
-    new "The dialog history is empty."
+    new "El historial de diálogos está vacío."
 
     # game/screens.rpy:1068
     old "Entrée ou Espace\nClic gauche"
-    new "Enter or Space\nLeft click"
+    new "Intro o Espacio\Clic izquierdo"
 
     # game/screens.rpy:1069
     old "Avancer dans les dialogues"
-    new "Advance through dialogues"
+    new "Avanzar por los diálogos"
 
     # game/screens.rpy:1072
     old "Clic gauche"
-    new "Left click"
+    new "Clic izquierdo"
 
     # game/screens.rpy:1073
     old "Choisir un dialogue (si choix possible)"
-    new "Choose a dialogue (if possible)"
+    new "Elegir un diálogo (si es posible)"
 
     # game/screens.rpy:1077
     old "Sélectionner un élément dans le décor"
-    new "Select an element in the background"
+    new "Seleccionar un elemento en el fondo"
 
     # game/screens.rpy:1080
     old "Echap"
@@ -164,31 +164,31 @@ translate english strings:
 
     # game/screens.rpy:1081
     old "Ouvrir le menu de sauvegarde"
-    new "Open the save menu"
+    new "Abrir el menú de guardar"
 
     # game/screens.rpy:1100
     old "Entrée"
-    new "Enter"
+    new "Entrar en"
 
     # game/screens.rpy:1101
     old "Avance dans les dialogues et active l’interface (effectue un choix)."
-    new "Advances through the dialogues and activates the interface (makes a choice)."
+    new "Avanza por los diálogos y activa la interfaz (hace una elección)."
 
     # game/screens.rpy:1104
     old "Espace"
-    new "Space"
+    new "Espacio"
 
     # game/screens.rpy:1105
     old "Avance dans les dialogues sans effectuer de choix."
-    new "Moves forward through the dialogs without making a choice."
+    new "Avanza por los diálogos sin hacer ninguna elección."
 
     # game/screens.rpy:1108
     old "Flèches directionnelles"
-    new "Directional arrows"
+    new "Flechas de dirección"
 
     # game/screens.rpy:1109
     old "Permet de se déplacer dans l’interface."
-    new "Moves through the interface."
+    new "Se desplaza por la interfaz."
 
     # game/screens.rpy:1112
     old "Echap."
@@ -196,7 +196,7 @@ translate english strings:
 
     # game/screens.rpy:1113
     old "Ouvre le menu du jeu."
-    new "Opens the game menu."
+    new "Abre el menú del juego."
 
     # game/screens.rpy:1116
     old "Ctrl"
@@ -204,99 +204,99 @@ translate english strings:
 
     # game/screens.rpy:1117
     old "Fait défiler les dialogues tant que la touche est pressée."
-    new "Scrolls through the dialogues as long as the key is pressed."
+    new "Se desplaza por los diálogos mientras la tecla esté pulsada."
 
     # game/screens.rpy:1120
     old "Tab"
-    new "Tab"
+    new ""
 
     # game/screens.rpy:1121
     old "Active ou désactive les «sauts des dialogues»."
-    new "Activates or deactivates ‘dialogue jumps’."
+    new "Activa o desactiva los «saltos de diálogo»."
 
     # game/screens.rpy:1124
     old "Page Haut"
-    new "Page Up"
+    new "Re Pág"
 
     # game/screens.rpy:1125
     old "Retourne au précédent dialogue."
-    new "Returns to the previous dialog."
+    new "Vuelve al diálogo anterior."
 
     # game/screens.rpy:1128
     old "Page Bas"
-    new "Page Down"
+    new "Av Pág"
 
     # game/screens.rpy:1129
     old "Avance jusqu'au prochain dialogue."
-    new "Advances to the next dialog."
+    new "Avanza al diálogo siguiente."
 
     # game/screens.rpy:1133
     old "Cache l’interface utilisateur."
-    new "Hides the user interface."
+    new "Oculta la interfaz de usuario."
 
     # game/screens.rpy:1137
     old "Prend une capture d’écran."
-    new "Takes a screenshot."
+    new "Realiza una captura de pantalla."
 
     # game/screens.rpy:1141
     old "Active la {a=https://www.renpy.org/l/voicing}{size=24}vocalisation automatique{/size}{/a}."
-    new "Activates {a=https://www.renpy.org/l/voicing}{size=24}auto-tuning{/size}{/a}."
+    new "Activa el {a=https://www.renpy.org/l/voicing}{size=24}ajuste automático{/size}{/a}."
 
     # game/screens.rpy:1145
     old "Ouvre le menu d'accessibilité."
-    new "Opens the accessibility menu."
+    new "Abre el menú de accesibilidad."
 
     # game/screens.rpy:1151
     old "Bouton gauche"
-    new "Left button"
+    new "Botón izquierdo"
 
     # game/screens.rpy:1155
     old "Bouton central"
-    new "Centre button"
+    new "Botón central"
 
     # game/screens.rpy:1159
     old "Bouton droit"
-    new "Right button"
+    new "Botón derecho"
 
     # game/screens.rpy:1163
     old "Molette vers le haut"
-    new "Wheel up"
+    new "Rueda arriba"
 
     # game/screens.rpy:1167
     old "Molette vers le bas"
-    new "Wheel down"
+    new "Rueda abajo"
 
     # game/screens.rpy:1174
     old "Bouton R1\nA/Bouton du bas"
-    new "R1 button/Bottom button"
+    new "Botón R1/Botón inferior"
 
     # game/screens.rpy:1178
     old "Gâchettes gauche"
-    new "Left triggers"
+    new "Gatillo izquierdo"
 
     # game/screens.rpy:1182
     old "Bouton R1"
-    new "R1 button"
+    new "Botón R1"
 
     # game/screens.rpy:1186
     old "Boutons directionnels, stick gauche"
-    new "Directional buttons, left stick"
+    new "Botones direccionales, stick izquierdo"
 
     # game/screens.rpy:1190
     old "Start, Guide, B/Right Button"
-    new "Start, Guide, B/Right Button"
+    new "Inicio, Guía, Botón B/Derecha"
 
     # game/screens.rpy:1194
     old "Y/Bouton du haut"
-    new "Y/Top button"
+    new "Botón Y/Top"
 
     # game/screens.rpy:1197
     old "Calibrage"
-    new "Calibration"
+    new "Calibración"
 
     # game/screens.rpy:1263
     old "Oui"
-    new "Yes"
+    new "Sí"
 
     # game/screens.rpy:1264
     old "Non"
@@ -304,5 +304,5 @@ translate english strings:
 
     # game/screens.rpy:1626
     old "Menu"
-    new "Menu"
+    new "Menú"
 
