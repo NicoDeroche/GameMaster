@@ -168,19 +168,19 @@ translate spanish strings:
 
     # renpy/common/00action_file.rpy:37
     old "{#weekday_short}Tue"
-    new "{#weekday_short}Mié"
+    new "{#weekday_short}Mar"
 
     # renpy/common/00action_file.rpy:37
     old "{#weekday_short}Wed"
-    new "{#weekday_short}Wed"
+    new "{#weekday_short}Mié"
 
     # renpy/common/00action_file.rpy:37
     old "{#weekday_short}Thu"
-    new "{#weekday_short}Thu"
+    new "{#weekday_short}Jue"
 
     # renpy/common/00action_file.rpy:37
     old "{#weekday_short}Fri"
-    new "{#weekday_short}Fri"
+    new "{#weekday_short}Vie"
 
     # renpy/common/00action_file.rpy:37
     old "{#weekday_short}Sat"
@@ -188,7 +188,7 @@ translate spanish strings:
 
     # renpy/common/00action_file.rpy:37
     old "{#weekday_short}Sun"
-    new "{#weekday_short}Sun"
+    new "{#weekday_short}Dom"
 
     # renpy/common/00action_file.rpy:47
     old "{#month}January"
@@ -260,11 +260,11 @@ translate spanish strings:
 
     # renpy/common/00action_file.rpy:63
     old "{#month_short}Jun"
-    new "{#month_short}Jun"
+    new "{#month_short}Juin"
 
     # renpy/common/00action_file.rpy:63
     old "{#month_short}Jul"
-    new "{#month_short}Jul"
+    new "{#month_short}Juil"
 
     # renpy/common/00action_file.rpy:63
     old "{#month_short}Aug"
@@ -288,7 +288,7 @@ translate spanish strings:
 
     # renpy/common/00action_file.rpy:258
     old "%b %d, %H:%M"
-    new "%b %d, %H:%M"
+    new "%d %b, %H:%M"
 
     # renpy/common/00action_file.rpy:395
     old "Save slot %s: [text]"
@@ -600,11 +600,11 @@ translate spanish strings:
 
     # renpy/common/00preferences.rpy:377
     old "auto-forward time"
-    new "auto-forward time"
+    new "avancée du temps automatique"
 
     # renpy/common/00preferences.rpy:391
     old "auto-forward"
-    new "auto-forward"
+    new "avancée automatique"
 
     # renpy/common/00preferences.rpy:398
     old "Auto forward"
@@ -612,7 +612,7 @@ translate spanish strings:
 
     # renpy/common/00preferences.rpy:401
     old "auto-forward after click"
-    new "auto-forward after click"
+    new "avancée automatique après un clic"
 
     # renpy/common/00preferences.rpy:410
     old "automatic move"
@@ -656,7 +656,7 @@ translate spanish strings:
 
     # renpy/common/00preferences.rpy:463
     old "debug voicing"
-    new "debug voicing"
+    new "voix de debug"
 
     # renpy/common/00preferences.rpy:466
     old "debug voicing enable"
@@ -672,15 +672,15 @@ translate spanish strings:
 
     # renpy/common/00preferences.rpy:481
     old "rollback side"
-    new "rollback side"
+    new "côté de rollback"
 
     # renpy/common/00preferences.rpy:491
     old "gl powersave"
-    new "gl powersave"
+    new "gl économie d'énergie"
 
     # renpy/common/00preferences.rpy:497
     old "gl framerate"
-    new "gl framerate"
+    new "gl images par seconde"
 
     # renpy/common/00preferences.rpy:500
     old "gl tearing"
@@ -848,7 +848,7 @@ translate spanish strings:
 
     # renpy/common/00sync.rpy:449
     old "No"
-    new "No"
+    new "Non"
 
     # renpy/common/00sync.rpy:472
     old "Enter Sync ID"
@@ -1072,7 +1072,7 @@ translate spanish strings:
 
     # renpy/common/00gltest.rpy:133
     old "Gamepad"
-    new "Gamepad"
+    new "Manette"
 
     # renpy/common/00gltest.rpy:137
     old "Enable (No Blocklist)"
@@ -1084,11 +1084,11 @@ translate spanish strings:
 
     # renpy/common/00gltest.rpy:160
     old "Powersave"
-    new "Powersave"
+    new "Économie d'énergie"
 
     # renpy/common/00gltest.rpy:174
     old "Framerate"
-    new "Framerate"
+    new "Images par seconde"
 
     # renpy/common/00gltest.rpy:178
     old "Screen"

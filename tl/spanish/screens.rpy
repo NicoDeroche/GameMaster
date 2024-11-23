@@ -66,6 +66,14 @@ translate spanish strings:
     old "Créé par Nico Deroche\n\nMoteur du jeu : Ren'Py\n\nPolices de caractères :\nJD Scarabeo - JD Code - ShortStack\ntéléchargées sur dafont.com\n\nMusiques :\nRock and a Hard Space - Synapse\ntéléchargés sur freeSFX.co.uk\n\nArrière-plans réalisés avec My Sweet Home 3D\nModèles 3D téléchargés sur différents sites\nou réalisés avec Blender par l'auteur du jeu"
     new "Creado por Nico Deroche\n\nMotor del juego : Ren'Py\n\nFuentes de caracteres :\nJD Scarabeo - JD Code - ShortStack\ndescargado de dafont.com\n\nMúsica :\nRock and a Hard Space - Synapse\ndescargado de freeSFX.co.uk\n\nFondos de pantalla realizados con My Sweet Home 3D\nModelos descargados de varios sitios \no realizados con Blender por el autor del juego"
 
+    # game/screens.rpy:648
+    old "Snake Game"
+    new "Snake Game"
+    
+    # game/screens.rpy:659
+    old "Bubble Shooter Game\n(version bêta)"
+    new "Bubble Shooter Game\n(Versión beta)"
+
     # game/screens.rpy:709
     old "{#file_time}%A %d %B %Y, %H:%M"
     new "{#file_time}%A %d %B %Y, %H:%M"

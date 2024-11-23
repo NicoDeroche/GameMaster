@@ -656,7 +656,7 @@ screen mini_games():
                     has vbox
 
                     add "gui/bubble_shooter_game.png" xalign 0.5
-                    text "Bubble Shooter Game":
+                    text "Bubble Shooter Game\n(version bêta)":
                         style "slot_name_text"
 
            
