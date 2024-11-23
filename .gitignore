@@ -5,4 +5,3 @@
 *.save
 *.cache
 /xcf/*
-*.rpyc
