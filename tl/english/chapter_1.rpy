@@ -512,6 +512,8 @@ translate english after_snake_game_b2cfa311:
 
 translate english strings:
 
+
+
     # game/chapter_1.rpy:154
     old "J'ai eu une panne de réveil"
     new "My alarm clock went off"
@@ -535,4 +537,12 @@ translate english strings:
     # game/chapter_1.rpy:238
     old "Non, j'ai trop peur."
     new "No, I'm too scared."
+
+    # game/chapter_1.rpy:61
+    old "Chapitre 1 : Le serpent qui se mord la queue"
+    new "Chapter 1 : The snake that bites its own tail"
+
+    # game/chapter_1.rpy:238
+    old "Bon d'accord, je signe."
+    new "All right, I'll sign."
 

@@ -58,7 +58,7 @@ transform positionChaussures:
 label start_chapter_1:
     stop music
     $ mini_game=False
-    $ chapter_title="Chapitre 1 : Le serpent qui se mord la queue"
+    $ chapter_title=_("Chapitre 1 : Le serpent qui se mord la queue")
 
     scene bg maison nuit
     show screen show_chapter
