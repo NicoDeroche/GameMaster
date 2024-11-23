@@ -11,14 +11,14 @@ transform islandPosition:
 
 # start of the second chapter
 label start_chapter_2:
-    $ chapter_title="Chapitre 2 : Explosions en série"
+
     stop music
     $ mini_game=False
    
     scene bg maison nuit
     show bg ile at islandPosition
     show screen show_chapter_optional_background
-    show screen show_chapter
+    show screen show_chapter_2
     show helico
    
     
@@ -108,5 +108,11 @@ label start_chapter_2:
     #mouvement dans la nuit : un mille pattes
 
     # lendemain, sur une place, début de la deuxième épreuve
+
+
+screen show_chapter_2 :
+
+    add Text(_("Chapitre 2 : Explosions en série"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    timer 2 action [Hide("show_chapter_2")]
 
     

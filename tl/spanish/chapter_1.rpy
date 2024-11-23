@@ -526,25 +526,20 @@ translate spanish strings:
 
     # game/chapter_1.rpy:226
     old "Non, désolé, tout ceci me semble un peu trop dangereux."
-    new "Non, désolé, tout ceci me semble un peu trop dangereux."
+    new "No, lo siento, todo esto parece demasiado peligroso."
 
     # game/chapter_1.rpy:238
     old "Bon d'accord, je signe."
-    new "Bon d'accord, je signe."
+    new "De acuerdo, firmaré."
 
     # game/chapter_1.rpy:238
     old "Non, j'ai trop peur."
-    new "Non, j'ai trop peur."
-
-# TODO: Translation updated at 2024-11-23 09:22
-
-translate spanish strings:
+    new "No, tengo demasiado miedo."
 
     # game/chapter_1.rpy:61
     old "Chapitre 1 : Le serpent qui se mord la queue"
-    new "Chapitre 1 : Le serpent qui se mord la queue"
+    new "Capítulo 1: La serpiente que se muerde la cola"
 
     # game/chapter_1.rpy:318
     old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-    new "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-
+    new "BRAVO ¡¡¡¡\nHas completado el capítulo 1 de Game Master!\nEl capítulo 2 está en desarrollo...\n\n¡Gracias por jugar a este juego!\nSi te ha gustado, por favor, publica un comentario en itch.io, ¡me dará un empujón!"

@@ -58,10 +58,10 @@ transform positionChaussures:
 label start_chapter_1:
     stop music
     $ mini_game=False
-    $ chapter_title=_("Chapitre 1 : Le serpent qui se mord la queue")
+ 
 
     scene bg maison nuit
-    show screen show_chapter
+    show screen show_chapter_1
     pause 3
     show smartphone at shake
     play music ringtone
@@ -303,15 +303,19 @@ label after_snake_game:
 
         stop music
         window hide  # Hide the window and quick menu while in mini game
-        call screen end_chapter
+        call screen end_chapter_1
     else :
         call screen mini_games
-  
 
+
+screen show_chapter_1 :
+
+    add Text(_("Chapitre 1 : Le serpent qui se mord la queue"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    timer 2 action [Hide("show_chapter_1")]
 
 
 #end chapter
-screen end_chapter():
+screen end_chapter_1():
 
     
     add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
