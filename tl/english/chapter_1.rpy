@@ -213,7 +213,7 @@ translate english fin_explication_337867fe:
 translate english fin_explication_619909f7:
 
     # sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de la zone Ouest."
-    sylvie "Let me introduce myself: {b}Sylvie Cristal{/b} !\nI'm organising the West zone selections."
+    sylvie "Let me introduce myself:\n{b}Sylvie Cristal{/b} !\nI'm organising the West zone selections."
 
 # game/chapter_1.rpy:174
 translate english fin_explication_8de5f5a9:
@@ -315,7 +315,7 @@ translate english fin_explication_21a97016:
 translate english fin_explication_47897918:
 
     # sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
-    sylvie "The winner of the competition will take home €100,000."
+    sylvie "The winner of the competition will take home {b}€100,000{/b}."
 
 # game/chapter_1.rpy:210
 translate english fin_explication_ada34e50:
@@ -339,7 +339,7 @@ translate english fin_explication_cec25e8a:
 translate english fin_explication_a8c21cd4:
 
     # sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
-    sylvie "The rest of the competition will take place at B-Tech HQ and will be streamed on the internet."
+    sylvie "The rest of the competition will take place at B-Tech headquarters and will be streamed on the internet."
 
 # game/chapter_1.rpy:217
 translate english fin_explication_1530ef9d:
@@ -375,7 +375,7 @@ translate english fin_explication_ac3404e2:
 translate english again_entree_2400b0c7:
 
     # ed "Quand même..."
-    ed "All the same..."
+    ed "Anyway..."
 
 # game/chapter_1.rpy:236
 translate english again_entree_d3336bf3:
@@ -429,7 +429,7 @@ translate english entree_entrepot_9d73a742:
 translate english entree_entrepot_6d99fd3a:
 
     # ed "Trop stylé !"
-    ed "So stylish!"
+    ed "Amazing !"
 
 # game/chapter_1.rpy:270
 translate english entree_entrepot_691821d8:
@@ -453,13 +453,13 @@ translate english entree_entrepot_3793e90e:
 translate english after_snake_game_703d47b2:
 
     # sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
-    sylvie "Well done Mr Pinson, you're qualified!"
+    sylvie "Well done Monsieur Pinson, you're qualified!"
 
 # game/chapter_1.rpy:288
 translate english after_snake_game_a0e0bc88:
 
     # chris "Bien joué mec !"
-    chris "Well done man!"
+    chris "Good job man!"
 
 # game/chapter_1.rpy:290
 translate english after_snake_game_49661b4f:
@@ -477,7 +477,7 @@ translate english after_snake_game_2b301e32:
 translate english after_snake_game_9415538f:
 
     # sylvie "Mr Tonga a également réussi cette épreuve."
-    sylvie "Mr Tonga has also passed this test."
+    sylvie "Monsieur Tonga has also passed this test."
 
 # game/chapter_1.rpy:297
 translate english after_snake_game_5bd09bea:
@@ -538,8 +538,8 @@ translate english strings:
     new "No, I'm too scared."
 
     # game/chapter_1.rpy:61
-    old "Chapitre 1 : Le serpent qui se mord la queue"
-    new "Chapter 1 : The snake that bites its own tail"
+    old "Chapitre 1 : Serpent mécanique"
+    new "Chapter 1 : Mechanical snake"
 
     # game/chapter_1.rpy:238
     old "Bon d'accord, je signe."

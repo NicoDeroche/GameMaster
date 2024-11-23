@@ -310,7 +310,7 @@ label after_snake_game:
 
 screen show_chapter_1 :
 
-    add Text(_("Chapitre 1 : Le serpent qui se mord la queue"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    add Text(_("Chapitre 1 : Serpent mécanique"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
     timer 2 action [Hide("show_chapter_1")]
 
 
