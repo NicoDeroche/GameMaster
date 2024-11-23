@@ -133,11 +133,11 @@ init python:
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
             #initialisation des 50 premières bubbles
-            # for i in range(50):
-            #     self.init_ennemy_launch()
-            #     self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
-            #     #suppression des éventuelles bubbles voisines de même couleur
-            #     self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
+            for i in range(50):
+                self.init_ennemy_launch()
+                self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
+                #suppression des éventuelles bubbles voisines de même couleur
+                self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
             self.init=False
             #on reinitialise les canons (canon gauche, droite, milieu)
             self.angles=[45,-45,0]  

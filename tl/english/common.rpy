@@ -607,7 +607,7 @@
 
     # renpy/common/00gui.rpy:451
     old "Loading will lose unsaved progress.\nAre you sure you want to do this?"
-    new "Loading will lose unsaved progress.\nAre you sure you want to do this?"
+    new "Loading will lose non sauve progress.\nAre you sure you want to do this?"
     
 
     # renpy/common/00gui.rpy:452
