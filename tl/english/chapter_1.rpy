@@ -1,5 +1,4 @@
-﻿# TODO: Translation updated at 2024-11-22 19:31
-
+﻿
 # game/chapter_1.rpy:69
 translate english start_chapter_1_f90bf4f7:
 
@@ -184,7 +183,7 @@ translate english chaussuresTrouvees_53268647:
 translate english chaussuresTrouvees_3d3282e3:
 
     # chris "Et toi, qu'est-ce qui t'est arrivé ?"
-    cchris "And what happened to you?"
+    chris "And what happened to you?"
 
 # game/chapter_1.rpy:153
 translate english chaussuresTrouvees_7dd0c32a:
@@ -546,11 +545,6 @@ translate english strings:
     old "Bon d'accord, je signe."
     new "All right, I'll sign."
 
-# TODO: Translation updated at 2024-11-23 09:20
-
-translate english strings:
-
     # game/chapter_1.rpy:318
     old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-    new "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-
+    new "WONDERFUL !!!!\n\nYou've completed Chapter 1 of Game Master!\nChapter 2 is currently in development...\n\nThank you for playing this game!\nIf you liked it, please post a comment on itch.io, it'll give me a boost!"
