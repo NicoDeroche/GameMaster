@@ -128,7 +128,7 @@ init python:
 
             self.DISTANCE_BUBBLE_MOVES_EACH_DELAY=self.compute_distance_bubble_moves_each_delay()
     
-            self.information_text="Attention, ça va commencer !\n\nVous gagnez si :\n- vous touchez la balle orange\n- ou si votre adversaire touche la ligne rouge.\nVous perdez si vous touchez la ligne rouge.\nUtilisez les flèches de direction pour vous déplacer.\nAppuyez sur Espace pour tirer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu. "
+            self.information_text=_("Attention, ça va commencer !\n\nVous gagnez si :\n- vous touchez la balle orange\n- ou si votre adversaire touche la ligne rouge.\nVous perdez si vous touchez la ligne rouge.\nUtilisez les flèches de direction pour vous déplacer.\nAppuyez sur Espace pour tirer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
 
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
@@ -391,7 +391,7 @@ init python:
                     if row==self.MAX_LINE_NUMBER:
                         self.end_game=True
                         self.victory=True
-                        self.information_text="GAGNÉ !\nAppuyez sur Entrée"
+                        self.information_text=_("GAGNÉ !\nAppuyez sur Entrée")
                     return (candidate_position,row,col)
             return None
 

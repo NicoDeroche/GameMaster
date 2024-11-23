@@ -546,3 +546,11 @@ translate english strings:
     old "Bon d'accord, je signe."
     new "All right, I'll sign."
 
+# TODO: Translation updated at 2024-11-23 09:20
+
+translate english strings:
+
+    # game/chapter_1.rpy:318
+    old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
+    new "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
+

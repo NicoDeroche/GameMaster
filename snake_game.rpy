@@ -119,7 +119,7 @@ init python:
                 #you won !
                 self.end_game=True
                 self.victory=True
-                self.information_text="GAGNÉ !\nAppuyez sur Entrée"
+                self.information_text=_("GAGNÉ !\nAppuyez sur Entrée")
 
 
         # This draws the player.
@@ -248,9 +248,9 @@ init python:
                     renpy.sound.play(snake_eating_sound)
                     self.end_game=True
                     if mini_game==True:
-                        self.information_text="PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour quitter"
+                        self.information_text=_("PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour quitter")
                     else:
-                        self.information_text="PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour poursuivre l'histoire"
+                        self.information_text=_("PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour poursuivre l'histoire")
 
 
         def check_apple_bite(self):

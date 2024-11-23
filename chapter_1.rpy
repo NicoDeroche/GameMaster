@@ -315,7 +315,7 @@ screen end_chapter():
 
     
     add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
-    add Text("BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !", font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    add Text(_("BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
     textbutton _("Menu principal"):
         style "return_button"
 

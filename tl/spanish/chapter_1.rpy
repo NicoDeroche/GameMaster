@@ -536,3 +536,15 @@ translate spanish strings:
     old "Non, j'ai trop peur."
     new "Non, j'ai trop peur."
 
+# TODO: Translation updated at 2024-11-23 09:22
+
+translate spanish strings:
+
+    # game/chapter_1.rpy:61
+    old "Chapitre 1 : Le serpent qui se mord la queue"
+    new "Chapitre 1 : Le serpent qui se mord la queue"
+
+    # game/chapter_1.rpy:318
+    old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
+    new "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
+
