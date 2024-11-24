@@ -148,6 +148,7 @@ label chaussuresTrouvees :
     show chris bras croises at right with dissolve
     chris "Ma voiture est tombée en panne à 10 kms d'ici."
     chris "J'ai été obligé de venir en courant..."
+    show chris mains poches at right with dissolve
     chris "Et toi, qu'est-ce qui t'est arrivé ?"
     show ed chemise gene at left with dissolve
     ed "Moi ? Euh..."
@@ -203,7 +204,7 @@ label fin_explication:
 
     sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
     hide ed
-    show chris bras croises at right with dissolve
+    show chris mains poches at right with dissolve
     chris "Et quel est le prix pour le gagnant ?"
     sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
     show chris bras leves at right with dissolve
