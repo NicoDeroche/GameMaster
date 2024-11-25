@@ -94,7 +94,7 @@ init python:
             self.ax = 10+ 8*self.CELL_SIZE
             self.ay = 10+4*self.CELL_SIZE  
 
-            self.information_text= _("Attention, ça va commencer !\n\nVous gagnez si vous mettez le serpent KO.\nUtilisez les flèches de direction pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
+            self.information_text= _("Attention, ça va commencer !\n\nVous gagnez si le serpent ne peut plus bouger.\nUtilisez les flèches de direction pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
 
 
             return
