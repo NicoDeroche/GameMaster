@@ -680,7 +680,7 @@ init python:
             renpy.jump("after_bubble_shooter_game")  
 
     def display_end_bubble_shooter_game_text(st, at):
-        return Text( bubble_shooter_game.information_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1 
+        return Text( bubble_shooter_game.information_text, font='gui/jd_code.ttf', size=50, color="#77d079"), .1 
 
     def display_end_bubble_shooter_game_background(st, at):
         if bubble_shooter_game.end_game or bubble_shooter_game.wait_for_start:

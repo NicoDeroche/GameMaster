@@ -543,7 +543,7 @@ style game_menu_label:
 
 style game_menu_label_text:
     size gui.title_text_size
-    color "#3fe635"
+    color "#77d079"
     yalign 0.5
 
 style return_button:

@@ -465,7 +465,7 @@ init python:
             raise renpy.IgnoreEvent()    
 
     def display_end_snake_game_text(st, at):
-            return Text( snake_game.information_text, font='gui/jd_code.ttf', size=50, color="#33e43c"), .1
+            return Text( snake_game.information_text, font='gui/jd_code.ttf', size=50, color="#77d079"), .1
 
     def display_end_snake_game_background(st, at):
         if snake_game.end_game or snake_game.waiting_for_start:

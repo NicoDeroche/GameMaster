@@ -440,8 +440,8 @@ translate english entree_entrepot_691821d8:
 # game/chapter_1.rpy:272
 translate english entree_entrepot_5a4895a5:
 
-    # ed "{i}NOM D'UNE SALSIFIS !{/i}"
-    ed "{i}NOM D'UNE SALSIFIS !{/i}"
+    # ed "{i}NOM D'UN SALSIFIS !{/i}"
+    ed "{i}NOM D'UN SALSIFIS !{/i}"
 
 # game/chapter_1.rpy:273
 translate english entree_entrepot_3793e90e:

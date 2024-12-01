@@ -112,7 +112,7 @@ label start_chapter_2:
 
 screen show_chapter_2 :
 
-    add Text(_("Chapitre 2 : Explosions en série"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    add Text(_("Chapitre 2 : Explosions en série"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
     timer 2 action [Hide("show_chapter_2")]
 
     

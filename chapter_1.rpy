@@ -72,7 +72,7 @@ label start_chapter_1:
     hide smartphone
     stop music
 
-    scene bg maison matin
+   
     show ed pyjama sourire  at left with dissolve
     ed "Oui, allo ?"
     show julie parle at right with dissolve
@@ -265,12 +265,14 @@ label entree_entrepot :
     show ed chemise heureux at right with dissolve
     ed "Trop stylé !"
     scene bg interieur entrepot ter
-    show ed chemise sceptique at right with dissolve
+    show ed chemise heureux at right with dissolve
     play sound snake_coming_sound
+    snake "Sssssssssssssss"
+    show ed chemise sceptique at right with dissolve
  
     ed "Euh... Attends..."
     show ed chemise surpris at right with dissolve
-    ed "{i}NOM D'UNE SALSIFIS !{/i}"
+    ed "{i}NOM D'UN SALSIFIS !{/i}"
     ed "Il veut me bouffer !"
     jump start_snake_game
 
@@ -311,7 +313,7 @@ label after_snake_game:
 
 screen show_chapter_1 :
 
-    add Text(_("Chapitre 1 : Serpent mécanique"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    add Text(_("Chapitre 1 : Serpent mécanique"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
     timer 2 action [Hide("show_chapter_1")]
 
 
@@ -320,7 +322,7 @@ screen end_chapter_1():
 
     
     add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
-    add Text(_("BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#33e43c")  xalign 0.5 yalign 0.5 
+    add Text(_("BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
     textbutton _("Menu principal"):
         style "return_button"
 
