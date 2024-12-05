@@ -78,22 +78,26 @@ label start_chapter_1:
     show julie parle at right with dissolve
     julie "Salut frangin, ça roule ?"
     julie "Je venais juste aux nouvelles..."
-    show ed pyjama sceptique with dissolve
+    show ed pyjama sceptique at left with dissolve
     ed "A propos de quoi ?"
+    show julie surprise at right with dissolve
     julie "Des sélections de {b}Game Master{/b}, bien sûr !"
     julie "Il y a du monde ?"
     ed "Les sélections de Game Mast..."
-    show ed pyjama surpris with dissolve
+    show ed pyjama surpris at left with dissolve
     ed "{i}NOM D'UN CLAFOUTIS !{/i}"
     ed "Mon réveil n'a pas sonné !"
+    show julie colere at right with dissolve
     julie "Tu déconnes !?"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
-    show ed pyjama pense with dissolve
+    show ed pyjama pense  at left with dissolve
     ed "Le rendez-vous est bien dans la zone industrielle ?"
+    show julie surprise at right with dissolve
     julie "Oui, ils ont loué un entrepôt..."
     ed "Alors c'est encore jouable !"
     ed "Je m'habille en vitesse, et je file."
-    show ed pyjama sourire with dissolve
+    show julie parle at right with dissolve
+    show ed pyjama sourire  at left with dissolve
     ed "Je te tiens au courant."
     ed "A plus, frangine !"
     show julie sourire at right with dissolve
