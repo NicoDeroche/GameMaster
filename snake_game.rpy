@@ -23,6 +23,10 @@ init python:
         def __init__(self):
 
             renpy.Displayable.__init__(self)
+
+            #self.logger = logging.getLogger(__name__)
+            #logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
+           
        
             # Set game values
             self.CELL_SIZE = 70
@@ -53,6 +57,7 @@ init python:
             self.py =  10+70*8
             #initial direction
             self.player_direction=DirectionEnum.RIGHT
+            self.player_next_direction=Null
             self.snake_direction=DirectionEnum.LEFT
             
             
@@ -85,7 +90,7 @@ init python:
             # time between images during apple display
             self.APPLE_FRAME_DURATION=0.3
             # time before we show stand image for player
-            self.PLAYER_STANDING=0.5
+            self.PLAYER_STANDING=0.3
             # time between images during player move
             self.PLAYER_MOVE_DURATION=0.1
             
@@ -101,16 +106,17 @@ init python:
 
         # compute image and position of player
         def compute_player_move(self):
+                   
             self.index_player_move=self.index_player_move+1
             self.player = Image("images/snake_game/player_"+self.player_direction.name+"_"+str(self.index_player_move)+".png")
             if(self.player_direction==DirectionEnum.UP):
-                self.py-=self.CELL_SIZE/2
+                self.py-=self.CELL_SIZE/4
             elif(self.player_direction==DirectionEnum.DOWN):
-                self.py+=self.CELL_SIZE/2
+                self.py+=self.CELL_SIZE/4
             elif(self.player_direction==DirectionEnum.LEFT):
-                self.px-=self.CELL_SIZE/2
+                self.px-=self.CELL_SIZE/4
             else:
-                self.px+=self.CELL_SIZE/2
+                self.px+=self.CELL_SIZE/4
 
 
         #victory message
@@ -144,7 +150,7 @@ init python:
 
             # show player second move
             if self.start_player_move >= self.PLAYER_MOVE_DURATION and self.player_moving:
-                if self.index_player_move==1:
+                if self.index_player_move<4:
                     
                     self.start_player_move -= self.PLAYER_MOVE_DURATION
 
@@ -153,6 +159,13 @@ init python:
                     self.last_player_move_accumulated_time=0
                 else :
                     self.player_moving=False
+                    if self.player_next_direction!=Null:
+                        
+                        if not self.check_collide(self.player_next_direction):
+                            self.player_direction=self.player_next_direction
+                            self.initial_player_move()
+                    
+                    self.player_next_direction=Null
 
 
 
@@ -398,71 +411,90 @@ init python:
 
 
             # player move up
-            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN   and ev.key == pygame.K_UP and (self.py != self.ay + self.CELL_SIZE or  self.px!=self.ax):
+            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN   and ev.key == pygame.K_UP :
                 if not self.player_moving:
-                    collide=False
-                    for body in self.sxy:
-                        if (self.py == body[1] + self.CELL_SIZE and self.px==body[0]):
-                            collide=True
-                    
-                    if collide != True:
+                    collide=self.check_collide(DirectionEnum.UP)
+                         
+                    if not collide :
                         self.player_direction=DirectionEnum.UP
                         self.initial_player_move()
+                else:
+                    self.player_next_direction=DirectionEnum.UP
+
                 raise renpy.IgnoreEvent()
 
 
             # player move down
-            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN and (self.py != self.ay - self.CELL_SIZE or self.px!=self.ax ):
+            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN :
                 if not self.player_moving:
-                    collide=False
-                    
-
-                    for body in self.sxy:
-                        if (self.py == body[1] - self.CELL_SIZE and self.px==body[0]):
-                            collide=True
-                    
-                    if collide != True:
+                    collide=self.check_collide(DirectionEnum.DOWN)
+                      
+                    if not collide:
                         self.player_direction=DirectionEnum.DOWN
                         self.initial_player_move()
+                else:
+                    self.player_next_direction=DirectionEnum.DOWN
+
                 raise renpy.IgnoreEvent()
 
 
             # player move right
-            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and (self.px != self.ax - self.CELL_SIZE or self.py!=self.ay):
+            if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT :
                
                 if not self.player_moving:
-                    collide=False
-                    
-                    for body in self.sxy:
-                        if (self.px == body[0] - self.CELL_SIZE and self.py==body[1]):
-                            collide=True
-                    
-                    if collide != True:
+                    collide=self.check_collide(DirectionEnum.RIGHT)
+                                       
+                    if not collide:
                         self.player_direction=DirectionEnum.RIGHT
                         self.initial_player_move()
-                       
+                else:
+                    self.player_next_direction=DirectionEnum.RIGHT    
                         
                 raise renpy.IgnoreEvent()
 
 
             # player move left
-            if not self.end_game and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and (self.px != self.ax + self.CELL_SIZE or self.py!=self.ay):
+            if not self.end_game and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT :
                 
                 if not self.player_moving:
-                    collide=False
+                    collide=self.check_collide(DirectionEnum.LEFT)
                     
-                    for body in self.sxy:
-                        if (self.px == body[0] + self.CELL_SIZE and self.py==body[1]):
-                            collide=True
-                    
-                    if collide != True:
+                    if not collide :
                         self.player_direction=DirectionEnum.LEFT
                         self.initial_player_move()
+                else:
+                    self.player_next_direction=DirectionEnum.LEFT
                 raise renpy.IgnoreEvent()
 
             # Ensure the screen updates
             renpy.restart_interaction()
-            raise renpy.IgnoreEvent()    
+            raise renpy.IgnoreEvent()   
+
+
+        def check_collide(self,direction):
+            if direction==DirectionEnum.LEFT:
+                #check collision with snake
+                for body in self.sxy:
+                    if (self.px == body[0] + self.CELL_SIZE and self.py==body[1]):
+                        return True
+                #check collision with apple
+                return (self.px == self.ax + self.CELL_SIZE and self.py==self.ay)
+            if direction==DirectionEnum.RIGHT:
+                for body in self.sxy:
+                    if (self.px == body[0] - self.CELL_SIZE and self.py==body[1]):
+                        return  True
+                return (self.px == self.ax - self.CELL_SIZE and self.py ==self.ay)
+            if direction==DirectionEnum.UP:
+                for body in self.sxy:
+                    if (self.py == body[1] + self.CELL_SIZE and self.px==body[0]):
+                        return True
+                return (self.py == self.ay + self.CELL_SIZE and self.px==self.ax )
+            if direction==DirectionEnum.DOWN:
+                for body in self.sxy:
+                    if (self.py == body[1] - self.CELL_SIZE and self.px==body[0]):
+                        return True
+                return (self.py == self.ay - self.CELL_SIZE and  self.px==self.ax)
+        
 
     def display_end_snake_game_text(st, at):
             return Text( snake_game.information_text, font='gui/jd_code.ttf', size=50, color="#77d079"), .1

@@ -44,8 +44,8 @@ init python:
         def __init__(self):
 
             renpy.Displayable.__init__(self)
-            self.logger = logging.getLogger(__name__)
-            logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
+            #self.logger = logging.getLogger(__name__)
+            #logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
             
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
@@ -284,7 +284,7 @@ init python:
             
             a = (x2 - x1) / (y2 - y1)
             b = x1 - a * y1
-            self.logger.debug(f'x launch {x1} y launch {y1} x target {x2} y target {y2} a {a} b {b}]')
+            #self.logger.debug(f'x launch {x1} y launch {y1} x target {x2} y target {y2} a {a} b {b}]')
             return (a,b)
 
         #distance a parcourir entre la position de depart et la cible
@@ -450,11 +450,11 @@ init python:
                    
                     #si on est à moins de distance que le rayon (<=> on est dans le cercle)
                     if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
-                        self.logger.debug(f' intersection min avec {row} {col} : {i} {a*i+bmin} {a*i+bmin+(bmax-bmin)/2} {a*i+bmax}, départ : 710  {710*a+bmin}  {710*i+bmin+(bmax-bmin)/2} {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
+                        #self.logger.debug(f' intersection min avec {row} {col} : {i} {a*i+bmin} {a*i+bmin+(bmax-bmin)/2} {a*i+bmax}, départ : 710  {710*a+bmin}  {710*i+bmin+(bmax-bmin)/2} {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
                         return True
                     x_bubble_lancee=a*i+bmax
                     if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
-                        self.logger.debug(f'intersection max avec {row} {col} : {i} {a*i+bmin}  {a*i+bmax}, départ : 710  {710*a+bmin}   {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
+                        #self.logger.debug(f'intersection max avec {row} {col} : {i} {a*i+bmin}  {a*i+bmax}, départ : 710  {710*a+bmin}   {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
                         return True
                 return False
             else:

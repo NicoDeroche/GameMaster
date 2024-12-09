@@ -650,14 +650,14 @@ screen mini_games():
 
            
 
-                button:
-                    action   Jump("start_bubble_shooter_game")  
+                # button:
+                #     action   Jump("start_bubble_shooter_game")  
 
-                    has vbox
+                #     has vbox
 
-                    add "gui/bubble_shooter_game.png" xalign 0.5
-                    text "Bubble Shooter Game\n(version bêta)":
-                        style "slot_name_text"
+                #     add "gui/bubble_shooter_game.png" xalign 0.5
+                #     text "Bubble Shooter Game\n(version bêta)":
+                #         style "slot_name_text"
 
            
 
