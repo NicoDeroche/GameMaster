@@ -87,8 +87,8 @@ label start_chapter_1:
     show ed pyjama surpris at left with dissolve
     ed "{i}NOM D'UN CLAFOUTIS !{/i}"
     ed "Mon réveil n'a pas sonné !"
-    show julie colere at right with dissolve
-    julie "Tu déconnes !?"
+    show julie colere at right with vpunch
+    julie "TU DECONNES !!!?"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
     show ed pyjama pense  at left with dissolve
     ed "Le rendez-vous est bien dans la zone industrielle ?"
@@ -161,12 +161,14 @@ label chaussuresTrouvees :
             jump panne_reveil
         "C'est une longue histoire...":
             jump longue_histoire
-
+    
 label panne_reveil:
+    show chris rire at right with dissolve
     chris "Ha ha, ça arrive toujours au mauvais moment !"
     jump fin_explication
 
 label longue_histoire:
+    show chris rire at right with dissolve
     chris "Ha ha, ça sent la panne de réveil,  ça !"
     jump fin_explication
 
