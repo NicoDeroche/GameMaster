@@ -29,7 +29,7 @@ transform snakePos:
 
     
 transform carPosition:
-    ypos 280
+    ypos 277
     xpos -200
     linear 5 xpos 1500
 
