@@ -166,14 +166,20 @@ init python:
                     self.last_player_move_accumulated_time=0
                 else :
                     self.player_moving=False
-                    if self.player_next_direction!=Null:
+                    #gestion mouvement clavier
+                    if self.player_next_direction!=Null :
                         
                         if not self.check_collide(self.player_next_direction):
                             self.player_direction=self.player_next_direction
                             self.initial_player_move()
                     
-                    self.player_next_direction=Null
+                        self.player_next_direction=Null
 
+                    #gestion mouvement souris
+                    if self.direction_pushed is not None:
+                        if not self.check_collide(self.direction_pushed):
+                            self.player_direction=self.direction_pushed
+                            self.initial_player_move()
 
 
         # This draws the apple
@@ -517,7 +523,7 @@ init python:
 
 
 
-            if ev.type == pygame.MOUSEBUTTONDOWN:
+            if ev.type == pygame.MOUSEBUTTONDOWN and self.should_draw_buttons:
                 if ev.button == 1:  # Left mouse button
                     # Get the mouse position when clicked
                     # we use renpy function instead of pygame fuction because we
@@ -551,6 +557,15 @@ init python:
                     and mouse_y < self.MAX_HEIGHT -  self.BORDER_WIDTH : 
 
                         self.direction_pushed=DirectionEnum.DOWN
+
+                    if self.direction_pushed is not None:
+                        if not self.player_moving:
+                            collide=self.check_collide(self.direction_pushed)
+                            
+                            if not collide :
+                                self.player_direction=self.direction_pushed
+                                self.initial_player_move()
+                        
 
                 raise renpy.IgnoreEvent()
 
