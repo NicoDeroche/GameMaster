@@ -36,6 +36,9 @@ init python:
             self.victory=False
             self.waiting_for_start=True
          
+            self.should_draw_buttons=True
+            #direction button pushed
+            self.direction_pushed=None
 
             # Some displayables we use.
             self.player = Image("images/snake_game/player_stand.png")
@@ -43,13 +46,17 @@ init python:
             self.index_apple=len(self.apple)-1
             self.snake_head=Image("images/snake_game/snake_head_left.png")
             self.snake_head_bite=Image("images/snake_game/snake_head_bite_left.png")
-            
+            self.buttons_idle = [Image("images/snake_game/button_up.png"),Image("images/snake_game/button_up.png"),Image("images/snake_game/button_up.png"),Image("images/snake_game/button_up.png")]
+            self.buttons_pushed = [Image("images/snake_game/button_down.png"),Image("images/snake_game/button_down.png"),Image("images/snake_game/button_down.png"),Image("images/snake_game/button_down.png")]
  
+            self.MAX_HEIGHT=720
+            self.MAX_WIDTH=1280
+            self.BORDER_WIDTH=10
             # limit of the game (border size is 10px)
-            self.PY_MIN = 10
-            self.PY_MAX = 720 - 10 - self.CELL_SIZE 
-            self.PX_MIN = 10
-            self.PX_MAX = 1280 - 10 - self.CELL_SIZE 
+            self.PY_MIN =  self.BORDER_WIDTH
+            self.PY_MAX =  self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE 
+            self.PX_MIN =  self.BORDER_WIDTH
+            self.PX_MAX = self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE 
 
 
             #position of player
@@ -242,6 +249,39 @@ init python:
                 self.snake_accumulated_time -= self.SNAKE_FRAME_DURATION
                 self.process_game_step()
 
+
+        # This draws  buttons
+        def draw_buttons(self, render, width, height, st, at, dtime):
+
+            if self.direction_pushed==DirectionEnum.LEFT:
+                image_to_draw = renpy.render( self.buttons_pushed[DirectionEnum.LEFT.value-1], width, height, st, at)
+            else:
+                image_to_draw = renpy.render( self.buttons_idle[DirectionEnum.LEFT.value-1], width, height, st, at)
+            
+            render.blit(image_to_draw, (self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*3 , self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*2))
+
+            if self.direction_pushed==DirectionEnum.RIGHT:
+                image_to_draw = renpy.render( self.buttons_pushed[DirectionEnum.RIGHT.value-1], width, height, st, at)
+            else:
+                image_to_draw = renpy.render( self.buttons_idle[DirectionEnum.RIGHT.value-1], width, height, st, at)
+            render.blit(image_to_draw, (self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE , self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*2))
+
+            if self.direction_pushed==DirectionEnum.UP:
+                image_to_draw = renpy.render( self.buttons_pushed[DirectionEnum.UP.value-1], width, height, st, at)
+            else:
+                image_to_draw = renpy.render( self.buttons_idle[DirectionEnum.UP.value-1], width, height, st, at)
+            render.blit(image_to_draw, (self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*2 , self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*3))
+
+
+            if self.direction_pushed==DirectionEnum.DOWN:
+                image_to_draw = renpy.render( self.buttons_pushed[DirectionEnum.DOWN.value-1], width, height, st, at)
+            else:
+                image_to_draw = renpy.render( self.buttons_idle[DirectionEnum.DOWN.value-1], width, height, st, at)
+            render.blit(image_to_draw, (self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*2 , self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE))
+
+           
+
+           
         #player should stay in the frame
         def check_player_keep_in(self):
             if self.py < self.PY_MIN:
@@ -358,8 +398,11 @@ init python:
             # player cannot go out
             self.check_player_keep_in()
          
-         
-            # draw everything
+            if self.should_draw_buttons:
+                #draw the buttons
+                self.draw_buttons(render, width, height, st, at,dtime)
+
+            # draw the apple
             self.draw_apple(render, width, height, st, at,dtime)
 
             #hide player if lost
@@ -369,7 +412,7 @@ init python:
 
             self.draw_snake(render, width, height, st, at,dtime)
             
-           
+            
            
             # redraw the screen
             renpy.redraw(self, 0)
@@ -412,6 +455,8 @@ init python:
 
             # player move up
             if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN   and ev.key == pygame.K_UP :
+                #hide direction buttons
+                self.should_draw_buttons=False
                 if not self.player_moving:
                     collide=self.check_collide(DirectionEnum.UP)
                          
@@ -426,6 +471,8 @@ init python:
 
             # player move down
             if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN :
+                #hide direction buttons
+                self.should_draw_buttons=False
                 if not self.player_moving:
                     collide=self.check_collide(DirectionEnum.DOWN)
                       
@@ -440,7 +487,8 @@ init python:
 
             # player move right
             if not self.end_game  and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT :
-               
+                #hide direction buttons
+                self.should_draw_buttons=False
                 if not self.player_moving:
                     collide=self.check_collide(DirectionEnum.RIGHT)
                                        
@@ -455,7 +503,8 @@ init python:
 
             # player move left
             if not self.end_game and not self.waiting_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT :
-                
+                #hide direction buttons
+                self.should_draw_buttons=False
                 if not self.player_moving:
                     collide=self.check_collide(DirectionEnum.LEFT)
                     
@@ -464,6 +513,50 @@ init python:
                         self.initial_player_move()
                 else:
                     self.player_next_direction=DirectionEnum.LEFT
+                raise renpy.IgnoreEvent()
+
+
+
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if ev.button == 1:  # Left mouse button
+                    # Get the mouse position when clicked
+                    # we use renpy function instead of pygame fuction because we
+                    # want the virtual position (virtual width=1280,virtual height=720)
+                    mouse_x, mouse_y = renpy.get_mouse_pos()
+                    #self.logger.debug(f'{mouse_x} ')
+                    if  mouse_x > self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*3  \
+                    and mouse_x < self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*2  \
+                    and mouse_y > self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*2 \
+                    and mouse_y < self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*1: 
+
+                        self.direction_pushed=DirectionEnum.LEFT
+                    
+                    if  mouse_x > self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE  \
+                    and mouse_x < self.MAX_WIDTH -  self.BORDER_WIDTH   \
+                    and mouse_y > self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*2 \
+                    and mouse_y < self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*1: 
+
+                        self.direction_pushed=DirectionEnum.RIGHT
+
+                    if  mouse_x > self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*2  \
+                    and mouse_x < self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE  \
+                    and mouse_y > self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*3 \
+                    and mouse_y < self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE*2: 
+
+                        self.direction_pushed=DirectionEnum.UP
+
+                    if  mouse_x > self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE*2  \
+                    and mouse_x < self.MAX_WIDTH -  self.BORDER_WIDTH - self.CELL_SIZE  \
+                    and mouse_y > self.MAX_HEIGHT -  self.BORDER_WIDTH - self.CELL_SIZE \
+                    and mouse_y < self.MAX_HEIGHT -  self.BORDER_WIDTH : 
+
+                        self.direction_pushed=DirectionEnum.DOWN
+
+                raise renpy.IgnoreEvent()
+
+            if ev.type == pygame.MOUSEBUTTONUP:
+                if ev.button == 1:  # Left mouse button
+                    self.direction_pushed=None
                 raise renpy.IgnoreEvent()
 
             # Ensure the screen updates
@@ -505,6 +598,8 @@ init python:
         else :
             return Null(width=0), .1
 
+
+
 default snake_game = SnakeGameDisplayable()
 
 
@@ -519,7 +614,7 @@ label start_snake_game:
 #start snake game
 screen snake_game():
     add "images/snake_game/background_snake.png"
-    add snake_game
+    add snake_game 
     add DynamicDisplayable(display_end_snake_game_background) 
     add DynamicDisplayable(display_end_snake_game_text) xalign 0.5 yalign 0.5 
     

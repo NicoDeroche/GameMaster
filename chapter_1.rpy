@@ -84,7 +84,7 @@ label start_chapter_1:
     julie "Des sélections de {b}Game Master{/b}, bien sûr !"
     julie "Il y a du monde ?"
     ed "Les sélections de Game Mast..."
-    show ed pyjama surpris at left with dissolve
+    show ed pyjama surpris at left with vpunch
     ed "{i}NOM D'UN CLAFOUTIS !{/i}"
     ed "Mon réveil n'a pas sonné !"
     show julie colere at right with vpunch
@@ -277,7 +277,7 @@ label entree_entrepot :
     show ed chemise sceptique at right with dissolve
  
     ed "Euh... Attends..."
-    show ed chemise surpris at right with dissolve
+    show ed chemise surpris at right with vpunch
     ed "{i}NOM D'UN SALSIFIS !{/i}"
     ed "Il veut me bouffer !"
     jump start_snake_game
@@ -306,7 +306,7 @@ label after_snake_game:
         sylvie "Il me reste quelques candidats à faire passer."
         sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
-        show ed chemise surpris at right with dissolve
+        show ed chemise surpris at right with vpunch
         ed "{i}NOM D'UN OUISTITI !{/i}"
         ed "Je n'ai pas pris de sac !"
 
