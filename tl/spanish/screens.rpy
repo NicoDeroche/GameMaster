@@ -146,8 +146,8 @@ translate spanish strings:
     new "El historial de diálogos está vacío."
 
     # game/screens.rpy:1068
-    old "Entrée ou Espace\nClic gauche"
-    new "Intro o Espacio\Clic izquierdo"
+    old "Touche Entrée\nEspace\nClic gauche"
+    new "Tecla Intro\nEspacio\nClic izquierdo"
 
     # game/screens.rpy:1069
     old "Avancer dans les dialogues"
@@ -166,7 +166,7 @@ translate spanish strings:
     new "Seleccionar un elemento en el fondo"
 
     # game/screens.rpy:1080
-    old "Echap"
+    old "Touche Echap ou Clic GM"
     new "Esc"
 
     # game/screens.rpy:1081

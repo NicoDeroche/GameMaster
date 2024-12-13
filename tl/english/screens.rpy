@@ -149,8 +149,8 @@ translate english strings:
     new "The dialog history is empty."
 
     # game/screens.rpy:1068
-    old "Entrée ou Espace\nClic gauche"
-    new "Enter or Space\nLeft click"
+    old "Touche Entrée\nEspace\nClic gauche"
+    new "Enter or Space key\nLeft click"
 
     # game/screens.rpy:1069
     old "Avancer dans les dialogues"
@@ -169,8 +169,8 @@ translate english strings:
     new "Select an element in the background"
 
     # game/screens.rpy:1080
-    old "Echap"
-    new "Esc"
+    old "Touche Echap ou Clic GM"
+    new "Esc key or click GM"
 
     # game/screens.rpy:1081
     old "Ouvrir le menu de sauvegarde"

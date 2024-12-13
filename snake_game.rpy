@@ -46,8 +46,8 @@ init python:
             self.index_apple=len(self.apple)-1
             self.snake_head=Image("images/snake_game/snake_head_left.png")
             self.snake_head_bite=Image("images/snake_game/snake_head_bite_left.png")
-            self.buttons_idle = [Image("images/snake_game/button_up.png"),Image("images/snake_game/button_up.png"),Image("images/snake_game/button_up.png"),Image("images/snake_game/button_up.png")]
-            self.buttons_pushed = [Image("images/snake_game/button_down.png"),Image("images/snake_game/button_down.png"),Image("images/snake_game/button_down.png"),Image("images/snake_game/button_down.png")]
+            self.buttons_idle = [Image("images/snake_game/left_idle.png"),Image("images/snake_game/right_idle.png"),Image("images/snake_game/up_idle.png"),Image("images/snake_game/down_idle.png")]
+            self.buttons_pushed = [Image("images/snake_game/left_pushed.png"),Image("images/snake_game/right_pushed.png"),Image("images/snake_game/up_pushed.png"),Image("images/snake_game/down_pushed.png")]
  
             self.MAX_HEIGHT=720
             self.MAX_WIDTH=1280
@@ -106,7 +106,7 @@ init python:
             self.ax = 10+ 8*self.CELL_SIZE
             self.ay = 10+4*self.CELL_SIZE  
 
-            self.information_text= _("Attention, ça va commencer !\n\nVous gagnez si le serpent ne peut plus bouger.\nUtilisez les flèches de direction pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
+            self.information_text= _("Attention, ça va commencer !\n\nVous gagnez si le serpent ne peut plus bouger.\nUtilisez les flèches du clavier ou les boutons pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
 
 
             return
@@ -132,7 +132,7 @@ init python:
                 #you won !
                 self.end_game=True
                 self.victory=True
-                self.information_text=_("GAGNÉ !\nAppuyez sur Entrée")
+                self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
 
 
         # This draws the player.
@@ -307,9 +307,9 @@ init python:
                     renpy.sound.play(snake_eating_sound)
                     self.end_game=True
                     if mini_game==True:
-                        self.information_text=_("PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour quitter")
+                        self.information_text=_("PERDU !\nAppuyez sur Entrée ou Clic Gauche pour rejouer.\nAppuyez sur Echap ou Clic GM pour quitter.")
                     else:
-                        self.information_text=_("PERDU !\nAppuyez sur Entrée pour rejouer\nou Echap pour poursuivre l'histoire")
+                        self.information_text=_("PERDU !\nAppuyez sur Entrée ou Clic Gauche pour rejouer.\nAppuyez sur Echap ou Clic GM pour poursuivre l'histoire.")
 
 
         def check_apple_bite(self):
@@ -615,6 +615,8 @@ init python:
 
 
 
+
+
 default snake_game = SnakeGameDisplayable()
 
 
@@ -632,5 +634,16 @@ screen snake_game():
     add snake_game 
     add DynamicDisplayable(display_end_snake_game_background) 
     add DynamicDisplayable(display_end_snake_game_text) xalign 0.5 yalign 0.5 
+    imagebutton:
+        # Chemin vers votre image
+        idle "gui/overlay/menu_button_idle.png"
+        hover "gui/overlay/menu_button_hover.png"
+        
+        # Position du bouton
+        xalign 0.99
+        yalign 0.01
+        
+        # Action à réaliser lors du clic
+        action Function(snake_game.show_next_screen)
     
    

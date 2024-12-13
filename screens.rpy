@@ -258,11 +258,24 @@ screen quick_menu():
             textbutton _("Chargement R.") action QuickLoad()
             textbutton _("Préf.") action ShowMenu('preferences')
 
+screen custom_controls():
+    imagebutton:
+        # Chemin vers votre image
+        idle "gui/overlay/menu_button_idle.png"
+        hover "gui/overlay/menu_button_hover.png"
+        
+        # Position du bouton
+        xalign 0.99
+        yalign 0.01
+        
+        # Action à réaliser lors du clic
+        action ShowMenu("save")
 
 ## Ce code garantit que le menu d’accès rapide sera affiché dans le jeu, tant
 ## que le joueur n’aura pas explicitement demandé à cacher l’interface.
 init python:
     config.overlay_screens.append("quick_menu")
+    config.overlay_screens.append("custom_controls")
 
 default quick_menu = False
 
@@ -480,19 +493,22 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
                     transclude
 
     if not main_menu:
-        use navigation
-
-
-
-            
-    textbutton _("Menu principal"):
-        style "return_button"
-
-        action MainMenu()
-
-    if main_menu:
+       
         textbutton _("Retour"):
             style "return_button"
+
+            action Return()
+
+        textbutton _("Menu principal"):
+            style "main_menu_button"
+
+            action MainMenu()
+
+    
+    else:
+        textbutton _("Retour"):
+            #bouton le plus bas
+            style "main_menu_button"
 
             action Return()
 
@@ -514,6 +530,8 @@ style game_menu_label_text is navigation_button_text
 
 style return_button is navigation_button
 style return_button_text is navigation_button_text
+style main_menu_button is navigation_button
+style main_menu_button_text is navigation_button_text
 
 style game_menu_outer_frame:
     bottom_padding 30
@@ -547,6 +565,12 @@ style game_menu_label_text:
     yalign 0.5
 
 style return_button:
+    xpos gui.navigation_xpos
+    yalign 1.0
+    yoffset -140
+
+
+style main_menu_button:
     xpos gui.navigation_xpos
     yalign 1.0
     yoffset -60
@@ -1066,7 +1090,7 @@ screen help():
             spacing 15
 
             hbox:
-                label _("Entrée ou Espace\nClic gauche")
+                label _("Touche Entrée\nEspace\nClic gauche")
                 text _("Avancer dans les dialogues")
 
             hbox:
@@ -1078,7 +1102,7 @@ screen help():
                 text _("Sélectionner un élément dans le décor")
 
             hbox:
-                label _("Echap")
+                label _("Touche Echap ou Clic GM")
                 text _("Ouvrir le menu de sauvegarde")
 
             #     #textbutton _("Clavier") action SetScreenVariable("device", "keyboard")

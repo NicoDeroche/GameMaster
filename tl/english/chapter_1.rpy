@@ -547,4 +547,4 @@ translate english strings:
 
     # game/chapter_1.rpy:318
     old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-    new "WONDERFUL !!!!\n\nYou've completed Chapter 1 of Game Master!\nChapter 2 is currently in development...\n\nThank you for playing this game!\nIf you liked it, please post a comment on itch.io, it'll give me a boost!"
+    new "WONDERFUL!!!!\n\nYou've completed Chapter 1 of Game Master!\nChapter 2 is currently in development...\n\nThank you for playing this game!\nIf you liked it, please post a comment on itch.io, it'll give me a boost!"
