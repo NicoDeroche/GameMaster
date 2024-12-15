@@ -180,8 +180,9 @@ label fin_explication:
     sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de la zone Ouest."
     sylvie "Vous pouvez me donner vos noms ?"
     hide sylvie
-    show chris bras croises at right with dissolve
+    show chris mains hanche at right with dissolve
     chris "Bien sûr ! Je suis {b}Christophe Tonga{/b}."
+    show chris mains poches at right with dissolve
     show ed chemise sourire at left with dissolve
     ed "Et moi {b}Edouard Pinson{/b}."
     hide ed
@@ -215,6 +216,7 @@ label fin_explication:
     sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
     show chris bras leves at right with dissolve
     chris "Ok, je vais me donner à fond !"
+    show chris mains hanche at right with dissolve
     sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     sylvie "Si vous remportez l'épreuve, vous serez qualifiés."
     sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."

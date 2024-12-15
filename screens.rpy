@@ -506,7 +506,7 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     
     else:
-        textbutton _("Retour"):
+        textbutton _("Menu principal"):
             #bouton le plus bas
             style "main_menu_button"
 
