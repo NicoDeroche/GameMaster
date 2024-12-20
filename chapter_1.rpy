@@ -88,7 +88,7 @@ label start_chapter_1:
     ed "{i}NOM D'UN CLAFOUTIS !{/i}"
     ed "Mon réveil n'a pas sonné !"
     show julie colere at right with vpunch
-    julie "TU DECONNES !!!?"
+    julie "TU RIGOLES ?!!!"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
     show ed pyjama pense  at left with dissolve
     ed "Le rendez-vous est bien dans la zone industrielle ?"
@@ -258,19 +258,19 @@ label entree_entrepot :
     scene bg interieur entrepot
     #show apple big at applePos with dissolve
     #show snake at snakePos with dissolve
-    show ed chemise heureux at right with dissolve
+    show ed chemise grand sourire at right with dissolve
     ed "J'hallucine !\nUn robot serpent !"
     show ed chemise pense at right with dissolve
     ed "Il y a aussi une pomme..."
     ed "C'est comme dans ce vieux jeu sur portable."
     scene bg interieur entrepot bis
-    show ed chemise sourire at right with dissolve
+    show ed chemise grand sourire at right with dissolve
     play sound snake_coming_sound
     snake "Sssssssssssssss"
     #show snake at snakeMove
-  
-    ed "Et en plus il fait du bruit et il bouge !"
     show ed chemise heureux at right with dissolve
+    ed "Et en plus il fait du bruit et il bouge !"
+    
     ed "Trop stylé !"
     scene bg interieur entrepot ter
     show ed chemise heureux at right with dissolve

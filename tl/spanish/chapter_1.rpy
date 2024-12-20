@@ -74,8 +74,8 @@ translate spanish start_chapter_1_f6c67b9d:
 # game/chapter_1.rpy:89
 translate spanish start_chapter_1_5f144f68:
 
-    # julie "Tu déconnes !?"
-    julie "¿Me estás tomando el pelo?"
+    # julie "TU RIGOLES ?!!!"
+    julie "¡¿ESTÁS DE BROMA?!"
 
 # game/chapter_1.rpy:90
 translate spanish start_chapter_1_04b7396e:

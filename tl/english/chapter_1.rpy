@@ -74,8 +74,8 @@ translate english start_chapter_1_f6c67b9d:
 # game/chapter_1.rpy:89
 translate english start_chapter_1_5f144f68:
 
-    # julie "Tu déconnes !?"
-    julie "Are you kidding me?"
+    # julie "TU RIGOLES ?!!!"
+    julie "ARE YOU KIDDING ME?!!!"
 
 # game/chapter_1.rpy:90
 translate english start_chapter_1_04b7396e:
