@@ -71,11 +71,7 @@ translate english start_chapter_1_f6c67b9d:
     # ed "Mon réveil n'a pas sonné !"
     ed "My alarm didn't go off!"
 
-# game/chapter_1.rpy:89
-translate english start_chapter_1_5f144f68:
 
-    # julie "TU RIGOLES ?!!!"
-    julie "ARE YOU KIDDING ME?!!!"
 
 # game/chapter_1.rpy:90
 translate english start_chapter_1_04b7396e:
@@ -547,4 +543,23 @@ translate english strings:
 
     # game/chapter_1.rpy:318
     old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-    new "WONDERFUL!!!!\n\nYou've completed Chapter 1 of Game Master!\nChapter 2 is currently in development...\n\nThank you for playing this game!\nIf you liked it, please post a comment on itch.io, it'll give me a boost!"
+    new "WONDERFUL!!!!\n\nYou've completed Chapter 1 of Game Master!\nChapter 2 is currently in development...\n\nThank you for playing this game!\nIf you liked it, please post a comment on itch.io, it'll give me a boost!"# TODO: Translation updated at 2024-12-20 08:46
+
+# game/chapter_1.rpy:91
+translate english start_chapter_1_b5761dd1:
+
+    # julie "TU RIGOLES ?!!!"
+    julie "ARE YOU KIDDING ?!!!"
+
+# game/chapter_1.rpy:278
+translate english entree_entrepot_12e9454a_1:
+
+    # snake "Sssssssssssssss"
+    snake "Sssssssssssssss"
+
+# game/chapter_1.rpy:283
+translate english entree_entrepot_6495fa4e:
+
+    # ed "{i}NOM D'UN SALSIFIS !{/i}"
+    ed "{i}NOM D'UN SALSIFIS !{/i}"
+

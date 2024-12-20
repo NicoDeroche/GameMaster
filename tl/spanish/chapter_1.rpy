@@ -71,11 +71,7 @@ translate spanish start_chapter_1_f6c67b9d:
     # ed "Mon réveil n'a pas sonné !"
     ed "¡Mi alarma no sonó!"
 
-# game/chapter_1.rpy:89
-translate spanish start_chapter_1_5f144f68:
 
-    # julie "TU RIGOLES ?!!!"
-    julie "¡¿ESTÁS DE BROMA?!"
 
 # game/chapter_1.rpy:90
 translate spanish start_chapter_1_04b7396e:
@@ -543,3 +539,23 @@ translate spanish strings:
     # game/chapter_1.rpy:318
     old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
     new "BRAVO ¡¡¡¡\nHa completado el capítulo 1 de Game Master!\nEl capítulo 2 está en desarrollo...\n\n¡Gracias por jugar a este juego!\nSi te ha gustado, por favor, publica un comentario en itch.io, ¡me dará un empujón!"
+# TODO: Translation updated at 2024-12-20 08:48
+
+# game/chapter_1.rpy:91
+translate spanish start_chapter_1_b5761dd1:
+
+    # julie "TU RIGOLES ?!!!"
+    julie "¡¿ESTÁS DE BROMA?!"
+
+# game/chapter_1.rpy:278
+translate spanish entree_entrepot_12e9454a_1:
+
+    # snake "Sssssssssssssss"
+    snake "Sssssssssssssss"
+
+# game/chapter_1.rpy:283
+translate spanish entree_entrepot_6495fa4e:
+
+    # ed "{i}NOM D'UN SALSIFIS !{/i}"
+    ed "{i}NOM D'UN SALSIFIS !{/i}"
+

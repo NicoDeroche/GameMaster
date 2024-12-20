@@ -270,3 +270,11 @@ translate spanish start_chapter_2_787c0de3:
     # ed "Je vais essayer.\nA plus, sister !"
     ed "Je vais essayer.\nA plus, sister !"
 
+# TODO: Translation updated at 2024-12-20 08:48
+
+translate spanish strings:
+
+    # game/chapter_2.rpy:115
+    old "Chapitre 2 : Explosions en série"
+    new "Chapitre 2 : Explosions en série"
+
