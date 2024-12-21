@@ -549,7 +549,7 @@ translate english strings:
 translate english start_chapter_1_b5761dd1:
 
     # julie "TU RIGOLES ?!!!"
-    julie "ARE YOU KIDDING ?!!!"
+    julie "ARE YOU KIDDING?!!!"
 
 # game/chapter_1.rpy:278
 translate english entree_entrepot_12e9454a_1:
