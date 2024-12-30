@@ -175,9 +175,10 @@ label longue_histoire:
 label fin_explication:
     hide ed
     hide chris
-    show sylvie sourire with dissolve
+    show sylvie deux mains tablette with dissolve
     sylvie "Bonjour messieurs !"
     sylvie "Je me présente : {b}Sylvie Cristal{/b} !\nJ'organise les sélections de la zone Ouest."
+    show sylvie ecrit with dissolve
     sylvie "Vous pouvez me donner vos noms ?"
     hide sylvie
     show chris mains hanche at right with dissolve
@@ -187,13 +188,13 @@ label fin_explication:
     ed "Et moi {b}Edouard Pinson{/b}."
     hide ed
     hide chris
-    show sylvie ecrit with dissolve
-    sylvie "Très bien, c'est noté !"
     show sylvie sourire with dissolve
+    sylvie "Très bien, c'est noté !"
+    show sylvie deux mains tablette with dissolve
     sylvie "Veuillez me suivre, nous allons rejoindre les autres candidats."
 
     scene bg entrepot
-    show sylvie sourire at left with dissolve
+    show sylvie deux mains tablette with dissolve
     sylvie "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
     sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de la robotique."
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
