@@ -194,7 +194,7 @@ label fin_explication:
     sylvie "Veuillez me suivre, nous allons rejoindre les autres candidats."
 
     scene bg entrepot
-    show sylvie deux mains tablette with dissolve
+    show sylvie deux mains tablette at left with dissolve
     sylvie "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
     sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de la robotique."
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
@@ -331,7 +331,7 @@ screen end_chapter_1():
 
     
     add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
-    add Text(_("BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
+    add Text(_("GENIAL !!!!\nVous avez terminé le Chapitre 1 de Game Master !\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, si vous en voulez plus,\nmerci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
     textbutton _("Menu principal"):
         style "main_menu_button"
 

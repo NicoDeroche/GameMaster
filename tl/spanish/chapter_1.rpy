@@ -537,8 +537,8 @@ translate spanish strings:
     new "Capítulo 1: Serpiente mecánica"
 
     # game/chapter_1.rpy:318
-    old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-    new "BRAVO ¡¡¡¡\nHa completado el capítulo 1 de Game Master!\nEl capítulo 2 está en desarrollo...\n\n¡Gracias por jugar a este juego!\nSi te ha gustado, por favor, publica un comentario en itch.io, ¡me dará un empujón!"
+    old "GENIAL !!!!\nVous avez terminé le Chapitre 1 de Game Master !\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, si vous en voulez plus,\nmerci de mettre un commentaire sur itch.io, ça me boostera !"
+    new "¡¡¡¡IMPRESIONANTE!!!!\n¡Ha completado el capítulo 1 de Game Master!\n\n¡Gracias por jugar a este juego!\nSi te ha gustado, si quieres más,\npor favor, publica un comentario en itch.io, ¡me dará un empujón!"
 # TODO: Translation updated at 2024-12-20 08:48
 
 # game/chapter_1.rpy:91

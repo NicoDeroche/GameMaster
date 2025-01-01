@@ -542,8 +542,8 @@ translate english strings:
     new "All right, I'll sign."
 
     # game/chapter_1.rpy:318
-    old "BRAVO !!!!\nVous avez terminé le Chapitre 1 de Game Master !\nLe Chapitre 2 est en cours de développement...\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, merci de mettre un commentaire sur itch.io, ça me boostera !"
-    new "WONDERFUL!!!!\n\nYou've completed Chapter 1 of Game Master!\nChapter 2 is currently in development...\n\nThank you for playing this game!\nIf you liked it, please post a comment on itch.io, it'll give me a boost!"# TODO: Translation updated at 2024-12-20 08:46
+    old "GENIAL !!!!\nVous avez terminé le Chapitre 1 de Game Master !\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, si vous en voulez plus,\nmerci de mettre un commentaire sur itch.io, ça me boostera !"
+    new "AWESOME!!!!\n\nYou've completed Chapter 1 of Game Master!\n\nThank you for playing this game!\nIf you liked it, if you want more,\nplease post a comment on itch.io, it'll give me a boost!"
 
 # game/chapter_1.rpy:91
 translate english start_chapter_1_b5761dd1:
