@@ -212,12 +212,12 @@ label fin_explication:
 
     sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
     hide ed
-    show chris mains poches at right with dissolve
-    chris "Et quel est le prix pour le gagnant ?"
-    sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
+    show chris mains hanche at right with dissolve
+    chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
+    sylvie "Tout à fait."
     show chris bras leves at right with dissolve
     chris "Ok, je vais me donner à fond !"
-    show chris mains hanche at right with dissolve
+    show chris mains poches at right with dissolve
     sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     sylvie "Si vous remportez l'épreuve, vous serez qualifiés."
     sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."

@@ -301,17 +301,7 @@ translate spanish fin_explication_5053a701:
     # sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
     sylvie "Tu mente y tu cuerpo se pondrán a prueba, eso seguro."
 
-# game/chapter_1.rpy:207
-translate spanish fin_explication_21a97016:
 
-    # chris "Et quel est le prix pour le gagnant ?"
-    chris "¿Y cuál es el premio para el ganador?"
-
-# game/chapter_1.rpy:208
-translate spanish fin_explication_47897918:
-
-    # sylvie "Le gagnant de la compétition remportera la somme de\n{b}100 000 €{/b}."
-    sylvie "El ganador del concurso se llevará {b}100.000 euros{/b}."
 
 # game/chapter_1.rpy:210
 translate spanish fin_explication_ada34e50:
@@ -558,4 +548,21 @@ translate spanish entree_entrepot_6495fa4e:
 
     # ed "{i}NOM D'UN SALSIFIS !{/i}"
     ed "{i}NOM D'UN SALSIFIS !{/i}"
+
+
+
+# game/chapter_1.rpy:217
+translate spanish fin_explication_90322c1f:
+
+    # sylvie "Tout à fait."
+    sylvie "Absolutamente."
+
+
+# TODO: Translation updated at 2025-01-02 09:17
+
+# game/chapter_1.rpy:216
+translate spanish fin_explication_c4b2d259:
+
+    # chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
+    chris "El ganador del concurso se va a casa con {b}100.000€{/b},¿verdad?"
 

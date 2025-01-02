@@ -715,6 +715,15 @@
             120
         ]
     },
+    "fin_explication_7fda2222": {
+        "area": [
+            426,
+            30,
+            426,
+            180
+        ],
+        "properties": "bottom_right"
+    },
     "fin_explication_9430b95d": {
         "area": [
             320,
@@ -747,6 +756,9 @@
             150
         ]
     },
+    "fin_explication_ada34e50": {
+        "properties": "bottom_right"
+    },
     "fin_explication_b2be698a": {
         "area": [
             693,
@@ -763,6 +775,15 @@
             426,
             150
         ]
+    },
+    "fin_explication_c4b2d259": {
+        "area": [
+            426,
+            30,
+            426,
+            150
+        ],
+        "properties": "bottom_right"
     },
     "fin_explication_c597580a": {
         "area": [
