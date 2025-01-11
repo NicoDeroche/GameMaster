@@ -33,12 +33,12 @@
     },
     "after_snake_game_2b301e32": {
         "area": [
-            693,
-            30,
+            426,
+            60,
             266,
             120
         ],
-        "properties": "bottom_right"
+        "properties": "bottom_left"
     },
     "after_snake_game_37ae0c0f": {
         "area": [
@@ -66,9 +66,9 @@
     },
     "after_snake_game_5bd09bea": {
         "area": [
-            320,
-            30,
             426,
+            30,
+            373,
             120
         ]
     },
@@ -82,12 +82,12 @@
     },
     "after_snake_game_703d47b2": {
         "area": [
-            373,
+            480,
             30,
-            426,
+            320,
             150
         ],
-        "properties": "bottom_left"
+        "properties": "bottom_right"
     },
     "after_snake_game_75150f3d": {
         "area": [
@@ -115,20 +115,20 @@
     },
     "after_snake_game_93bda53e": {
         "area": [
-            586,
-            30,
             373,
-            120
+            60,
+            320,
+            150
         ]
     },
     "after_snake_game_a0e0bc88": {
         "area": [
-            53,
+            960,
             60,
-            320,
-            120
+            266,
+            150
         ],
-        "properties": "bottom_left"
+        "properties": "bottom_right"
     },
     "after_snake_game_b47a9bfb": {
         "area": [
@@ -148,9 +148,9 @@
     },
     "after_snake_game_c4f6d625": {
         "area": [
-            320,
-            30,
             426,
+            30,
+            373,
             120
         ]
     },
@@ -189,10 +189,10 @@
     },
     "again_entree_d3336bf3": {
         "area": [
-            533,
+            320,
             60,
             426,
-            120
+            150
         ]
     },
     "chaussuresTrouvees_1c78780d": {
@@ -493,10 +493,18 @@
     },
     "entree_entrepot_1aec4c98": {
         "area": [
-            373,
-            60,
-            373,
-            120
+            533,
+            30,
+            266,
+            150
+        ]
+    },
+    "entree_entrepot_4d7a4408": {
+        "area": [
+            480,
+            30,
+            320,
+            150
         ]
     },
     "entree_entrepot_5a4895a5": {
@@ -610,21 +618,21 @@
     },
     "fin_explication_115860ee": {
         "area": [
-            373,
-            60,
             426,
-            150
+            30,
+            373,
+            210
         ],
-        "properties": "bottom_left"
+        "properties": "bottom_right"
     },
     "fin_explication_1530ef9d": {
         "area": [
-            320,
+            480,
             30,
-            479,
+            373,
             150
         ],
-        "properties": "bottom_left"
+        "properties": "bottom_right"
     },
     "fin_explication_1fee6efd": {
         "area": [
@@ -645,10 +653,10 @@
     },
     "fin_explication_25477b55": {
         "area": [
-            320,
+            480,
             30,
-            319,
-            120
+            320,
+            150
         ]
     },
     "fin_explication_3d34ba77": {
@@ -661,9 +669,9 @@
     },
     "fin_explication_3de7c535": {
         "area": [
-            320,
-            30,
             480,
+            60,
+            373,
             120
         ]
     },
@@ -699,6 +707,14 @@
             150
         ]
     },
+    "fin_explication_62dc66bd": {
+        "area": [
+            480,
+            30,
+            373,
+            150
+        ]
+    },
     "fin_explication_6ad57729": {
         "area": [
             320,
@@ -715,6 +731,14 @@
             120
         ]
     },
+    "fin_explication_7c9c8d9c": {
+        "area": [
+            320,
+            30,
+            373,
+            120
+        ]
+    },
     "fin_explication_7fda2222": {
         "area": [
             426,
@@ -723,6 +747,14 @@
             180
         ],
         "properties": "bottom_right"
+    },
+    "fin_explication_90322c1f": {
+        "area": [
+            533,
+            30,
+            320,
+            150
+        ]
     },
     "fin_explication_9430b95d": {
         "area": [
@@ -750,23 +782,29 @@
     },
     "fin_explication_a8c21cd4": {
         "area": [
-            320,
-            60,
+            426,
+            30,
             426,
             150
         ]
     },
     "fin_explication_ada34e50": {
-        "properties": "bottom_right"
+        "area": [
+            533,
+            30,
+            320,
+            150
+        ],
+        "properties": "bottom_left"
     },
     "fin_explication_b2be698a": {
         "area": [
-            693,
+            320,
             60,
             266,
             120
         ],
-        "properties": "bottom_right"
+        "properties": "bottom_left"
     },
     "fin_explication_be0da7e7": {
         "area": [
@@ -778,12 +816,12 @@
     },
     "fin_explication_c4b2d259": {
         "area": [
-            426,
+            373,
             30,
             426,
             150
         ],
-        "properties": "bottom_right"
+        "properties": "bottom_left"
     },
     "fin_explication_c597580a": {
         "area": [
@@ -820,19 +858,19 @@
     },
     "fin_explication_d5646cea": {
         "area": [
-            586,
+            320,
             30,
             373,
             120
         ],
-        "properties": "bottom_right"
+        "properties": "bottom_left"
     },
     "fin_explication_e3ff4dd0": {
         "area": [
-            320,
+            480,
             30,
-            533,
-            120
+            373,
+            180
         ]
     },
     "fin_explication_edaa6b67": {
@@ -846,10 +884,10 @@
     },
     "fin_explication_fc9c0971": {
         "area": [
-            373,
-            60,
             426,
-            180
+            30,
+            426,
+            210
         ]
     },
     "panne_reveil_efe746d1": {

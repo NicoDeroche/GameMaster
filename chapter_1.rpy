@@ -151,6 +151,7 @@ label chaussuresTrouvees :
     chris "Toi aussi tu es à la bourre ?"
     show chris bras croises at right with dissolve
     chris "Ma voiture est tombée en panne à 10 kms d'ici."
+    show ed chemise sceptique at left with dissolve
     chris "J'ai été obligé de venir en courant..."
     show chris mains poches at right with dissolve
     chris "Et toi, qu'est-ce qui t'est arrivé ?"
@@ -194,45 +195,46 @@ label fin_explication:
     sylvie "Veuillez me suivre, nous allons rejoindre les autres candidats."
 
     scene bg entrepot
-    show sylvie deux mains tablette at left with dissolve
+    show sylvie deux mains tablette at right with dissolve
     sylvie "Messieurs dames,\nles sélections de {b}Game Master{/b} vont commencer !"
     sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de la robotique."
+    show sylvie une main tablette at right with dissolve
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
-    show ed chemise heureux at right with dissolve
+    show ed chemise heureux at left with dissolve
     ed "Des robots géants, c'est trop cool !"
-    show ed chemise main levee at right with dissolve
+    show ed chemise main levee at left with dissolve
     ed "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
     sylvie "Je pense qu'il y a méprise..."
-    show ed chemise sceptique at right with dissolve
+    show ed chemise sceptique at left with dissolve
     sylvie "Pour que ce soit plus fun, les épreuves sont inspirées de jeux vidéo célèbres."
     sylvie "Mais les créatures que vous affronterez seront bien réelles !"
-    show ed chemise surpris at right with dissolve
+    show ed chemise surpris at left with dissolve
     ed "Ah... Ce n'est pas un peu dangereux ?"
 
 
     sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
     hide ed
-    show chris mains hanche at right with dissolve
+    show chris mains hanche at left with dissolve
     chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
     sylvie "Tout à fait."
-    show chris bras leves at right with dissolve
+    show chris bras leves at left with dissolve
     chris "Ok, je vais me donner à fond !"
-    show chris mains poches at right with dissolve
+    show chris mains poches at left with dissolve
     sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     sylvie "Si vous remportez l'épreuve, vous serez qualifiés."
     sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
 
     scene bg entree entrepot with Pixellate(3,5)
-    show sylvie ecrit at left with dissolve
+    show sylvie ecrit at right with dissolve
     sylvie "Candidat suivant : Edouard Pinson !"
-    show ed chemise sourire at right with dissolve
+    show ed chemise sourire at left with dissolve
     ed "Je suis là..."
-    show sylvie sourire at left with dissolve
+    show sylvie sourire at right with dissolve
     sylvie "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
-    show ed chemise surpris at right with dissolve
+    show ed chemise surpris at left with dissolve
     ed "D'accident ?"
     sylvie "Je vous l'ai dit, cette compétition n'est pas sans risque."
-    show ed chemise pense at right with dissolve
+    show ed chemise pense at left with dissolve
     menu:
         "Ok, je signe.\n Si c'est basé sur les jeux vidéo, j'ai mes chances.":
             jump entree_entrepot
@@ -253,7 +255,7 @@ label again_entree :
             jump again_entree
 
 label entree_entrepot :
-    show ed chemise sourire at right with dissolve
+    show ed chemise sourire at left with dissolve
     sylvie "Merci, tout est en ordre."
     sylvie "Amusez-vous bien !"
     scene bg interieur entrepot
@@ -293,23 +295,23 @@ label after_snake_game:
     window auto  
     if mini_game==False:
         scene bg entree entrepot
-        show sylvie sourire at left with dissolve
-        show ed chemise sourire at right with dissolve
+        show sylvie sourire at right with dissolve
+        show ed chemise sourire at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
         hide sylvie
         chris "Bien joué mec !"
-        show chris bras croises at left with dissolve
+        show chris bras croises at right with dissolve
         chris "Tu as un physique de crevette, mais je savais que tu allais assurer !"
-        show ed chemise gene at right with dissolve
+        show ed chemise gene at left with dissolve
         ed "Euh... merci."
         hide chris
-        show sylvie sourire at left with dissolve
-        show ed chemise sourire at right with dissolve
+        show sylvie sourire at right with dissolve
+        show ed chemise sourire at left with dissolve
         sylvie "Mr Tonga a également réussi cette épreuve."
         sylvie "Il me reste quelques candidats à faire passer."
         sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
-        show ed chemise surpris at right with vpunch
+        show ed chemise surpris at left with vpunch
         ed "{i}NOM D'UN OUISTITI !{/i}"
         ed "Je n'ai pas pris de sac !"
 
