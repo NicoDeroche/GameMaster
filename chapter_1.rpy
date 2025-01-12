@@ -86,6 +86,7 @@ label start_chapter_1:
     ed "Les sélections de Game Mast..."
     show ed pyjama surpris at left with vpunch
     ed "{i}NOM D'UN CLAFOUTIS !{/i}"
+    show ed pyjama surpris at left with vpunch
     ed "Mon réveil n'a pas sonné !"
     show julie colere at right with vpunch
     julie "TU RIGOLES ?!!!"
@@ -200,40 +201,50 @@ label fin_explication:
     sylvie "Cette compétition est organisée par {b}Virgile Brizor{/b}, pdg de {b}B-Tech{/b} et pionnier de la robotique."
     show sylvie une main tablette at right with dissolve
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
+    show sylvie deux mains tablette at right with dissolve
     show ed chemise heureux at left with dissolve
     ed "Des robots géants, c'est trop cool !"
     show ed chemise main levee at left with dissolve
     ed "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
+    show sylvie mains levees at right with dissolve
     sylvie "Je pense qu'il y a méprise..."
     show ed chemise sceptique at left with dissolve
     sylvie "Pour que ce soit plus fun, les épreuves sont inspirées de jeux vidéo célèbres."
     sylvie "Mais les créatures que vous affronterez seront bien réelles !"
+    show sylvie deux mains tablette at right with dissolve
     show ed chemise surpris at left with dissolve
     ed "Ah... Ce n'est pas un peu dangereux ?"
 
-
+    show sylvie une main tablette at right with dissolve
     sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
+    show sylvie deux mains tablette at right with dissolve
     hide ed
     show chris mains hanche at left with dissolve
     chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
+    show sylvie deux mains tablette at right with dissolve
     sylvie "Tout à fait."
     show chris bras leves at left with dissolve
     chris "Ok, je vais me donner à fond !"
     show chris mains poches at left with dissolve
+    show sylvie ecrit with dissolve
     sylvie "Je vais vous appeler à tour de rôle pour me rejoindre devant l'entrepôt."
     sylvie "Si vous remportez l'épreuve, vous serez qualifiés."
+    show sylvie sourire with dissolve
     sylvie "La suite de la compétition se passera au siège de la B-Tech,\net sera diffusée en streaming sur Internet."
 
     scene bg entree entrepot with Pixellate(3,5)
     show sylvie ecrit at right with dissolve
     sylvie "Candidat suivant : Edouard Pinson !"
+    show sylvie sourire at right with dissolve
     show ed chemise sourire at left with dissolve
     ed "Je suis là..."
-    show sylvie sourire at right with dissolve
+    
     sylvie "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
     show ed chemise surpris at left with dissolve
     ed "D'accident ?"
+    show sylvie mains levees ecran blanc at right with dissolve
     sylvie "Je vous l'ai dit, cette compétition n'est pas sans risque."
+    show sylvie deux mains tablette at right with dissolve
     show ed chemise pense at left with dissolve
     menu:
         "Ok, je signe.\n Si c'est basé sur les jeux vidéo, j'ai mes chances.":
@@ -256,7 +267,9 @@ label again_entree :
 
 label entree_entrepot :
     show ed chemise sourire at left with dissolve
+    show sylvie ecrit at right with dissolve
     sylvie "Merci, tout est en ordre."
+    show sylvie une main tablette at right with dissolve
     sylvie "Amusez-vous bien !"
     scene bg interieur entrepot
     #show apple big at applePos with dissolve
@@ -267,7 +280,7 @@ label entree_entrepot :
     ed "Il y a aussi une pomme..."
     ed "C'est comme dans ce vieux jeu sur portable."
     scene bg interieur entrepot bis
-    show ed chemise grand sourire at right with dissolve
+    show ed chemise pense at right
     play sound snake_coming_sound
     snake "Sssssssssssssss"
     #show snake at snakeMove
@@ -276,14 +289,16 @@ label entree_entrepot :
     
     ed "Trop stylé !"
     scene bg interieur entrepot ter
-    show ed chemise heureux at right with dissolve
+    show ed chemise heureux at right
     play sound snake_coming_sound
     snake "Sssssssssssssss"
+    show ed chemise heureux at right
     show ed chemise sceptique at right with dissolve
  
     ed "Euh... Attends..."
     show ed chemise surpris at right with vpunch
     ed "{i}NOM D'UN SALSIFIS !{/i}"
+    show ed chemise surpris at right with vpunch
     ed "Il veut me bouffer !"
     jump start_snake_game
 
@@ -295,7 +310,7 @@ label after_snake_game:
     window auto  
     if mini_game==False:
         scene bg entree entrepot
-        show sylvie sourire at right with dissolve
+        show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
         hide sylvie
@@ -305,14 +320,18 @@ label after_snake_game:
         show ed chemise gene at left with dissolve
         ed "Euh... merci."
         hide chris
-        show sylvie sourire at right with dissolve
+        show sylvie deux mains tablette at right with dissolve
         show ed chemise sourire at left with dissolve
         sylvie "Mr Tonga a également réussi cette épreuve."
+        show sylvie sourire at right with dissolve
         sylvie "Il me reste quelques candidats à faire passer."
         sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."
+        show sylvie une main tablette at right with dissolve
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
+        show sylvie deux mains tablette at right with dissolve
         show ed chemise surpris at left with vpunch
         ed "{i}NOM D'UN OUISTITI !{/i}"
+        show ed chemise surpris at left with vpunch
         ed "Je n'ai pas pris de sac !"
 
         stop music

@@ -16,4 +16,4 @@ translate english strings:
 
 
     old "GAGNÉ !\nAppuyez sur Entrée ou Clic gauche."
-    new "YOU LOSE!\nPress Enter or Left Click."
+    new "YOU WIN!\nPress Enter or Left Click."
