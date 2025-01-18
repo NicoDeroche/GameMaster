@@ -679,20 +679,16 @@ init python:
         
 
         def check_target(self, row, col):
-            if (row in self.bubble_properties and col in self.bubble_properties[row]):
-                #si le candidat est sur une ligne inferieure, il est donc "masqué" par la bubble presente
-                #on l'elimine
-                if self.target is not None:
-                    (row_target,col_target)=self.target
-                    if row_target<row:
-                        self.target=None
-            else:
-                if self.check_parents(row,col):
-                    if self.target is None:
-                        self.target=(row,col)
+            if (row not in self.bubble_properties or col not in self.bubble_properties[row])\
+            and self.check_parents(row,col) and self.target is None:
+                candidate_position=self.compute_target_candidate_bubble_position(row,col)
+                
+                if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
+                    self.target=(row,col)
 
         #calcule de la position cible de la bubble visée par le joueur
         def compute_player_target_candidate_bubble_position(self):
+            self.launch_coords=self.LAUNCH_COORDS_MIDDLE
             self.target=None
             angle = self.angles[CannonPositionEnum.MIDDLE.value]
  
@@ -714,6 +710,11 @@ init python:
             # Calcul de b
             b = x1_center - a * y1_center
 
+            tolerance=10
+            distance=(self.BUBBLE_REAL_SIZE-tolerance)/(math.cos(math.radians(math.fabs(angle)))) 
+            bmin=b-distance/2
+            bmax=b+distance/2
+
             for row in range(1,self.MAX_LINE_NUMBER):
 
                 #on a parcouru toutes les lignes
@@ -734,6 +735,9 @@ init python:
                         #position de la droite
                         (x,y)=self.compute_target_candidate_bubble_position(row,col)
                         
+                        #if self.check_if_intersection(a,bmin,bmax,row,col):
+                        #    self.check_target(row,col)
+                        #    continue
                         #ici on cherche à trouver l'écart "vide" entre le bord gauche de la cellule
                         #et le bout gauche de la bubble
                         diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
