@@ -44,8 +44,8 @@ init python:
         def __init__(self):
 
             renpy.Displayable.__init__(self)
-            #self.logger = logging.getLogger(__name__)
-            #logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
+            self.logger = logging.getLogger(__name__)
+            logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
             
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
@@ -87,7 +87,7 @@ init python:
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.BUBBLE_IMAGE_SIZE)
             self.LAUNCH_COORDS_RIGHT=  (self.SCREEN_WIDTH - self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.BUBBLE_IMAGE_SIZE)
-            self.LAUNCH_COORDS_MIDDLE =   (self.SCREEN_WIDTH/2 - self.BUBBLE_IMAGE_SIZE,
+            self.LAUNCH_COORDS_MIDDLE =   (self.SCREEN_WIDTH/2 - self.BUBBLE_IMAGE_SIZE/2,
                         self.SCREEN_HEIGHT- self.BORDER_WIDTH-self.BUBBLE_IMAGE_SIZE)
 
             #liste des angles des canons
@@ -232,7 +232,7 @@ init python:
                             #ajoute (definitivement) la bubble à la liste des bubbles
                             self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
                             self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
-                            #elf.logger.debug(f'{self.bubble_properties}')
+                            
                             #alterne joueur et ennemi
                             self.player_turn=not self.player_turn
                             
@@ -284,6 +284,20 @@ init python:
             b = x1 - a * y1
             #self.logger.debug(f'x launch {x1} y launch {y1} x target {x2} y target {y2} a {a} b {b}]')
             return (a,b)
+
+
+
+        def calculer_equation_droite(self, angle_degres, launch_coords):
+    
+            angle_radians = math.radians(angle_degres)
+            # Calcul de la pente
+            a = math.tan(angle_radians)
+            
+            # Calcul de l'ordonnée à l'origine
+            x1, y1 = launch_coords
+            b = y1 - a * x1
+            
+            return (a, b)
 
         #distance a parcourir entre la position de depart et la cible
         def compute_distance_to_target(self):
@@ -519,9 +533,78 @@ init python:
         def compute_player_target_candidate_bubble_position(self,angle):
             self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
         
+            (a,b)=self.calculer_equation_droite(ange,self.launch_coords)
+            
+            # Point cible avec x=10
+            x_target = 10
+            y_target = a * x_target + b
+            
+            # Dessiner la droite
+     
             self.target_col=9
             self.target_row=2
             self.target_pos=self.compute_target_candidate_bubble_position(self.target_row,self.target_col)
+
+
+        def dessiner_trajectoire(self, render, width, height, st, at):
+            """
+            Dessine la ligne de trajectoire basée sur l'angle actuel du canon
+            Le canon pointe vers le haut quand angle = 0
+            """
+            if self.player_turn and not self.bubble_launched and not self.end_game and not self.wait_for_start:
+                line_surface = pygame.Surface((width, height), pygame.SRCALPHA)
+                
+                x1, y1 = self.LAUNCH_COORDS_MIDDLE
+                angle = self.angles[CannonPositionEnum.MIDDLE.value]
+                
+                x1_center = x1 + self.BUBBLE_IMAGE_SIZE/2
+                y1_center = y1 + self.BUBBLE_IMAGE_SIZE/2
+                
+                # Pour un angle de 0, la ligne est verticale
+                if angle == 0:
+                    # Créer une surface compatible Ren'Py pour la ligne
+                    line_render = renpy.Render(width, height)
+                    # Dessiner une ligne du point de départ jusqu'au haut 
+                    pygame.draw.line(line_surface, (255, 0, 0, 128), 
+                            (x1_center, y1_center),
+                            (x1_center, self.BORDER_WIDTH), 2)
+                    render.blit(pygame.Surface.subsurface(line_surface, (0, 0, width, height)), (0, 0))
+
+                    return
+                    
+                # Pour les autres angles
+                angle_radians = math.radians(90 + angle)
+                
+                # Calcul de la pente
+                a = math.tan(angle_radians)
+                
+                # Calcul de b
+                b = y1_center - a * x1_center
+                
+                # Calcul des intersections
+                y_top = self.BORDER_WIDTH
+                x_at_top = (y_top - b) / a if a != 0 else x1_center
+                
+                if angle < 0:  # vers la droite
+                    x_edge = self.SCREEN_WIDTH - self.BORDER_WIDTH
+                    y_at_edge = a * x_edge + b
+                else:  # vers la gauche
+                    x_edge = self.BORDER_WIDTH
+                    y_at_edge = a * x_edge + b
+                    
+                # Point final
+                if y_at_edge > y_top:
+                    target_x = x_at_top
+                    target_y = y_top
+                else:
+                    target_x = x_edge
+                    target_y = y_at_edge
+                    
+                # Dessiner la ligne avec la méthode de Ren'Py
+                pygame.draw.line(line_surface, (255, 0, 0, 128),
+                        (x1_center, y1_center),
+                        (target_x, target_y), 2)
+                render.blit(pygame.Surface.subsurface(line_surface, (0, 0, width, height)), (0, 0))
 
 
         def launch_bubble(self):
@@ -621,6 +704,9 @@ init python:
                     self.cannon_moving=False
 
 
+            # Dessiner la trajectoire avant les bulles
+            self.dessiner_trajectoire(render, width, height, st, at)
+
             self.draw_current_bubble(render, width, height, st, at,dtime)
 
             # Display all bubbles
@@ -637,6 +723,9 @@ init python:
             self.draw_cannon_base(render, width, height, st, at,0,height-self.CANNON_BASE_WIDTH,1)
             self.draw_cannon_base(render, width, height, st, at,width-self.CANNON_BASE_WIDTH,height-self.CANNON_BASE_WIDTH,-1)
             self.draw_cannon_base_middle(render, width, height, st, at,width/2-110,height-120)
+
+          
+          
             # redraw the screen
             renpy.redraw(self, 0)
 
