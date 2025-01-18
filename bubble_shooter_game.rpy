@@ -55,7 +55,7 @@ init python:
             self.init=True
 
             #angle de rotation à chaque fois qu'on appuie sur gauche ou droite
-            self.ANGLE_STEP=5
+            self.ANGLE_STEP=2
             #angle maximum du distance
             self.MAX_ANGLE=75
             self.cannon_moving=False
@@ -72,9 +72,10 @@ init python:
             self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/socle_canon.png")
             self.CANNON_BASE_MIDDLE_IMAGE=Image("images/bubble_shooter_game/socle_canon_milieu.png")
             self.CANNON_IMAGE=Image("images/bubble_shooter_game/canon.png")
+            self.TARGET_IMAGE=Image("images/bubble_shooter_game/target.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
 
-            self.candidats=[]
+            self.target=None
 
             #au joueur de jouer
             self.player_turn=False
@@ -212,6 +213,14 @@ init python:
                 # renpy.render returns a Render object, which we can
                 # blit to the Render we're making
                 render.blit(bubble, (xpos, ypos))
+        
+        def draw_target( self, render, width, height, st, at, xpos, ypos):
+            # Render the target image
+            target = renpy.render(self.TARGET_IMAGE, width, height, st, at)
+                
+            # renpy.render returns a Render object, which we can
+            # blit to the Render we're making
+            render.blit(target, (xpos, ypos))
 
         #affichage de la bubble lancee
         def draw_current_bubble(self,render, width, height, st, at, dtime):
@@ -274,12 +283,15 @@ init python:
                         if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value>4:
                             #si couleur d'explosion, on passe à l'animation d'explosion suivante
                             self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+4)
-            for candidat in self.candidats:
-                (row,col)=candidat
+            
+        #affichage de la cible
+        def display_target(self,render, width, height, st, at, dtime):  
+            if self.target is not None:
+                (row,col)=self.target
                 increment = 1
                 if (row % 2 == 0):
                     increment = 0
-                self.draw_bubble( render, width, height, st, at,  ColorEnum.GOLDEN,
+                self.draw_target( render, width, height, st, at,
                     self.BORDER_WIDTH + (col - 1) * self.BUBBLE_IMAGE_SIZE + increment * self.BUBBLE_IMAGE_SIZE/2,
                     self.BORDER_WIDTH + (row-1) * self.BUBBLE_IMAGE_SIZE  )
      
@@ -651,9 +663,37 @@ init python:
             
             self.angles[self.launch_position.value]=angle
             
+
+        def check_parents(self,row,col):
+            #les colonnes des parents sont differentes si les lignes sont paires ou impaires
+            if self.is_odd(row):
+                col_parent_gauche=col
+                col_parent_droite=col+1
+            else:
+                col_parent_gauche=col-1
+                col_parent_droite=col
+ 
+            #premiere ligne ou au moins un parent
+            return  row==1  or\
+            (col_parent_gauche in self.bubble_properties[row-1]) or  (col_parent_droite  in self.bubble_properties[row-1])
+        
+
+        def check_target(self, row, col):
+            if (row in self.bubble_properties and col in self.bubble_properties[row]):
+                #si le candidat est sur une ligne inferieure, il est donc "masqué" par la bubble presente
+                #on l'elimine
+                if self.target is not None:
+                    (row_target,col_target)=self.target
+                    if row_target<row:
+                        self.target=None
+            else:
+                if self.check_parents(row,col):
+                    if self.target is None:
+                        self.target=(row,col)
+
         #calcule de la position cible de la bubble visée par le joueur
         def compute_player_target_candidate_bubble_position(self):
-            self.candidats=[]
+            self.target=None
             angle = self.angles[CannonPositionEnum.MIDDLE.value]
  
             self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
@@ -674,7 +714,7 @@ init python:
             # Calcul de b
             b = x1_center - a * y1_center
 
-            for row in range(1,self.MAX_LINE_NUMBER+1):
+            for row in range(1,self.MAX_LINE_NUMBER):
 
                 #on a parcouru toutes les lignes
                 if((row-1) not in self.bubble_properties and row!=1):
@@ -683,11 +723,10 @@ init python:
                 for col in range(1,self.MAX_LINE_SIZE+1):
                     # candidat si intersecte
                     if angle==0:
-                        if (row%2==1) and col==self.MAX_LINE_SIZE/2 :
-                            if row not in self.bubble_properties or col not in self.bubble_properties[row]:
-                                #TODO verifier qu'il y a un parent
-                                
-                                self.candidats.append((row,col))
+                        if ((row%2==1) and col==self.MAX_LINE_SIZE/2) or ((row%2==0)\
+                        and (col==self.MAX_LINE_SIZE/2 or col==self.MAX_LINE_SIZE/2+1)) :
+                            self.check_target(row,col)
+
                     else:
                         #pas de place 18 pour les lignes impaires
                         if (row%2==1) and col==self.MAX_LINE_SIZE:
@@ -704,7 +743,7 @@ init python:
                             x_trajectoire=a*i+b
                             #si on est à moins de distance que le rayon (<=> on est dans le cercle)
                             if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_trajectoire,i)<self.BUBBLE_REAL_SIZE/2:
-                                self.candidats.append((row,col))
+                                self.check_target(row,col)
                                 continue
 
 
@@ -744,6 +783,8 @@ init python:
             # Display all bubbles
             self.display_bubbles(render, width, height, st, at,dtime)
 
+            #display target
+            self.display_target(render, width, height, st, at,dtime)
 
             #canons
             self.draw_cannon(render, width, height, st, at,-55,height-143,self.angles[0])
