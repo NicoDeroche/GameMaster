@@ -93,9 +93,9 @@ init python:
             #liste des angles des canons
             self.angles=[0,0,0]
 
-            #self.last_bubble_launch=0
+            self.last_bubble_launch=0
             #temps entre les lancements des bubbles
-            #self.BUBBLE_LAUNCH_DELAY=2
+            self.BUBBLE_LAUNCH_DELAY=2
             self.last_iteration_time=0
             # temps entre chaque deplacement d'une bubble
             self.BUBBLE_TIME_DELAY = 0.01
@@ -210,13 +210,15 @@ init python:
 
         #affichage de la bubble lancee
         def draw_current_bubble(self,render, width, height, st, at, dtime):
-                #self.last_bubble_launch += dtime
+                if not self.player_turn:
+                    self.last_bubble_launch += dtime
+
                 self.last_iteration_time += dtime
                 
-                # show player standing when not moving
-                # if self.last_bubble_launch >= self.BUBBLE_LAUNCH_DELAY:
-                #     self.last_bubble_launch -= self.BUBBLE_LAUNCH_DELAY
-                #     self.launch_bubble()
+                #delay to launch ennemy bubble
+                if self.last_bubble_launch >= self.BUBBLE_LAUNCH_DELAY and not self.player_turn:
+                    self.last_bubble_launch -= self.BUBBLE_LAUNCH_DELAY
+                    self.launch_bubble()
 
                 
                 # dessin de la bubble
@@ -232,11 +234,7 @@ init python:
                             self.delete_bubbles_same_color(self.target_row, self.target_col, self.current_bubble_color)
                             #elf.logger.debug(f'{self.bubble_properties}')
                             #alterne joueur et ennemi
-                            if self.player_turn:
-                                self.player_turn=False
-                                self.launch_bubble()
-                            else:
-                                self.player_turn=True
+                            self.player_turn=not self.player_turn
                             
                         else:
                             self.current_bubble_x= self.launch_coords[0] + (self.target_pos[0] - self.launch_coords[0]) * self.current_iteration / self.iteration_number  # Calculate x position
@@ -517,6 +515,15 @@ init python:
                 del self.bubble_properties[row][col]
 
 
+                #calcule de la position cible de la bubble visée par le joueur
+        def compute_player_target_candidate_bubble_position(self,angle):
+            self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+        
+            self.target_col=9
+            self.target_row=2
+            self.target_pos=self.compute_target_candidate_bubble_position(self.target_row,self.target_col)
+
+
         def launch_bubble(self):
          
             
@@ -524,7 +531,11 @@ init python:
             if not self.end_game:
 
                 if not self.player_turn:
-                    self.init_ennemy_launch() 
+                    self.init_ennemy_launch()
+                else:
+                    self.compute_player_target_candidate_bubble_position(self.angles[CannonPositionEnum.MIDDLE.value])
+                    
+
 
                 self.current_bubble_x = self.target_pos[0]   # Calculate x position
                 self.current_bubble_y = self.target_pos[1] 
@@ -547,6 +558,7 @@ init python:
          
         def init_ennemy_launch(self):
             self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+           
             #(x,y)=position en haut à gauche du carré englobant la bubble
             if self.last_launch_position==CannonPositionEnum.LEFT:
                 #on lançait depuis la gauche, on lance depuis la droite
@@ -571,12 +583,14 @@ init python:
             
             self.angles[self.launch_position.value]=angle
             
-
-
+        #calcule de la position cible de la bubble visée par le joueur
+        def compute_player_target_candidate_bubble_position(self,angle):
+            self.launch_coords = self.LAUNCH_COORDS_MIDDLE
+            self.target_col=9
+            self.target_row=2
+            self.target_pos=self.compute_target_candidate_bubble_position(self.target_row,self.target_col)
         
-        def player_shoot(self):
-            self.player_turn=False
-            self.launch_bubble()
+       
 
 
 
@@ -649,23 +663,23 @@ init python:
                     self.wait_for_start=False
 
 
-            # canon move right
+            # canon moves right
             if not self.end_game  and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT and self.player_turn:
                 if not self.cannon_moving:
                     self.initial_cannon_move(self.ANGLE_STEP)   
                 raise renpy.IgnoreEvent()
 
 
-            # player move left
+            # player moves left
             if not self.end_game and not self.wait_for_start  and ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT and self.player_turn:
                 if not self.cannon_moving:
                     self.initial_cannon_move(-self.ANGLE_STEP)   
                 raise renpy.IgnoreEvent()
 
 
-            # player move left
+            # player shoots
             if not self.end_game and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
-                self.player_shoot()  
+                self.launch_bubble()  
                 raise renpy.IgnoreEvent()
 
 
