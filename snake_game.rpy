@@ -449,7 +449,7 @@ init python:
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
 
-            if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1)) and (self.end_game or self.waiting_for_start) :
+            if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONUP and ev.button == 1)) and (self.end_game or self.waiting_for_start) :
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
@@ -635,7 +635,7 @@ screen snake_game():
     add DynamicDisplayable(display_end_snake_game_background) 
     add DynamicDisplayable(display_end_snake_game_text) xalign 0.5 yalign 0.5 
     imagebutton:
-        # Chemin vers votre image
+        # image GM
         idle "gui/overlay/menu_button_idle.png"
         hover "gui/overlay/menu_button_hover.png"
         

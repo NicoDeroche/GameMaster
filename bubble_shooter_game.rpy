@@ -61,6 +61,7 @@ init python:
             self.cannon_moving=False
             self.start_cannon_move=0
             self.CANNON_MOVE_DURATION=0.1
+            self.show_next_bubble=False
 
             #les images 
             self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),
@@ -75,14 +76,13 @@ init python:
             self.TARGET_IMAGE=Image("images/bubble_shooter_game/target.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
 
-            self.target=None
-
             #au joueur de jouer
             self.player_turn=False
      
             self.SCREEN_HEIGHT= 720  
             self.SCREEN_WIDTH = 1280
             self.CANNON_BASE_WIDTH=120
+
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
             self.MAX_LINE_SIZE = int(( self.SCREEN_WIDTH-self.BORDER_WIDTH*2)/(self.BUBBLE_IMAGE_SIZE))
             self.MAX_LINE_NUMBER = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2 - self.BUBBLE_IMAGE_SIZE*2)/(self.BUBBLE_IMAGE_SIZE))
@@ -113,13 +113,13 @@ init python:
 
 
             #position du lancement (gauche ou droite)
-            self.launch_position=None
+            self.launch_position=CannonPositionEnum.LEFT
             self.last_launch_position=CannonPositionEnum.RIGHT
-            self.current_bubble_color = None
+            self.current_bubble_color =  random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
             self.current_iteration= None
             self.current_bubble_x = None
             self.current_bubble_y = None
-            self.launch_coords=None
+            self.launch_coords=self.LAUNCH_COORDS_LEFT
             self.target_pos=None
             self.bubble_launched=False
             self.target_col=None
@@ -136,7 +136,19 @@ init python:
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
             #initialisation des 50 premières bubbles
-            for i in range(50):
+            for i in range(70):
+                if self.last_launch_position==CannonPositionEnum.LEFT:
+                    #on lançait depuis la gauche, on lance depuis la droite
+                    self.launch_position=CannonPositionEnum.RIGHT
+                    self.launch_coords = self.LAUNCH_COORDS_RIGHT  # Start position of the bubble
+
+                else:
+                    #on lançait depuis la droite, on lance depuis la gauche
+                    self.launch_position=CannonPositionEnum.LEFT
+                    self.launch_coords = self.LAUNCH_COORDS_LEFT  # Start position of the bubble
+
+                self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+
                 self.init_ennemy_launch()
                 self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
                 #suppression des éventuelles bubbles voisines de même couleur
@@ -148,6 +160,14 @@ init python:
             self.player_turn=True
             self.compute_player_target_candidate_bubble_position()
             
+    
+        def game_over(self):
+            self.end_game=True
+            if mini_game==True:
+                self.information_text=_("PERDU !\nAppuyez sur Entrée ou Clic Gauche pour rejouer.\nAppuyez sur Echap ou Clic GM pour quitter.")
+            else:
+                self.information_text=_("PERDU !\nAppuyez sur Entrée ou Clic Gauche pour rejouer.\nAppuyez sur Echap ou Clic GM pour poursuivre l'histoire.")
+
 
 
         def initial_cannon_move(self,angle):
@@ -180,8 +200,7 @@ init python:
             render.blit(cannon, (xpos, ypos))
 
 
-            
-            
+               
 
 
         # dessin du socle du canon
@@ -222,6 +241,11 @@ init python:
             # blit to the Render we're making
             render.blit(target, (xpos, ypos))
 
+        def draw_next_bubble(self,render, width, height, st, at, dtime):
+            if not self.bubble_launched and self.launch_coords is not None and self.current_bubble_color is not None:
+                (x,y)=self.launch_coords
+                self.draw_bubble(render, width, height, st, at, self.current_bubble_color, x, y)
+
         #affichage de la bubble lancee
         def draw_current_bubble(self,render, width, height, st, at, dtime):
                 if not self.player_turn:
@@ -242,6 +266,7 @@ init python:
                         self.current_iteration=self.current_iteration+1
 
                         if self.current_iteration==self.iteration_number-1 or self.iteration_number==0:
+
                             self.bubble_launched=False
                             #ajoute (definitivement) la bubble à la liste des bubbles
                             self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
@@ -249,12 +274,34 @@ init python:
                             
                             #alterne joueur et ennemi
                             self.player_turn=not self.player_turn
+                            if self.player_turn:  
+                                self.launch_coords=self.LAUNCH_COORDS_MIDDLE
+                            else:
+                                #(x,y)=position en haut à gauche du carré englobant la bubble
+                                if self.last_launch_position==CannonPositionEnum.LEFT:
+                                    #on lançait depuis la gauche, on lance depuis la droite
+                                    self.launch_position=CannonPositionEnum.RIGHT
+                                    self.launch_coords = self.LAUNCH_COORDS_RIGHT  # Start position of the bubble
+
+                                else:
+                                    #on lançait depuis la droite, on lance depuis la gauche
+                                    self.launch_position=CannonPositionEnum.LEFT
+                                    self.launch_coords = self.LAUNCH_COORDS_LEFT  # Start position of the bubble
+
+                                  
+                            self.target_pos=None
+                            self.target_row=None
+                            self.target_col=None
+                            self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+           
                             
                         else:
                             self.current_bubble_x= self.launch_coords[0] + (self.target_pos[0] - self.launch_coords[0]) * self.current_iteration / self.iteration_number  # Calculate x position
                             self.current_bubble_y = self.launch_coords[1] + (self.target_pos[1] - self.launch_coords[1]) * self.current_iteration / self.iteration_number  # Calculate y position
 
                     self.draw_bubble(render, width, height, st, at, self.current_bubble_color, self.current_bubble_x, self.current_bubble_y)
+               
+                   
 
 
 
@@ -284,16 +331,11 @@ init python:
                             #si couleur d'explosion, on passe à l'animation d'explosion suivante
                             self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+4)
             
-        #affichage de la cible
+        #affichage de la cible quand c'est au tour du joueur
         def display_target(self,render, width, height, st, at, dtime):  
-            if self.target is not None:
-                (row,col)=self.target
-                increment = 1
-                if (row % 2 == 0):
-                    increment = 0
-                self.draw_target( render, width, height, st, at,
-                    self.BORDER_WIDTH + (col - 1) * self.BUBBLE_IMAGE_SIZE + increment * self.BUBBLE_IMAGE_SIZE/2,
-                    self.BORDER_WIDTH + (row-1) * self.BUBBLE_IMAGE_SIZE  )
+            if self.target_pos is not None and self.player_turn:
+                (x,y)=self.target_pos
+                self.draw_target( render, width, height, st, at,x,y)
      
  
         def is_odd(self,line_number):
@@ -413,7 +455,7 @@ init python:
                     if row==self.MAX_LINE_NUMBER:
                         self.end_game=True
                         self.victory=True
-                        self.information_text=_("GAGNÉ !\nAppuyez sur Entrée")
+                        self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
                     return (candidate_position,row,col)
             return None
 
@@ -525,12 +567,17 @@ init python:
                 #couleur d'explosion
                 self.explode(row,col)
 
-        #suppression de la bulle si elle est la couleur en paramètre
+        #suppression de la bulle si elle a la couleur en paramètre
         def delete_bubble_same_color(self,row,col,color):
-            if row in self.bubble_properties and col in self.bubble_properties[row]\
-            and self.bubble_properties[row][col]==color:
-                self.explode(row,col)
-                return True
+            if row in self.bubble_properties and col in self.bubble_properties[row]:
+                if self.bubble_properties[row][col]==color:
+                    self.explode(row,col)
+                    return True
+                #on touche la bulle doree
+                if self.bubble_properties[row][col]==ColorEnum.GOLDEN and self.player_turn:
+                    self.end_game=True
+                    self.victory=True
+                    self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
             return False
 
         #initalisation d'une explosion (sauf si init => pas d'animation)
@@ -606,16 +653,10 @@ init python:
 
         def launch_bubble(self):
          
-            
-            
             if not self.end_game:
 
                 if not self.player_turn:
                     self.init_ennemy_launch()
-                
-                    
-                    
-
 
                 self.current_bubble_x = self.target_pos[0]   # Calculate x position
                 self.current_bubble_y = self.target_pos[1] 
@@ -637,21 +678,7 @@ init python:
             return math.degrees(math.atan(math.fabs(x2 - x1) / math.fabs(y2 - y1) ))   
          
         def init_ennemy_launch(self):
-            self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
-           
-            #(x,y)=position en haut à gauche du carré englobant la bubble
-            if self.last_launch_position==CannonPositionEnum.LEFT:
-                #on lançait depuis la gauche, on lance depuis la droite
-                self.launch_position=CannonPositionEnum.RIGHT
-                self.launch_coords = self.LAUNCH_COORDS_RIGHT  # Start position of the bubble
 
-            else:
-                #on lançait depuis la droite, on lance depuis la gauche
-                self.launch_position=CannonPositionEnum.LEFT
-                self.launch_coords = self.LAUNCH_COORDS_LEFT  # Start position of the bubble
-
-
-  
             #pour alterner les canons ennemis
             self.last_launch_position=self.launch_position
 
@@ -680,20 +707,21 @@ init python:
 
         def check_target(self, row, col):
             if (row not in self.bubble_properties or col not in self.bubble_properties[row])\
-            and self.check_parents(row,col) and self.target is None:
+            and self.check_parents(row,col) and self.target_pos is None:
                 candidate_position=self.compute_target_candidate_bubble_position(row,col)
                 
                 if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
-                    self.target=(row,col)
+                    self.target_row=row
+                    self.target_col=col
+                    self.target_pos=candidate_position
 
         #calcule de la position cible de la bubble visée par le joueur
         def compute_player_target_candidate_bubble_position(self):
             self.launch_coords=self.LAUNCH_COORDS_MIDDLE
-            self.target=None
+            self.target_pos=None
             angle = self.angles[CannonPositionEnum.MIDDLE.value]
  
-            self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
-        
+
             x1, y1 = self.LAUNCH_COORDS_MIDDLE
             angle = self.angles[CannonPositionEnum.MIDDLE.value]
                 
@@ -715,11 +743,12 @@ init python:
             bmin=b-distance/2
             bmax=b+distance/2
 
-            for row in range(1,self.MAX_LINE_NUMBER):
+            for row in range(1,self.MAX_LINE_NUMBER+1):
+
 
                 #on a parcouru toutes les lignes
                 if((row-1) not in self.bubble_properties and row!=1):
-                    return 
+                    continue        
                     
                 for col in range(1,self.MAX_LINE_SIZE+1):
                     # candidat si intersecte
@@ -735,9 +764,6 @@ init python:
                         #position de la droite
                         (x,y)=self.compute_target_candidate_bubble_position(row,col)
                         
-                        #if self.check_if_intersection(a,bmin,bmax,row,col):
-                        #    self.check_target(row,col)
-                        #    continue
                         #ici on cherche à trouver l'écart "vide" entre le bord gauche de la cellule
                         #et le bout gauche de la bubble
                         diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
@@ -749,7 +775,6 @@ init python:
                             if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_trajectoire,i)<self.BUBBLE_REAL_SIZE/2:
                                 self.check_target(row,col)
                                 continue
-
 
 
 
@@ -780,7 +805,7 @@ init python:
 
 
             # Dessiner la trajectoire avant les bulles
-            self.dessiner_trajectoire(render, width, height, st, at)
+            #self.dessiner_trajectoire(render, width, height, st, at)
 
             self.draw_current_bubble(render, width, height, st, at,dtime)
 
@@ -793,13 +818,15 @@ init python:
             #canons
             self.draw_cannon(render, width, height, st, at,-55,height-143,self.angles[0])
             self.draw_cannon(render, width, height, st, at,width-143,height-143,self.angles[1])
-            self.draw_cannon(render, width, height, st, at,width/2-95,height-143,self.angles[2])
+            self.draw_cannon(render, width, height, st, at,width/2-100,height-143,self.angles[2])
             
 
             #socles des canons
             self.draw_cannon_base(render, width, height, st, at,0,height-self.CANNON_BASE_WIDTH,1)
             self.draw_cannon_base(render, width, height, st, at,width-self.CANNON_BASE_WIDTH,height-self.CANNON_BASE_WIDTH,-1)
             self.draw_cannon_base_middle(render, width, height, st, at,width/2-110,height-120)
+
+            self.draw_next_bubble(render, width, height, st, at,dtime)
 
           
           
@@ -818,7 +845,7 @@ init python:
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
 
-            if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1)) and (self.end_game or self.wait_for_start):
+            if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONUP and ev.button == 1)) and (self.end_game or self.wait_for_start):
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
@@ -844,7 +871,10 @@ init python:
 
 
             # player shoots
-            if not self.end_game and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
+            if not self.end_game and self.target_pos and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
+                if self.target_row==self.MAX_LINE_NUMBER:
+                    self.game_over()
+                    return
                 self.launch_bubble()  
                 raise renpy.IgnoreEvent()
 
@@ -890,6 +920,17 @@ screen bubble_shooter_game():
     add bubble_shooter_game
     add DynamicDisplayable(display_end_bubble_shooter_game_background) 
     add DynamicDisplayable(display_end_bubble_shooter_game_text) xalign 0.5 yalign 0.5 
+    imagebutton:
+        # image GM
+        idle "gui/overlay/menu_button_idle.png"
+        hover "gui/overlay/menu_button_hover.png"
+        
+        # Position du bouton
+        xalign 0.99
+        yalign 0.01
+        
+        # Action à réaliser lors du clic
+        action Function(snake_game.show_next_screen)
 
 
 
