@@ -55,7 +55,7 @@ init python:
             self.init=True
 
             #angle de rotation à chaque fois qu'on appuie sur gauche ou droite
-            self.ANGLE_STEP=2
+            self.ANGLE_STEP=5
             #angle maximum du distance
             self.MAX_ANGLE=75
             self.cannon_moving=False
@@ -274,8 +274,14 @@ init python:
                             
                             #alterne joueur et ennemi
                             self.player_turn=not self.player_turn
+
+                            self.target_pos=None
+                            self.target_row=None
+                            self.target_col=None
+                            self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+           
                             if self.player_turn:  
-                                self.launch_coords=self.LAUNCH_COORDS_MIDDLE
+                                self.compute_player_target_candidate_bubble_position()
                             else:
                                 #(x,y)=position en haut à gauche du carré englobant la bubble
                                 if self.last_launch_position==CannonPositionEnum.LEFT:
@@ -289,11 +295,7 @@ init python:
                                     self.launch_coords = self.LAUNCH_COORDS_LEFT  # Start position of the bubble
 
                                   
-                            self.target_pos=None
-                            self.target_row=None
-                            self.target_col=None
-                            self.current_bubble_color = random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
-           
+                           
                             
                         else:
                             self.current_bubble_x= self.launch_coords[0] + (self.target_pos[0] - self.launch_coords[0]) * self.current_iteration / self.iteration_number  # Calculate x position
@@ -478,19 +480,26 @@ init python:
 
                 
                 #parcours des lignes en partant du bas, on ignore la ligne où est la cible
-                for row in range(max(self.bubble_properties.keys()),target_row-1,-1):
-
-                    if(self.launch_position==CannonPositionEnum.LEFT):
+                for row in range(max(self.bubble_properties.keys()),target_row,-1):
+                    if self.launch_position==CannonPositionEnum.LEFT:
                         
                         #on ne parcourt que la moitié des lignes 
                         for col in range(target_col,0,-1):
-                            intersection= col in self.bubble_properties[row] and self.check_if_intersection(a,bmin,bmax,row,col)
+                            intersection= col in self.bubble_properties[row] 
                             if  intersection is True:
+                                #self.logger.debug(f'--  intersection avec {row} {col}')
                                 return True
-                    else:
+                    elif self.launch_position==CannonPositionEnum.RIGHT:
                         for col in range(target_col,self.MAX_LINE_SIZE+1):
                             intersection= col in self.bubble_properties[row] and self.check_if_intersection(a,bmin,bmax,row,col)
                             if  intersection is True:
+                                #self.logger.debug(f'++  intersection avec {row} {col}')
+                                return True 
+                    else:
+                        for col in range(1,self.MAX_LINE_SIZE+1):
+                            intersection= col in self.bubble_properties[row] and self.check_if_intersection(a,bmin,bmax,row,col)
+                            if  intersection is True:
+                                #self.logger.debug(f'++  intersection avec {row} {col}')
                                 return True 
                 return False
             else:
@@ -706,21 +715,27 @@ init python:
         
 
         def check_target(self, row, col):
-            if (row not in self.bubble_properties or col not in self.bubble_properties[row])\
-            and self.check_parents(row,col) and self.target_pos is None:
-                candidate_position=self.compute_target_candidate_bubble_position(row,col)
-                
-                if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
-                    self.target_row=row
-                    self.target_col=col
-                    self.target_pos=candidate_position
+            if (row in self.bubble_properties and col  in self.bubble_properties[row] ):
+                if self.target_pos is not None and self.target_row<row:
+                    self.target_pos=None
+                    self.target_row=None
+                    self.target_col=None
+            else:
+                #self.logger.debug(f'{self.check_parents(row,col)} {self.target_pos}')
+                if self.check_parents(row,col) and self.target_pos is None:
+                    candidate_position=self.compute_target_candidate_bubble_position(row,col)
+                    #self.logger.debug(f'{self.check_parents(row,col)} {self.target_pos} {not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col)}')
+                    if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
+                        self.target_row=row
+                        self.target_col=col
+                        self.target_pos=candidate_position
 
         #calcule de la position cible de la bubble visée par le joueur
         def compute_player_target_candidate_bubble_position(self):
             self.launch_coords=self.LAUNCH_COORDS_MIDDLE
+            self.launch_position=CannonPositionEnum.MIDDLE
             self.target_pos=None
             angle = self.angles[CannonPositionEnum.MIDDLE.value]
- 
 
             x1, y1 = self.LAUNCH_COORDS_MIDDLE
             angle = self.angles[CannonPositionEnum.MIDDLE.value]
@@ -764,6 +779,7 @@ init python:
                         #position de la droite
                         (x,y)=self.compute_target_candidate_bubble_position(row,col)
                         
+                        #self.logger.debug(f' test intersection {row} {col}')
                         #ici on cherche à trouver l'écart "vide" entre le bord gauche de la cellule
                         #et le bout gauche de la bubble
                         diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
@@ -773,6 +789,7 @@ init python:
                             x_trajectoire=a*i+b
                             #si on est à moins de distance que le rayon (<=> on est dans le cercle)
                             if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_trajectoire,i)<self.BUBBLE_REAL_SIZE/2:
+                                #self.logger.debug(f' candidat potentiel {row} {col}')
                                 self.check_target(row,col)
                                 continue
 
