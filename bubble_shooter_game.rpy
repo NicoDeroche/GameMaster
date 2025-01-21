@@ -1,5 +1,11 @@
 init python:
 
+
+#TODO angles des trompes
+# boutons haut/bas : permettre appui continu
+# on ne voit pas l'écran de fin si on clique pour lancer la balle
+
+
     import random
     from enum import Enum
     import pygame
@@ -32,6 +38,9 @@ init python:
         BLUE_EXPLODE_3=15
         PURPLE_EXPLODE_3=16
 
+    class BubbleDirectionEnum(Enum):
+        UP = 1
+        DOWN = 2
 
     class BubbleShooterGameDisplayable(renpy.Displayable):
 
@@ -47,9 +56,9 @@ init python:
             self.BUBBLE_REAL_SIZE=60
             
             self.init=True
-
+            self.should_draw_buttons=True
             #angle de rotation à chaque fois qu'on appuie sur gauche ou droite
-            self.ANGLE_STEP=5
+            self.ANGLE_STEP=2
             #angle maximum du distance
             self.MAX_ANGLE=35
             self.cannon_moving=False
@@ -69,6 +78,10 @@ init python:
             self.CANNON_IMAGE=Image("images/bubble_shooter_game/canon.png")
             self.TARGET_IMAGE=Image("images/bubble_shooter_game/target.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
+
+            self.buttons_idle = [Image("images/bubble_shooter_game/up_idle.png"),Image("images/bubble_shooter_game/down_idle.png")]
+            self.buttons_pushed = [Image("images/bubble_shooter_game/up_pushed.png"),Image("images/bubble_shooter_game/down_pushed.png")]
+ 
 
             #au joueur de jouer
             self.player_turn=False
@@ -119,14 +132,14 @@ init python:
             self.bubble_launched=False
             self.target_col=None
             self.target_row=None
-
+            self.direction_pushed=None
             self.end_game=False
             self.wait_for_start=True
             self.victory=False
 
             self.DISTANCE_BUBBLE_MOVES_EACH_DELAY=self.compute_distance_bubble_moves_each_delay()
     
-            self.information_text=_("Attention, ça va commencer !\n\nVous gagnez si :\n- vous touchez la balle orange\n- ou si votre adversaire touche la ligne rouge.\nVous perdez si vous touchez la ligne rouge.\nUtilisez les flèches de direction pour vous déplacer.\nAppuyez sur Espace pour tirer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
+            self.information_text=_("Attention, ça va commencer !\n\nA vous de trouver comment gagner...\n\nUtilisez les flèches de direction pour bouger la trompe de l'éléphant.\nAppuyez sur Espace ou cliquez pour tirer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu.")
 
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
@@ -153,7 +166,7 @@ init python:
             self.angles=[0,0,0]  
             #c'est au tour du joueur
             self.player_turn=True
-            #self.compute_player_target_candidate_bubble_position()
+            self.compute_player_target_candidate_bubble_position()
 
             
     
@@ -229,6 +242,23 @@ init python:
                 # blit to the Render we're making
                 render.blit(bubble, (xpos, ypos))
         
+        # This draws  buttons
+        def draw_buttons(self, render, width, height, st, at):
+
+            if self.direction_pushed==BubbleDirectionEnum.UP:
+                image_to_draw = renpy.render( self.buttons_pushed[BubbleDirectionEnum.UP.value-1], width, height, st, at)
+            else:
+                image_to_draw = renpy.render( self.buttons_idle[BubbleDirectionEnum.UP.value-1], width, height, st, at)
+            render.blit(image_to_draw, (self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE *2, self.SCREEN_HEIGHT -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*7))
+
+
+            if self.direction_pushed==BubbleDirectionEnum.DOWN:
+                image_to_draw = renpy.render( self.buttons_pushed[BubbleDirectionEnum.DOWN.value-1], width, height, st, at)
+            else:
+                image_to_draw = renpy.render( self.buttons_idle[BubbleDirectionEnum.DOWN.value-1], width, height, st, at)
+            render.blit(image_to_draw, (self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*2 , self.SCREEN_HEIGHT -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*4))
+
+
         def draw_target( self, render, width, height, st, at, xpos, ypos):
             # Render the target image
             target = renpy.render(self.TARGET_IMAGE, width, height, st, at)
@@ -311,16 +341,12 @@ init python:
                     self.last_explode_step -= self.EXPLODE_DELAY
                     draw_explode_step=True
             for row in sorted(self.bubble_properties, key=lambda x: int(x)):
-                increment = 1
-                if (row % 2 == 0):
-                    increment = 0
-                #parcours des bubbles
+              
                 for col in sorted(self.bubble_properties[row], key=lambda x: int(x)):
+                    (x,y)=self.compute_target_candidate_bubble_position(row,col)
                     #(x,y)=position en haut à gauche du carré englobant la bubble
                     self.draw_bubble( render, width, height, st, at,  self.bubble_properties[row][col],
-                    self.BORDER_WIDTH + (row-1) * self.BUBBLE_IMAGE_SIZE ,
-                    self.BORDER_WIDTH + (col - 1) * self.BUBBLE_IMAGE_SIZE  + increment * self.BUBBLE_IMAGE_SIZE/2
-                    )
+                    x,y         )
                     
                     if draw_explode_step:
                         if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value+4 >= len(self.BUBBLE_IMAGES):
@@ -394,6 +420,7 @@ init python:
         def iterate_col_to_find_candidate(self,row,ignore_color):
             #parcours des colonnes : si on lance à gauche, on lance vers la gauche
             #si on lance à droite, on lance vers la droite
+            
             if(self.launch_position==CannonPositionEnum.DOWN):
                 #on ne parcourt que la moitié des lignes (sinon risque d'intersection)
                 for col in range(int(self.MAX_LINE_SIZE/2),0,-1):
@@ -444,7 +471,8 @@ init python:
             if self.first_checks_for_candidate(row,col,color,ignore_color) :
                 
                 candidate_position=self.compute_target_candidate_bubble_position(row,col)
-                
+                (x,y)=candidate_position
+                self.logger.debug(f'{row} {col} {x} {y}')
                 #on a un candidat, mais il ne faut pas que le trajet vers ce candidat
                 #intersecte une bubble deja en place
                 #equation de la droite passant par les deux points
@@ -539,15 +567,15 @@ init python:
         #calcule de la position (x,y) de la bubble
         def compute_target_candidate_bubble_position(self,row,col):
             
-            
+            increment = 0
             if self.is_odd(row):
-                return (
-                    col * self.BUBBLE_IMAGE_SIZE  + self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE/2,
-                    self.BORDER_WIDTH + row * self.BUBBLE_IMAGE_SIZE  - (self.BUBBLE_IMAGE_SIZE))  
-            else:
-                return (
-                        col * self.BUBBLE_IMAGE_SIZE + self.BORDER_WIDTH -self.BUBBLE_IMAGE_SIZE , self.BORDER_WIDTH + row * self.BUBBLE_IMAGE_SIZE  - (self.BUBBLE_IMAGE_SIZE))  
-
+                increment = 1
+            return (
+                    self.BORDER_WIDTH + (row-1) * self.BUBBLE_IMAGE_SIZE ,
+                    self.SCREEN_HEIGHT - (self.BORDER_WIDTH + col  * self.BUBBLE_IMAGE_SIZE  + increment * self.BUBBLE_IMAGE_SIZE/2)
+                    )
+            
+            
         #supprime les bubbles de même couleur (s'il y en a)
         def delete_bubbles_same_color(self,row,col,color):
             if self.is_odd(row):
@@ -668,7 +696,10 @@ init python:
         def get_angle(self,launch_coords, target_pos):
             (x1, y1) = launch_coords
             (x2, y2) = target_pos
-            return math.degrees(math.atan(math.fabs(x2 - x1) / math.fabs(y2 - y1) ))   
+            if y2==y1:
+                return 0
+            else:
+                return math.degrees(math.atan(math.fabs(x2 - x1) / math.fabs(y2 - y1) ))   
          
         def init_ennemy_launch(self):
 
@@ -678,7 +709,7 @@ init python:
            
             (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target()  # Find target position for the bubble
             angle = self.get_angle(self.launch_coords,self.target_pos)
-            if self.launch_position==CannonPositionEnum.TOP:
+            if self.launch_position==CannonPositionEnum.DOWN:
                 angle=-angle
             
             self.angles[self.launch_position.value]=angle
@@ -727,20 +758,20 @@ init python:
             x1_center = x1 + self.BUBBLE_IMAGE_SIZE/2
             y1_center = y1 + self.BUBBLE_IMAGE_SIZE/2
 
-                 
-            # Pour les autres angles
-            angle_radians = math.radians(90 + angle)
-                
-            # Calcul de la pente
-            a = 1/math.tan(angle_radians)
-                
-            # Calcul de b
-            b = x1_center - a * y1_center
+            if angle != 0:
+                # Pour les autres angles
+                angle_radians = math.radians(angle)
+                    
+                # Calcul de la pente
+                a = 1/math.tan(angle_radians)
+                    
+                # Calcul de b
+                b = x1_center - a * y1_center
 
-            tolerance=10
-            distance=(self.BUBBLE_REAL_SIZE-tolerance)/(math.cos(math.radians(math.fabs(angle)))) 
-            bmin=b-distance/2
-            bmax=b+distance/2
+                tolerance=10
+                distance=(self.BUBBLE_REAL_SIZE-tolerance)/(math.cos(math.radians(math.fabs(angle)))) 
+                bmin=b-distance/2
+                bmax=b+distance/2
 
             for row in range(1,self.MAX_LINE_NUMBER+1):
 
@@ -752,6 +783,7 @@ init python:
                 for col in range(1,self.MAX_LINE_SIZE+1):
                     # candidat si intersecte
                     if angle==0:
+                        #self.logger.debug(f' max line size {self.MAX_LINE_SIZE}')
                         if ((row%2==1) and col==self.MAX_LINE_SIZE/2) or ((row%2==0)\
                         and (col==self.MAX_LINE_SIZE/2 or col==self.MAX_LINE_SIZE/2+1)) :
                             self.check_target(row,col)
@@ -831,9 +863,11 @@ init python:
 
             self.draw_next_bubble(render, width, height, st, at,dtime)
 
-            self.dessiner_trajectoire(render, width, height, st, at)
+            #self.dessiner_trajectoire(render, width, height, st, at)
 
-          
+            if self.should_draw_buttons:
+                #draw the buttons
+                self.draw_buttons(render, width, height, st, at)
           
             # redraw the screen
             renpy.redraw(self, 0)
@@ -864,6 +898,7 @@ init python:
             # canon moves right
             if not self.end_game  and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_UP and self.player_turn:
                 if not self.cannon_moving:
+                    self.should_draw_buttons=False
                     self.initial_cannon_move(self.ANGLE_STEP)
                 raise renpy.IgnoreEvent()
 
@@ -871,6 +906,7 @@ init python:
             # player moves left
             if not self.end_game and not self.wait_for_start  and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN and self.player_turn:
                 if not self.cannon_moving:
+                    self.should_draw_buttons=False
                     self.initial_cannon_move(-self.ANGLE_STEP)   
                 raise renpy.IgnoreEvent()
 
@@ -880,7 +916,48 @@ init python:
                 if self.target_row==self.MAX_LINE_NUMBER:
                     self.game_over()
                     return
+                self.should_draw_buttons=False
                 self.launch_bubble()  
+                raise renpy.IgnoreEvent()
+
+            if not self.end_game and not self.wait_for_start and self.player_turn and ev.type == pygame.MOUSEBUTTONDOWN:
+                if ev.button == 1:  # Left mouse button
+                    # Get the mouse position when clicked
+                    # we use renpy function instead of pygame fuction because we
+                    # want the virtual position (virtual width=1280,virtual height=720)
+                    mouse_x, mouse_y = renpy.get_mouse_pos()
+                    #self.logger.debug(f'{mouse_x} ')
+
+                    if   self.should_draw_buttons and mouse_x > self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*2  \
+                    and mouse_x < self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE  \
+                    and mouse_y > self.SCREEN_HEIGHT -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*7 \
+                    and mouse_y < self.SCREEN_HEIGHT -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*6: 
+
+                        self.direction_pushed=BubbleDirectionEnum.UP
+                        self.initial_cannon_move(self.ANGLE_STEP) 
+
+                    elif   self.should_draw_buttons and mouse_x > self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*2  \
+                    and mouse_x < self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE  \
+                    and mouse_y > self.SCREEN_HEIGHT -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*4 \
+                    and mouse_y < self.SCREEN_HEIGHT -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*3 : 
+
+                        self.direction_pushed=BubbleDirectionEnum.DOWN
+                        self.initial_cannon_move(-self.ANGLE_STEP) 
+
+                    else :
+                        if self.target_row==self.MAX_LINE_NUMBER:
+                            self.game_over()
+                            return
+                        self.launch_bubble()  
+
+                        
+                        
+
+                raise renpy.IgnoreEvent()
+
+            if ev.type == pygame.MOUSEBUTTONUP:
+                if ev.button == 1:  # Left mouse button
+                    self.direction_pushed=None
                 raise renpy.IgnoreEvent()
 
 
