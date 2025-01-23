@@ -1,10 +1,10 @@
 init python:
 
 
-#TODO angles des trompes
-# boutons haut/bas : permettre appui continu
-# on ne voit pas l'écran de fin si on clique pour lancer la balle
-
+#TODO 
+#couleurs elephant
+#verifier le code de l'intersection
+#revoir les crédits
 
     import random
     from enum import Enum
@@ -63,8 +63,10 @@ init python:
             self.MAX_ANGLE=35
             self.cannon_moving=False
             self.start_cannon_move=0
-            self.CANNON_MOVE_DURATION=0.1
+            self.CANNON_MOVE_DURATION=0.2
             self.show_next_bubble=False
+            #evite les latences clavier
+            self.cannon_next_direction=Null
 
             #les images 
             self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),
@@ -472,7 +474,7 @@ init python:
                 
                 candidate_position=self.compute_target_candidate_bubble_position(row,col)
                 (x,y)=candidate_position
-                self.logger.debug(f'{row} {col} {x} {y}')
+                #self.logger.debug(f'{row} {col} {x} {y}')
                 #on a un candidat, mais il ne faut pas que le trajet vers ce candidat
                 #intersecte une bubble deja en place
                 #equation de la droite passant par les deux points
@@ -673,7 +675,6 @@ init python:
 
 
         def launch_bubble(self):
-         
             if not self.end_game:
 
                 if not self.player_turn:
@@ -699,7 +700,7 @@ init python:
             if y2==y1:
                 return 0
             else:
-                return math.degrees(math.atan(math.fabs(x2 - x1) / math.fabs(y2 - y1) ))   
+                return math.degrees(math.atan(math.fabs(y2 - y1) / math.fabs(x2 - x1) ))   
          
         def init_ennemy_launch(self):
 
@@ -709,7 +710,7 @@ init python:
            
             (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target()  # Find target position for the bubble
             angle = self.get_angle(self.launch_coords,self.target_pos)
-            if self.launch_position==CannonPositionEnum.DOWN:
+            if self.launch_position==CannonPositionEnum.TOP:
                 angle=-angle
             
             self.angles[self.launch_position.value]=angle
@@ -808,6 +809,8 @@ init python:
                                 #self.logger.debug(f' candidat potentiel {row} {col}')
                                 self.check_target(row,col)
                                 continue
+            
+
 
 
 
@@ -835,6 +838,13 @@ init python:
                 if self.start_cannon_move >= self.CANNON_MOVE_DURATION and self.cannon_moving:
                     self.start_cannon_move -= self.start_cannon_move
                     self.cannon_moving=False
+                    #boutons de direction
+                    if self.direction_pushed == BubbleDirectionEnum.DOWN or self.cannon_next_direction == BubbleDirectionEnum.DOWN:
+                        self.initial_cannon_move(-self.ANGLE_STEP)
+                    if self.direction_pushed == BubbleDirectionEnum.UP or self.cannon_next_direction == BubbleDirectionEnum.UP:
+                        self.initial_cannon_move(self.ANGLE_STEP)
+                    self.cannon_next_direction=None
+
 
 
             # Dessiner la trajectoire avant les bulles
@@ -856,8 +866,8 @@ init python:
 
 
             #canons
-            self.draw_cannon(render, width, height, st, at,width-260,-90,self.angles[0])
-            self.draw_cannon(render, width, height, st, at,width-260,height-250,self.angles[1])
+            self.draw_cannon(render, width, height, st, at,width-260,height-250,self.angles[0])
+            self.draw_cannon(render, width, height, st, at,width-260,-90,self.angles[1])
             self.draw_cannon(render, width, height, st, at,width-260,height/2-170,self.angles[2])
             
 
@@ -875,7 +885,15 @@ init python:
             # Return the Render object.
             return render
 
-
+        #calcul de l'angle exact vers la cible (qui peut être légèrement différent de l'angle du canon)
+        def compute_exact_angle(self):
+            #calcul de l'angle exact vers la cible
+            angle_exact = self.get_angle(self.launch_coords,self.target_pos)
+            (x_launch,y_launch)=self.launch_coords
+            (x_target,y_target)=self.target_pos
+            if y_target>y_launch:
+                angle_exact=-angle_exact
+            self.angles[self.launch_position.value]=angle_exact
 
         # Handles events to move player
         def event(self, ev, x, y, st):
@@ -883,6 +901,7 @@ init python:
             #quit
             if  ev.type == pygame.KEYDOWN  and ev.key == pygame.K_ESCAPE :
                 self.show_next_screen()
+                raise renpy.IgnoreEvent()
 
             if  ((ev.type == pygame.KEYDOWN  and ev.key == pygame.K_RETURN)or(ev.type == pygame.MOUSEBUTTONUP and ev.button == 1)) and (self.end_game or self.wait_for_start):
                 if self.victory==True:
@@ -894,12 +913,16 @@ init python:
                     self.information_text=""
                     self.wait_for_start=False
 
+                raise renpy.IgnoreEvent() 
+
 
             # canon moves right
             if not self.end_game  and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_UP and self.player_turn:
                 if not self.cannon_moving:
                     self.should_draw_buttons=False
                     self.initial_cannon_move(self.ANGLE_STEP)
+                else:
+                    self.cannon_next_direction=BubbleDirectionEnum.UP
                 raise renpy.IgnoreEvent()
 
 
@@ -907,16 +930,19 @@ init python:
             if not self.end_game and not self.wait_for_start  and ev.type == pygame.KEYDOWN and ev.key == pygame.K_DOWN and self.player_turn:
                 if not self.cannon_moving:
                     self.should_draw_buttons=False
-                    self.initial_cannon_move(-self.ANGLE_STEP)   
+                    self.initial_cannon_move(-self.ANGLE_STEP) 
+                else:
+                    self.cannon_next_direction=BubbleDirectionEnum.DOWN
                 raise renpy.IgnoreEvent()
 
 
             # player shoots
-            if not self.end_game and self.target_pos and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
+            if not self.end_game and not self.bubble_launched and self.target_pos and not self.wait_for_start and ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE and self.player_turn:
                 if self.target_row==self.MAX_LINE_NUMBER:
                     self.game_over()
                     return
                 self.should_draw_buttons=False
+                self.compute_exact_angle()
                 self.launch_bubble()  
                 raise renpy.IgnoreEvent()
 
@@ -944,20 +970,20 @@ init python:
                         self.direction_pushed=BubbleDirectionEnum.DOWN
                         self.initial_cannon_move(-self.ANGLE_STEP) 
 
-                    else :
-                        if self.target_row==self.MAX_LINE_NUMBER:
-                            self.game_over()
-                            return
-                        self.launch_bubble()  
-
-                        
-                        
-
                 raise renpy.IgnoreEvent()
 
             if ev.type == pygame.MOUSEBUTTONUP:
-                if ev.button == 1:  # Left mouse button
-                    self.direction_pushed=None
+                if ev.button == 1:  # Left mouse button releade
+                    # si on n'a pas cliqué sur un bouton de direction : on lance la bubble
+                    if self.direction_pushed is None:
+                        if not self.bubble_launched and not self.wait_for_start and self.target_pos:
+                            if self.target_row==self.MAX_LINE_NUMBER:
+                                self.game_over()
+                                return
+                            self.compute_exact_angle()
+                            self.launch_bubble() 
+                    else:
+                        self.direction_pushed=None
                 raise renpy.IgnoreEvent()
 
 
