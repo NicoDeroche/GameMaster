@@ -4,7 +4,8 @@ init python:
 #TODO 
 #couleurs elephant
 #verifier le code de l'intersection
-#revoir les crédits
+#traductions credits, bubble shooter, histoire
+
 
     import random
     from enum import Enum
@@ -677,6 +678,7 @@ init python:
         def launch_bubble(self):
             if not self.end_game:
 
+
                 if not self.player_turn:
                     self.init_ennemy_launch()
 
@@ -692,6 +694,8 @@ init python:
                 self.current_iteration=0
                 self.current_bubble_x = self.launch_coords[0]   # Calculate x position
                 self.current_bubble_y = self.launch_coords[1]   # Calculate y position
+
+                renpy.sound.play(shoot_sound)
 
 
         def get_angle(self,launch_coords, target_pos):
@@ -1011,7 +1015,7 @@ default bubble_shooter_game = BubbleShooterGameDisplayable()
 # label to start snake game
 label start_bubble_shooter_game:
     stop music
-    play music snake_game_music
+    play music bubble_shooter_game_music
     window hide  # Hide the window and quick menu while in mini game
     call screen bubble_shooter_game
 
