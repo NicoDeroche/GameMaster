@@ -8,5 +8,10 @@ init:
     define snake_coming_sound = "audio/sound/snake_coming.mp3"
     define car_pass_by_sound = "audio/sound/car_pass_by.mp3"
     define shoot_sound = "audio/sound/shoot.mp3"
+    define explode_sound="audio/sound/explode.mp3"
+    define touch_sound="audio/sound/touch.mp3"
+    define lose_sound="audio/sound/lose.mp3"
+    define win_sound="audio/sound/win.mp3"
+
 
 

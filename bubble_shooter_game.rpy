@@ -4,6 +4,8 @@ init python:
 #TODO 
 #couleurs elephant
 #verifier le code de l'intersection
+#pas toujours de candidat à l'éléphant
+#ssss du serpent de temps en temps
 #traductions credits, bubble shooter, histoire
 
 
@@ -48,6 +50,7 @@ init python:
         def __init__(self):
 
             renpy.Displayable.__init__(self)
+            
             self.logger = logging.getLogger(__name__)
             logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
             
@@ -76,6 +79,8 @@ init python:
             ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
             ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
             ]
+
+            
             self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
             self.CANNON_BASE_MIDDLE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
             self.CANNON_IMAGE=Image("images/bubble_shooter_game/canon.png")
@@ -147,7 +152,7 @@ init python:
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
             #initialisation des 50 premières bubbles
-            for i in range(70):
+            for i in range(5):
                 if self.last_launch_position==CannonPositionEnum.DOWN:
                     #on lançait depuis la gauche, on lance depuis la droite
                     self.launch_position=CannonPositionEnum.TOP
@@ -175,6 +180,8 @@ init python:
     
         def game_over(self):
             self.end_game=True
+            renpy.music.stop()
+            renpy.sound.play(lose_sound)
             if mini_game==True:
                 self.information_text=_("PERDU !\nAppuyez sur Entrée ou Clic Gauche pour rejouer.\nAppuyez sur Echap ou Clic GM pour quitter.")
             else:
@@ -296,6 +303,7 @@ init python:
 
                         if self.current_iteration==self.iteration_number-1 or self.iteration_number==0:
 
+                            renpy.sound.play(touch_sound)
                             self.bubble_launched=False
                             #ajoute (definitivement) la bubble à la liste des bubbles
                             self.add_bubble(self.target_row, self.target_col, self.current_bubble_color)
@@ -485,6 +493,8 @@ init python:
                     if row==self.MAX_LINE_NUMBER:
                         self.end_game=True
                         self.victory=True
+                        renpy.music.stop()
+                        renpy.sound.play(win_sound)
                         self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
                     return (candidate_position,row,col)
             return None
@@ -602,6 +612,8 @@ init python:
                 #au moins un voisin de meme couleur
                 #on supprime aussi la bubble en paramètre
                 #couleur d'explosion
+                if not self.wait_for_start:
+                    renpy.sound.play(explode_sound)
                 self.explode(row,col)
 
         #suppression de la bulle si elle a la couleur en paramètre
@@ -614,6 +626,8 @@ init python:
                 if self.bubble_properties[row][col]==ColorEnum.GOLDEN and self.player_turn:
                     self.end_game=True
                     self.victory=True
+                    renpy.music.stop()
+                    renpy.sound.play(win_sound)
                     self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
             return False
 
@@ -911,7 +925,7 @@ init python:
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
-                    self.__init__()
+                    self.show_game_screen()
                 if self.wait_for_start:
                     #top à la vachette !
                     self.information_text=""
@@ -1001,6 +1015,11 @@ init python:
             self.__init__()
             renpy.jump("after_bubble_shooter_game")  
 
+                            # show screen after game (home screen or next screen of history)
+        def show_game_screen(self):
+            self.__init__()
+            renpy.jump("start_bubble_shooter_game")  
+
     def display_end_bubble_shooter_game_text(st, at):
         return Text( bubble_shooter_game.information_text, font='gui/jd_code.ttf', size=50, color="#77d079"), .1 
 
@@ -1014,6 +1033,7 @@ default bubble_shooter_game = BubbleShooterGameDisplayable()
 
 # label to start snake game
 label start_bubble_shooter_game:
+    stop sound
     stop music
     play music bubble_shooter_game_music
     window hide  # Hide the window and quick menu while in mini game

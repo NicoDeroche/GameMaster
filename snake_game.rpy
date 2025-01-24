@@ -128,10 +128,12 @@ init python:
 
         #victory message
         def check_victory(self,body):
-            if(self.sxy[0][0]==body[0] and self.sxy[0][1]==body[1] ):
+            if(self.sxy[0][0]==body[0] and self.sxy[0][1]==body[1] ) and not self.victory:
                 #you won !
                 self.end_game=True
                 self.victory=True
+                renpy.music.stop()
+                renpy.sound.play(win_sound)
                 self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
 
 
@@ -254,6 +256,8 @@ init python:
             if self.snake_accumulated_time >= self.SNAKE_FRAME_DURATION:
                 self.snake_accumulated_time -= self.SNAKE_FRAME_DURATION
                 self.process_game_step()
+            
+              
 
 
         # This draws  buttons
@@ -306,6 +310,8 @@ init python:
                     self.snake_head=self.snake_head_bite
                     renpy.sound.play(snake_eating_sound)
                     self.end_game=True
+                    renpy.music.stop()
+                    renpy.sound.play(lose_sound)
                     if mini_game==True:
                         self.information_text=_("PERDU !\nAppuyez sur Entrée ou Clic Gauche pour rejouer.\nAppuyez sur Echap ou Clic GM pour quitter.")
                     else:
@@ -429,15 +435,19 @@ init python:
 
         # show screen after game (home screen or next screen of history)
         def show_next_screen(self):
-                self.__init__()
-                renpy.jump("after_snake_game")
+            self.__init__()
+            renpy.jump("after_snake_game")
+
+        def show_game_screen(self):
+            self.__init__()
+            renpy.jump("start_snake_game")
 
         def initial_player_move(self):
-                self.start_player_move=0
-                self.player_moving=True
-                self.index_player_move=0
-                self.compute_player_move()
-                renpy.redraw(self, 0)
+            self.start_player_move=0
+            self.player_moving=True
+            self.index_player_move=0
+            self.compute_player_move()
+            renpy.redraw(self, 0)
 
 
 
@@ -453,7 +463,7 @@ init python:
                 if self.victory==True:
                     self.show_next_screen()
                 if self.end_game:
-                    self.__init__()
+                    self.show_game_screen()
                 if self.waiting_for_start:
                     self.information_text=""
                     self.waiting_for_start=False
@@ -622,6 +632,7 @@ default snake_game = SnakeGameDisplayable()
 
 # label to start snake game
 label start_snake_game:
+    stop sound
     stop music
     play music snake_game_music
     window hide  # Hide the window and quick menu while in mini game
