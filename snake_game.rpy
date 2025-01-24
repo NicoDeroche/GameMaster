@@ -81,6 +81,7 @@ init python:
             self.sxy.append( (sx+self.CELL_SIZE*4,sy))
 
 
+            self.snake_sound_accumulated_time=0
             self.snake_accumulated_time=0
             self.apple_accumulated_time=0
             self.last_player_move_accumulated_time=0
@@ -91,7 +92,7 @@ init python:
 
             # The time of the past render-frame.
             self.last_frame_rendering = None
-
+            self.SNAKE_SOUND_DURATION=10
             # time between snake movements
             self.SNAKE_FRAME_DURATION=0.7
             # time between images during apple display
@@ -252,10 +253,19 @@ init python:
 
 
             self.snake_accumulated_time += dtime
+            self.snake_sound_accumulated_time+= dtime
+
+
+            if self.snake_sound_accumulated_time >= self.SNAKE_SOUND_DURATION:
+                self.snake_sound_accumulated_time -= self.SNAKE_SOUND_DURATION
+                renpy.sound.play(snake_coming_sound)
+
             # move snake
             if self.snake_accumulated_time >= self.SNAKE_FRAME_DURATION:
                 self.snake_accumulated_time -= self.SNAKE_FRAME_DURATION
                 self.process_game_step()
+
+                
             
               
 

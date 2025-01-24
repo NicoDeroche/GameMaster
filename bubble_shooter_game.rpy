@@ -5,7 +5,6 @@ init python:
 #couleurs elephant
 #verifier le code de l'intersection
 #pas toujours de candidat à l'éléphant
-#ssss du serpent de temps en temps
 #traductions credits, bubble shooter, histoire
 
 
