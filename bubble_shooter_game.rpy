@@ -3,8 +3,6 @@ init python:
 
 #TODO 
 #couleurs elephant
-#les elephants tirent de preference au centre
-#pas toujours de candidat à l'éléphant
 #traductions credits, bubble shooter, histoire
 #suppression bubbles seules
 
@@ -400,37 +398,41 @@ init python:
 
 
         def identify_bubble_to_target(self):
+            
             self.target_row =None
             self.target_col=None
             self.target_pos=None
-            #parcours des lignes en commançant par le haut, on évite la dernière (pour ne pas perdre)
+            #parcours des lignes en commençant par le haut, on évite la dernière (pour ne pas perdre)
+            
             for row in range(1,self.MAX_LINE_NUMBER):
-
+                
                 #si on est dans ce cas, on n'a pas de cas optimal : on sera à côté d'une bubble de même couleur
                 #on prend le dernier
                 if((row-1) not in self.bubble_properties and row!=1):
-                    self.identify_bubble_to_target_ignore_color()
-                    if self.target_row is not None:
-                        return
-
-                #parcours des colonnes, on fait attention à la couleur des voisins
-                self.iterate_col_to_find_candidate(row,False)
-                if self.target_row is not None:
-                    return
+                    continue
+                else:
+                    
+                    #parcours des colonnes, on fait attention à la couleur des voisins
+                    self.iterate_col_to_find_candidate(row,False)
               
 
-            #candidat par défaut
-            self.identify_bubble_to_target_ignore_color()
+            if self.target_row is None:
+                #candidat par défaut
+                
+                self.identify_bubble_to_target_ignore_color()
+            
 
         #pas le choix : on aura un voisin de meme couleur
         def identify_bubble_to_target_ignore_color(self):
             #parcours des lignes en ignorant la couleur et en acceptant la dernière ligne
             for row in range(1,self.MAX_LINE_NUMBER+1):
-                #on ignore la couleur
-                self.iterate_col_to_find_candidate(row,True)
-                if self.target_row is not None:
-                    return
-            return None
+                
+                if((row-1) not in self.bubble_properties and row!=1):
+                    continue
+                else:
+                    #on ignore la couleur
+                    self.iterate_col_to_find_candidate(row,True)
+            
 
         def iterate_col_to_find_candidate(self,row,ignore_color):
             #parcours des colonnes : si on lance à gauche, on lance vers la gauche
@@ -439,15 +441,13 @@ init python:
             if(self.launch_position==CannonPositionEnum.DOWN):
                 #on ne parcourt que la moitié des lignes (sinon risque d'intersection)
                 for col in range(int(self.MAX_LINE_SIZE/2),0,-1):
+                    
                     self.find_candidate(row,col,self.current_bubble_color,ignore_color)
-                    if self.target_row is not None:
-                        return
             else:
                 for col in range(int(self.MAX_LINE_SIZE/2)+1,self.MAX_LINE_SIZE+1):
+                    
                     self.find_candidate(row,col,self.current_bubble_color,ignore_color)
-                    if self.target_row is not None:
-                        return
-            return None
+            
 
         def first_checks_for_candidate(self,row,col,color,ignore_color):            
             #candidat si :
@@ -487,7 +487,7 @@ init python:
                 
                 candidate_position=self.compute_target_candidate_bubble_position(row,col)
                 (x,y)=candidate_position
-                #self.logger.debug(f'{row} {col} {x} {y}')
+                
                 #on a un candidat, mais il ne faut pas que le trajet vers ce candidat
                 #intersecte une bubble deja en place
                 #equation de la droite passant par les deux points
@@ -500,10 +500,13 @@ init python:
                         renpy.music.stop()
                         renpy.sound.play(win_sound)
                         self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
-                    self.target_row=row
-                    self.target_col=col
-                    return
-            return None
+
+                    #on privilegie près du centre, pour embêter le joueur
+                    if (self.wait_for_start and self.target_row is None) or (not self.wait_for_start and ( self.target_row is None or  math.fabs(col-self.MAX_LINE_SIZE/2)<math.fabs(self.target_col-self.MAX_LINE_SIZE/2))):
+                        
+                        self.target_row=row
+                        self.target_col=col
+            
 
         def iterate_to_check_if_intersection(self,launch_coords, target_pos,target_row,target_col):
             (x1, y1) = launch_coords
@@ -531,19 +534,19 @@ init python:
                         for col in range(target_col,0,-1):
                             intersection= col in self.bubble_properties[row] 
                             if  intersection is True:
-                                #self.logger.debug(f'--  intersection avec {row} {col}')
+                                
                                 return True
                     elif self.launch_position==CannonPositionEnum.TOP:
                         for col in range(target_col,self.MAX_LINE_SIZE+1):
                             intersection= col in self.bubble_properties[row] and self.check_if_intersection(a,bmin,bmax,row,col)
                             if  intersection is True:
-                                #self.logger.debug(f'++  intersection avec {row} {col}')
+                                
                                 return True 
                     else:
                         for col in range(1,self.MAX_LINE_SIZE+1):
                             intersection= col in self.bubble_properties[row] and self.check_if_intersection(a,bmin,bmax,row,col)
                             if  intersection is True:
-                                #self.logger.debug(f'++  intersection avec {row} {col}')
+                                
                                 return True 
                 return False
             else:
@@ -557,7 +560,7 @@ init python:
             
             #calcule la position de la bubble qui pourrait intersecter
             (x,y)=self.compute_target_candidate_bubble_position(row,col)
-            #self.logger.debug(f' test intersection {row} {col}')
+            
             #calcule la position théorique de la bubble lancée (équation de la droite)
             #on prend y+RAYON pour correspond au point inférieur de la bubble
 
@@ -566,19 +569,19 @@ init python:
             #ici on cherche à trouver l'écart "vide" entre le bord gauche de la cellule
             #et le bout gauche de la bubble
             diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
-            #self.logger.debug(f'{x} {diff_size} {self.BUBBLE_REAL_SIZE} ')
+            
             for i in range(int(y)+diff_size,int(y)+self.BUBBLE_REAL_SIZE):
 
                 x_bubble_lancee=a*i+bmin
                 
-                #self.logger.debug(f' test intersection {row} {col} : {a*i+bmin} {a*i+bmax} {x}')
+                
                 #si on est à moins de distance que le rayon (<=> on est dans le cercle)
                 if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
-                    #self.logger.debug(f' intersection min avec {row} {col} : {i} {a*i+bmin} {a*i+bmin+(bmax-bmin)/2} {a*i+bmax}, départ : 710  {710*a+bmin}  {710*i+bmin+(bmax-bmin)/2} {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
+                    
                     return True
                 x_bubble_lancee=a*i+bmax
                 if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
-                    #self.logger.debug(f'intersection max avec {row} {col} : {i} {a*i+bmin}  {a*i+bmax}, départ : 710  {710*a+bmin}   {710*a+bmax} {x} {y} {self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)}')
+                    
                     return True
             return False
            
@@ -765,10 +768,10 @@ init python:
                     self.target_row=None
                     self.target_col=None
             else:
-                #self.logger.debug(f'{self.check_parents(row,col)} {self.target_pos}')
+                
                 if self.check_parents(row,col) and self.target_pos is None:
                     candidate_position=self.compute_target_candidate_bubble_position(row,col)
-                    #self.logger.debug(f'{self.check_parents(row,col)} {self.target_pos} {not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col)}')
+                    
                     if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
                         self.target_row=row
                         self.target_col=col
@@ -812,7 +815,7 @@ init python:
                 for col in range(1,self.MAX_LINE_SIZE+1):
                     # candidat si intersecte
                     if angle==0:
-                        #self.logger.debug(f' max line size {self.MAX_LINE_SIZE}')
+                        
                         if ((row%2==1) and col==self.MAX_LINE_SIZE/2) or ((row%2==0)\
                         and (col==self.MAX_LINE_SIZE/2 or col==self.MAX_LINE_SIZE/2+1)) :
                             self.check_target(row,col)
@@ -824,17 +827,17 @@ init python:
                         #position de la droite
                         (x,y)=self.compute_target_candidate_bubble_position(row,col)
                         
-                        #self.logger.debug(f' test intersection {row} {col}')
+                        
                         #ici on cherche à trouver l'écart "vide" entre le bord gauche de la cellule
                         #et le bout gauche de la bubble
                         diff_size=int((self.BUBBLE_IMAGE_SIZE-self.BUBBLE_REAL_SIZE)/2)
-                        #self.logger.debug(f'{x} {diff_size} {self.BUBBLE_REAL_SIZE} ')
+                        
                         for i in range(int(y)+diff_size,int(y)+self.BUBBLE_REAL_SIZE):
 
                             x_trajectoire=a*i+b
                             #si on est à moins de distance que le rayon (<=> on est dans le cercle)
                             if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_trajectoire,i)<self.BUBBLE_REAL_SIZE/2:
-                                #self.logger.debug(f' candidat potentiel {row} {col}')
+                                
                                 self.check_target(row,col)
                                 continue
             
@@ -849,7 +852,7 @@ init python:
                         for i in range(int(y),int(y)+self.BUBBLE_IMAGE_SIZE): 
                             x_trajectoire=a*i+b
                             if x_trajectoire>x and x_trajectoire<x+self.BUBBLE_IMAGE_SIZE:
-                                #self.logger.debug(f' candidat potentiel de secours {row} {col}')
+                                
                                 self.check_target(row,col)
                                 continue
 
@@ -917,7 +920,7 @@ init python:
 
             self.draw_next_bubble(render, width, height, st, at,dtime)
 
-            self.dessiner_trajectoire(render, width, height, st, at)
+            #self.dessiner_trajectoire(render, width, height, st, at)
 
             if self.should_draw_buttons:
                 #draw the buttons
@@ -996,7 +999,7 @@ init python:
                     # we use renpy function instead of pygame fuction because we
                     # want the virtual position (virtual width=1280,virtual height=720)
                     mouse_x, mouse_y = renpy.get_mouse_pos()
-                    #self.logger.debug(f'{mouse_x} ')
+                    
 
                     if   self.should_draw_buttons and mouse_x > self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE*2  \
                     and mouse_x < self.SCREEN_WIDTH -  self.BORDER_WIDTH - self.BUBBLE_IMAGE_SIZE  \
