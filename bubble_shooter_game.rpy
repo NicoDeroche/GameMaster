@@ -400,32 +400,36 @@ init python:
 
 
         def identify_bubble_to_target(self):
-
+            self.target_row =None
+            self.target_col=None
+            self.target_pos=None
             #parcours des lignes en commançant par le haut, on évite la dernière (pour ne pas perdre)
             for row in range(1,self.MAX_LINE_NUMBER):
 
                 #si on est dans ce cas, on n'a pas de cas optimal : on sera à côté d'une bubble de même couleur
                 #on prend le dernier
                 if((row-1) not in self.bubble_properties and row!=1):
-                    return self.identify_bubble_to_target_ignore_color()
+                    self.identify_bubble_to_target_ignore_color()
+                    if self.target_row is not None:
+                        return
 
                 #parcours des colonnes, on fait attention à la couleur des voisins
-                candidate=self.iterate_col_to_find_candidate(row,False)
-                if candidate is not None:
-                    return candidate
+                self.iterate_col_to_find_candidate(row,False)
+                if self.target_row is not None:
+                    return
               
 
             #candidat par défaut
-            return self.identify_bubble_to_target_ignore_color()
+            self.identify_bubble_to_target_ignore_color()
 
         #pas le choix : on aura un voisin de meme couleur
         def identify_bubble_to_target_ignore_color(self):
             #parcours des lignes en ignorant la couleur et en acceptant la dernière ligne
             for row in range(1,self.MAX_LINE_NUMBER+1):
                 #on ignore la couleur
-                candidate= self.iterate_col_to_find_candidate(row,True)
-                if candidate is not None:
-                    return candidate
+                self.iterate_col_to_find_candidate(row,True)
+                if self.target_row is not None:
+                    return
             return None
 
         def iterate_col_to_find_candidate(self,row,ignore_color):
@@ -435,14 +439,14 @@ init python:
             if(self.launch_position==CannonPositionEnum.DOWN):
                 #on ne parcourt que la moitié des lignes (sinon risque d'intersection)
                 for col in range(int(self.MAX_LINE_SIZE/2),0,-1):
-                    candidate=self.find_candidate(row,col,self.current_bubble_color,ignore_color)
-                    if  candidate is not None:
-                        return candidate
+                    self.find_candidate(row,col,self.current_bubble_color,ignore_color)
+                    if self.target_row is not None:
+                        return
             else:
                 for col in range(int(self.MAX_LINE_SIZE/2)+1,self.MAX_LINE_SIZE+1):
-                    candidate=self.find_candidate(row,col,self.current_bubble_color,ignore_color)
-                    if  candidate is not None:
-                        return candidate
+                    self.find_candidate(row,col,self.current_bubble_color,ignore_color)
+                    if self.target_row is not None:
+                        return
             return None
 
         def first_checks_for_candidate(self,row,col,color,ignore_color):            
@@ -496,7 +500,9 @@ init python:
                         renpy.music.stop()
                         renpy.sound.play(win_sound)
                         self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
-                    return (candidate_position,row,col)
+                    self.target_row=row
+                    self.target_col=col
+                    return
             return None
 
         def iterate_to_check_if_intersection(self,launch_coords, target_pos,target_row,target_col):
@@ -729,7 +735,8 @@ init python:
             self.last_launch_position=self.launch_position
 
            
-            (self.target_pos,self.target_row,self.target_col) = self.identify_bubble_to_target()  # Find target position for the bubble
+            self.identify_bubble_to_target()  # Find target position for the bubble
+            self.target_pos=self.compute_target_candidate_bubble_position(self.target_row,self.target_col)
             angle = self.get_angle(self.launch_coords,self.target_pos)
             if self.launch_position==CannonPositionEnum.TOP:
                 angle=-angle
