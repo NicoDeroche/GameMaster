@@ -92,6 +92,7 @@ init python:
 
             # The time of the past render-frame.
             self.last_frame_rendering = None
+            #bruit du serpent toutes les 10s
             self.SNAKE_SOUND_DURATION=10
             # time between snake movements
             self.SNAKE_FRAME_DURATION=0.7

@@ -3,9 +3,10 @@ init python:
 
 #TODO 
 #couleurs elephant
-#verifier le code de l'intersection
+#les elephants tirent de preference au centre
 #pas toujours de candidat à l'éléphant
 #traductions credits, bubble shooter, histoire
+#suppression bubbles seules
 
 
     import random
@@ -151,7 +152,7 @@ init python:
             #couleur speciale pour une bubble
             self.add_bubble(1,self.MAX_LINE_SIZE/2, ColorEnum.GOLDEN) 
             #initialisation des 50 premières bubbles
-            for i in range(5):
+            for i in range(70):
                 if self.last_launch_position==CannonPositionEnum.DOWN:
                     #on lançait depuis la gauche, on lance depuis la droite
                     self.launch_position=CannonPositionEnum.TOP
@@ -540,7 +541,10 @@ init python:
                                 return True 
                 return False
             else:
-                #cas où les deux points sur la même colonne ou la même ligne : pas d'intersaction
+                #cas où les deux points sur la même ligne : on regarde s'il y a des élements sur la même colonne en dessous
+                for row in range(max(self.bubble_properties.keys()),target_row,-1):
+                    if row in self.bubble_properties and target_col in self.bubble_properties[row]:
+                        return True
                 return False
 
         def check_if_intersection(self,a,bmin,bmax,row,col):
@@ -827,6 +831,22 @@ init python:
                                 self.check_target(row,col)
                                 continue
             
+                #si pas de cible trouvee, on autorise plus d'ecart par rapport a la trajectoire
+                #on regarde tout simplement si la trajectoire traverse une case
+                if self.target_pos is None and angle!=0:
+                    for col in range(1,self.MAX_LINE_SIZE+1):
+                        if (row%2==1) and col==self.MAX_LINE_SIZE:
+                            continue
+                        #position de la droite
+                        (x,y)=self.compute_target_candidate_bubble_position(row,col)
+                        for i in range(int(y),int(y)+self.BUBBLE_IMAGE_SIZE): 
+                            x_trajectoire=a*i+b
+                            if x_trajectoire>x and x_trajectoire<x+self.BUBBLE_IMAGE_SIZE:
+                                #self.logger.debug(f' candidat potentiel de secours {row} {col}')
+                                self.check_target(row,col)
+                                continue
+
+
 
 
 
@@ -890,7 +910,7 @@ init python:
 
             self.draw_next_bubble(render, width, height, st, at,dtime)
 
-            #self.dessiner_trajectoire(render, width, height, st, at)
+            self.dessiner_trajectoire(render, width, height, st, at)
 
             if self.should_draw_buttons:
                 #draw the buttons
