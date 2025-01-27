@@ -5,6 +5,7 @@ init python:
 #couleurs elephant
 #traductions credits, bubble shooter, histoire
 #suppression bubbles seules
+#elephant qui perd tout seul
 
 
     import random
@@ -78,6 +79,7 @@ init python:
             ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
             ]
 
+            self.BUBBLE_COLOR_EXPLOSE=4
             
             self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
             self.CANNON_BASE_MIDDLE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
@@ -358,13 +360,53 @@ init python:
                     x,y         )
                     
                     if draw_explode_step:
-                        if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value+4 >= len(self.BUBBLE_IMAGES):
+                        if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value+self.BUBBLE_COLOR_EXPLOSE >= len(self.BUBBLE_IMAGES):
                             #on supprime car on est arrivé à la fin des animations d'explosion
                             del self.bubble_properties[row][col]
-                        if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value>4:
+                        if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value>self.BUBBLE_COLOR_EXPLOSE:
                             #si couleur d'explosion, on passe à l'animation d'explosion suivante
-                            self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+4)
-            
+                            self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+self.BUBBLE_COLOR_EXPLOSE)
+        
+        def get_parents(self,row,col):
+            if self.is_odd(row):
+                return (col,col+1)
+            else:
+                return (col-1,col)
+
+        def explode_orphans(self, row, col):
+            #self.logger.debug(f'test explode {row} {col} ')
+            if row!=1 and row in self.bubble_properties and col in self.bubble_properties[row] and self.bubble_properties[row][col].value<=self.BUBBLE_COLOR_EXPLOSE :
+                #parents
+                (col_parent_gauche,col_parent_droite)=self.get_parents(row,col)
+    
+                #au moins un parent présent et qui n'explose pas
+                check_parent_exist=(row-1) in self.bubble_properties and\
+                ((col_parent_gauche in self.bubble_properties[row-1] and self.bubble_properties[row-1][col_parent_gauche].value<=self.BUBBLE_COLOR_EXPLOSE) or\
+                (col_parent_droite in self.bubble_properties[row-1] and self.bubble_properties[row-1][col_parent_droite].value<=self.BUBBLE_COLOR_EXPLOSE))
+    
+                #au moins un voisin présent et qui n'explose pas et qui a au moins un parent qui n'explose pas
+                check_neighbour_left_exist= (col-1) in self.bubble_properties[row]  and\
+                self.bubble_properties[row][col-1].value<=self.BUBBLE_COLOR_EXPLOSE and\
+                (row-1) in self.bubble_properties and\
+                (((col_parent_gauche-1) in self.bubble_properties[row-1] and self.bubble_properties[row-1][col_parent_gauche-1].value<=self.BUBBLE_COLOR_EXPLOSE) or\
+                ((col_parent_droite-1) in self.bubble_properties[row-1] and self.bubble_properties[row-1][col_parent_droite-1].value<=self.BUBBLE_COLOR_EXPLOSE))
+    
+                check_neighbour_right_exist=(col+1) in self.bubble_properties[row]  and\
+                self.bubble_properties[row][col+1].value<=self.BUBBLE_COLOR_EXPLOSE and\
+                (row-1) in self.bubble_properties and\
+                (((col_parent_gauche+1) in self.bubble_properties[row-1] and self.bubble_properties[row-1][col_parent_gauche+1].value<=self.BUBBLE_COLOR_EXPLOSE) or\
+                ((col_parent_droite+1) in self.bubble_properties[row-1] and self.bubble_properties[row-1][col_parent_droite+1].value<=self.BUBBLE_COLOR_EXPLOSE))
+    
+
+
+               
+                #self.logger.debug(f'{check_parent_exist} {check_neighbour_left_exist} {check_neighbour_right_exist}')
+                #si orphelin
+                if not (check_parent_exist or check_neighbour_left_exist or  check_neighbour_right_exist):
+                    #self.logger.debug(f'-----explode cascade {row} {col} ')
+                    self.explode(row,col)
+
+
         #affichage de la cible quand c'est au tour du joueur
         def display_target(self,render, width, height, st, at, dtime):  
             if self.target_pos is not None and self.player_turn:
@@ -465,12 +507,7 @@ init python:
             # ligne 1 :   1 2 3 4
             # ligne 2 :    1 2 3 4
             # ligne 3 :   1 2 3 4
-            if self.is_odd(row):
-                col_parent_gauche=col
-                col_parent_droite=col+1
-            else:
-                col_parent_gauche=col-1
-                col_parent_droite=col
+            (col_parent_gauche,col_parent_droite)=self.get_parents(row,col)
  
             
             verification_ligne_dessus_ok =  row==1  or ( \
@@ -603,12 +640,7 @@ init python:
             
         #supprime les bubbles de même couleur (s'il y en a)
         def delete_bubbles_same_color(self,row,col,color):
-            if self.is_odd(row):
-                col_parent_gauche=col
-                col_parent_droite=col+1
-            else:
-                col_parent_gauche=col-1
-                col_parent_droite=col
+            (col_parent_gauche,col_parent_droite)=self.get_parents(row,col)
 
             #voisins meme ligne
             deleted=self.delete_bubble_same_color(row,col-1,color)
@@ -645,11 +677,25 @@ init python:
 
         #initalisation d'une explosion (sauf si init => pas d'animation)
         def explode(self,row,col):
+            #self.logger.debug(f'explode {row} {col} ')
             #couleur d'explosion
             if not self.init:
-                self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+4)
+                if row in self.bubble_properties and col in self.bubble_properties[row]:
+                    self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+4)
             else:
-                del self.bubble_properties[row][col]
+                if row in self.bubble_properties and col in self.bubble_properties[row]:
+                    del self.bubble_properties[row][col]
+            
+            (col_parent_gauche,col_parent_droite)=self.get_parents(row,col)
+            #explose les voisins s'ils sont orphelins
+            self.explode_orphans(row-1, col_parent_gauche)
+            self.explode_orphans(row-1, col_parent_droite)
+            self.explode_orphans(row+1, col_parent_gauche)
+            self.explode_orphans(row+1, col_parent_droite)
+            self.explode_orphans(row, col-1)
+            self.explode_orphans(row, col+1)
+            
+            
 
 
 
@@ -749,12 +795,7 @@ init python:
 
         def check_parents(self,row,col):
             #les colonnes des parents sont differentes si les lignes sont paires ou impaires
-            if self.is_odd(row):
-                col_parent_gauche=col
-                col_parent_droite=col+1
-            else:
-                col_parent_gauche=col-1
-                col_parent_droite=col
+            (col_parent_gauche,col_parent_droite)=self.get_parents(row,col)
  
             #premiere ligne ou au moins un parent
             return  row==1  or\
