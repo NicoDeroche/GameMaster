@@ -39,6 +39,22 @@ init python:
         GREEN_EXPLODE_3=14
         BLUE_EXPLODE_3=15
         PURPLE_EXPLODE_3=16
+        RED_EXPLODE_4=17
+        GREEN_EXPLODE_4=18
+        BLUE_EXPLODE_4=19
+        PURPLE_EXPLODE_4=20
+        RED_EXPLODE_5=21
+        GREEN_EXPLODE_5=22
+        BLUE_EXPLODE_5=23
+        PURPLE_EXPLODE_5=24
+        RED_EXPLODE_6=25
+        GREEN_EXPLODE_6=26
+        BLUE_EXPLODE_6=27
+        PURPLE_EXPLODE_6=28
+        RED_EXPLODE_7=29
+        GREEN_EXPLODE_7=30
+        BLUE_EXPLODE_7=31
+        PURPLE_EXPLODE_7=32
 
     class BubbleDirectionEnum(Enum):
         UP = 1
@@ -74,12 +90,16 @@ init python:
             #les images 
             self.BUBBLE_IMAGES = [Image("images/bubble_shooter_game/golden_bubble.png"),
             Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
+            ,Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
+            ,Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
+            ,Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
             ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
             ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
             ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
             ]
 
             self.BUBBLE_COLOR_EXPLOSE=4
+            self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=20
             
             self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
             self.CANNON_BASE_MIDDLE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
@@ -404,7 +424,7 @@ init python:
                 #si orphelin
                 if not (check_parent_exist or check_neighbour_left_exist or  check_neighbour_right_exist):
                     #self.logger.debug(f'-----explode cascade {row} {col} ')
-                    self.explode(row,col)
+                    self.explode(row,col,True)
 
 
         #affichage de la cible quand c'est au tour du joueur
@@ -658,13 +678,13 @@ init python:
                 #couleur d'explosion
                 if not self.wait_for_start:
                     renpy.sound.play(explode_sound)
-                self.explode(row,col)
+                self.explode(row,col,False)
 
         #suppression de la bulle si elle a la couleur en paramètre
         def delete_bubble_same_color(self,row,col,color):
             if row in self.bubble_properties and col in self.bubble_properties[row]:
                 if self.bubble_properties[row][col]==color:
-                    self.explode(row,col)
+                    self.explode(row,col,False)
                     return True
                 #on touche la bulle doree
                 if self.bubble_properties[row][col]==ColorEnum.GOLDEN and self.player_turn:
@@ -676,12 +696,16 @@ init python:
             return False
 
         #initalisation d'une explosion (sauf si init => pas d'animation)
-        def explode(self,row,col):
+        def explode(self,row,col,orphan):
             #self.logger.debug(f'explode {row} {col} ')
             #couleur d'explosion
             if not self.init:
                 if row in self.bubble_properties and col in self.bubble_properties[row]:
-                    self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+4)
+                    if orphan:#delai supplementaire pour exploser
+                        self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+self.BUBBLE_COLOR_EXPLOSE)
+                    else:
+                        self.bubble_properties[row][col]=ColorEnum(self.bubble_properties[row][col].value+self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN)
+
             else:
                 if row in self.bubble_properties and col in self.bubble_properties[row]:
                     del self.bubble_properties[row][col]
