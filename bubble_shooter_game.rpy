@@ -2,10 +2,8 @@ init python:
 
 
 #TODO 
-#couleurs elephant
 #traductions credits, bubble shooter, histoire
-#suppression bubbles seules
-#elephant qui perd tout seul
+#intersections imprecises
 
 
     import random
@@ -56,6 +54,7 @@ init python:
         BLUE_EXPLODE_7=31
         PURPLE_EXPLODE_7=32
 
+
     class BubbleDirectionEnum(Enum):
         UP = 1
         DOWN = 2
@@ -101,9 +100,8 @@ init python:
             self.BUBBLE_COLOR_EXPLOSE=4
             self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=20
             
-            self.CANNON_BASE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
-            self.CANNON_BASE_MIDDLE_IMAGE=Image("images/bubble_shooter_game/elephant.png")
-            self.CANNON_IMAGE=Image("images/bubble_shooter_game/canon.png")
+            self.CANNON_BASE_IMAGE=[Image("images/bubble_shooter_game/elephant.png"),Image("images/bubble_shooter_game/elephant_red.png"),Image("images/bubble_shooter_game/elephant_green.png"),Image("images/bubble_shooter_game/elephant_blue.png"),Image("images/bubble_shooter_game/elephant_purple.png")]
+            self.CANNON_IMAGE=[Image("images/bubble_shooter_game/canon.png"),Image("images/bubble_shooter_game/canon_red.png"),Image("images/bubble_shooter_game/canon_green.png"),Image("images/bubble_shooter_game/canon_blue.png"),Image("images/bubble_shooter_game/canon_purple.png")]
             self.TARGET_IMAGE=Image("images/bubble_shooter_game/target.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
 
@@ -231,9 +229,9 @@ init python:
 
 
         #draw cannon
-        def draw_cannon( self, render, width, height, st, at, xpos, ypos,angle):
+        def draw_cannon( self, render, width, height, st, at, xpos, ypos,angle,color):
             # Render the cannon  image
-            cannon= renpy.render(Transform(self.CANNON_IMAGE,rotate=angle), width, height, st, at)
+            cannon= renpy.render(Transform(self.CANNON_IMAGE[color],rotate=angle), width, height, st, at)
             # renpy.render returns a Render object, which we can
             # blit to the Render we're making
             render.blit(cannon, (xpos, ypos))
@@ -243,24 +241,15 @@ init python:
 
 
         # dessin du socle du canon
-        def draw_cannon_base( self, render, width, height, st, at, xpos, ypos):
+        def draw_cannon_base( self, render, width, height, st, at, xpos, ypos,color):
 
             # Render the cannon base image
-            cannon_base= renpy.render(Transform(self.CANNON_BASE_IMAGE), width, height, st, at)
+            cannon_base= renpy.render(Transform(self.CANNON_BASE_IMAGE[color]), width, height, st, at)
      
             # renpy.render returns a Render object, which we can
             # blit to the Render we're making
             render.blit(cannon_base, (xpos, ypos))
 
-        # dessin du socle du canon du milieu
-        def draw_cannon_base_middle( self, render, width, height, st, at, xpos, ypos):
-
-            # Render the cannon base image
-            cannon_base_middle= renpy.render(self.CANNON_BASE_MIDDLE_IMAGE, width, height, st, at)
-     
-            # renpy.render returns a Render object, which we can
-            # blit to the Render we're making
-            render.blit(cannon_base_middle, (xpos, ypos))
 
         # dessin de la bubble
         def draw_bubble( self, render, width, height, st, at, color, xpos, ypos):
@@ -296,11 +285,6 @@ init python:
             # renpy.render returns a Render object, which we can
             # blit to the Render we're making
             render.blit(target, (xpos, ypos))
-
-        def draw_next_bubble(self,render, width, height, st, at, dtime):
-            if not self.bubble_launched and self.launch_coords is not None and self.current_bubble_color is not None:
-                (x,y)=self.launch_coords
-                self.draw_bubble(render, width, height, st, at, self.current_bubble_color, x, y)
 
         #affichage de la bubble lancee
         def draw_current_bubble(self,render, width, height, st, at, dtime):
@@ -972,18 +956,25 @@ init python:
 
     
             #socles des canons
-            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,self.BORDER_WIDTH)
-            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH)
-            self.draw_cannon_base_middle(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,self.BORDER_WIDTH+self.BUBBLE_IMAGE_SIZE*4)
 
+            color=0
+            if self.launch_position is not None and self.launch_position==CannonPositionEnum.DOWN  and self.launch_coords is not None and self.current_bubble_color is not None:
+                color=self.current_bubble_color.value
+            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,color)
+            self.draw_cannon(render, width, height, st, at,width-260,height-250,self.angles[0],color)
 
-            #canons
-            self.draw_cannon(render, width, height, st, at,width-260,height-250,self.angles[0])
-            self.draw_cannon(render, width, height, st, at,width-260,-90,self.angles[1])
-            self.draw_cannon(render, width, height, st, at,width-260,height/2-170,self.angles[2])
-            
+            color=0
+            if self.launch_position is not None and self.launch_position==CannonPositionEnum.TOP  and self.launch_coords is not None and self.current_bubble_color is not None:
+                color=self.current_bubble_color.value
+            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,self.BORDER_WIDTH,color)
+            self.draw_cannon(render, width, height, st, at,width-260,-90,self.angles[1],color)
 
-            self.draw_next_bubble(render, width, height, st, at,dtime)
+            color=0
+            if self.launch_position is not None and self.launch_position==CannonPositionEnum.MIDDLE  and self.launch_coords is not None and self.current_bubble_color is not None:
+                color=self.current_bubble_color.value
+            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,self.BORDER_WIDTH+self.BUBBLE_IMAGE_SIZE*4,color)
+            self.draw_cannon(render, width, height, st, at,width-260,height/2-170,self.angles[2],color)
+                
 
             #self.dessiner_trajectoire(render, width, height, st, at)
 
