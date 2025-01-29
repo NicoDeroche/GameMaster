@@ -78,16 +78,19 @@ label start_chapter_1:
     show julie parle at right with dissolve
     julie "Salut frangin, ça roule ?"
     julie "Je venais juste aux nouvelles..."
+    play sound huh_sound
     show ed pyjama sceptique at left with dissolve
     ed "A propos de quoi ?"
     show julie surprise at right with dissolve
     julie "Des sélections de {b}Game Master{/b}, bien sûr !"
     julie "Il y a du monde ?"
     ed "Les sélections de Game Mast..."
+    play sound what_sound
     show ed pyjama surpris at left with vpunch
     ed "{i}NOM D'UN CLAFOUTIS !{/i}"
     show ed pyjama surpris at left with vpunch
     ed "Mon réveil n'a pas sonné !"
+    play sound what_sound
     show julie colere at right with vpunch
     julie "TU RIGOLES ?!!!"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
@@ -130,6 +133,7 @@ label chaussuresTrouvees :
     scene bg maison jour
   
     show chaussures at positionChaussures with dissolve
+    play sound hahaha2_sound
     show ed chemise heureux at left with dissolve
     ed "Ah, les voilà !"
     ed "Let's a go !"
@@ -152,6 +156,7 @@ label chaussuresTrouvees :
     chris "Toi aussi tu es à la bourre ?"
     show chris bras croises at right with dissolve
     chris "Ma voiture est tombée en panne à 10 kms d'ici."
+    play sound huh_sound
     show ed chemise sceptique at left with dissolve
     chris "J'ai été obligé de venir en courant..."
     show chris mains poches at right with dissolve
@@ -165,11 +170,13 @@ label chaussuresTrouvees :
             jump longue_histoire
     
 label panne_reveil:
+    play sound hahaha_sound
     show chris rire at right with dissolve
     chris "Ha ha, ça arrive toujours au mauvais moment !"
     jump fin_explication
 
 label longue_histoire:
+    play sound hahaha_sound
     show chris rire at right with dissolve
     chris "Ha ha, ça sent la panne de réveil,  ça !"
     jump fin_explication
@@ -202,8 +209,10 @@ label fin_explication:
     show sylvie une main tablette at right with dissolve
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
     show sylvie deux mains tablette at right with dissolve
+    play sound hahaha2_sound
     show ed chemise heureux at left with dissolve
     ed "Des robots géants, c'est trop cool !"
+    play sound humhum_sound
     show ed chemise main levee at left with dissolve
     ed "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
     show sylvie mains levees at right with dissolve
@@ -223,6 +232,7 @@ label fin_explication:
     chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
     show sylvie deux mains tablette at right with dissolve
     sylvie "Tout à fait."
+    play sound wow_sound
     show chris bras leves at left with dissolve
     chris "Ok, je vais me donner à fond !"
     show chris mains poches at left with dissolve
@@ -240,6 +250,7 @@ label fin_explication:
     ed "Je suis là..."
     
     sylvie "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
+    play sound huh_sound
     show ed chemise surpris at left with dissolve
     ed "D'accident ?"
     show sylvie mains levees ecran blanc at right with dissolve
@@ -284,6 +295,7 @@ label entree_entrepot :
     play sound snake_coming_sound
     snake "Sssssssssssssss"
     #show snake at snakeMove
+    play sound hahaha2_sound
     show ed chemise heureux at right with dissolve
     ed "Et en plus il fait du bruit et il bouge !"
     
@@ -293,9 +305,11 @@ label entree_entrepot :
     play sound snake_coming_sound
     snake "Sssssssssssssss"
     show ed chemise heureux at right
+    play sound huh_sound
     show ed chemise sceptique at right with dissolve
  
     ed "Euh... Attends..."
+    play sound what_sound
     show ed chemise surpris at right with vpunch
     ed "{i}NOM D'UN SALSIFIS !{/i}"
     show ed chemise surpris at right with vpunch
@@ -322,6 +336,7 @@ label after_snake_game:
         ed "C'était chaud là, quand même !"
         show sylvie une main tablette at right with dissolve
         sylvie "Vous avez déjà fait du bowling ?"
+        play sound huh_sound
         show ed chemise sceptique at left with dissolve
         ed "Euh... oui."
         sylvie "Et vous avez trouvé ça dangereux ?"
@@ -340,8 +355,9 @@ label after_snake_game:
         show sylvie une main tablette at right with dissolve
         sylvie "N'ayez crainte, tout va bien se passer !"
         scene bg interieur entrepot 2
+        play sound what_sound
         show ed chemise surpris at right with vpunch
-        ed "{i}NOM D'UN PISSENLIT !{/i}"
+        ed "{i}NOM D'UNE PAPETERIE !{/i}"
         show ed chemise surpris at right with vpunch
         ed "C'est quoi ce délire ?!"
         show ed chemise surpris at right with vpunch
@@ -372,6 +388,7 @@ label after_bubble_shooter_game:
         show sylvie une main tablette at right with dissolve
         sylvie "Je vous laisse aller chercher votre sac de voyage dans votre véhicule ?"
         show sylvie deux mains tablette at right with dissolve
+        play sound what_sound
         show ed chemise surpris at left with vpunch
         ed "{i}NOM D'UN OUISTITI !{/i}"
         show ed chemise surpris at left with vpunch

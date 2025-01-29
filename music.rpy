@@ -12,6 +12,12 @@ init:
     define touch_sound="audio/sound/touch.mp3"
     define lose_sound="audio/sound/lose.mp3"
     define win_sound="audio/sound/win.mp3"
+    define hahaha_sound="audio/sound/hahaha.mp3"
+    define humhum_sound="audio/sound/humhum.mp3"
+    define what_sound="audio/sound/what.mp3"
+    define hahaha2_sound="audio/sound/hahaha2.mp3"
+    define huh_sound="audio/sound/huh.mp3"
+    define wow_sound="audio/sound/wow.mp3"
 
 
 
