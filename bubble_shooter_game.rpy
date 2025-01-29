@@ -558,14 +558,15 @@ init python:
                 # dans le cadre qui a (x,y)=coin en haut à gauche
  
                 (a,b)=self.get_line_equation((x1+self.BUBBLE_IMAGE_SIZE/2,y1+self.BUBBLE_IMAGE_SIZE/2),(x2+self.BUBBLE_IMAGE_SIZE/2,y2+self.BUBBLE_IMAGE_SIZE/2) )
-
+                
                 angle = self.get_angle(launch_coords,target_pos)
                 #calcul du delta de y (on veut les deux équations qui couvrent toute la trajectoire de la bubble)
                 tolerance=10
-                distance=(self.BUBBLE_REAL_SIZE-tolerance)/(math.cos(math.radians(math.fabs(angle)))) 
+                distance=(self.BUBBLE_REAL_SIZE-tolerance)/(math.sin(math.radians(math.fabs(angle)))) 
                 bmin=b-distance/2
                 bmax=b+distance/2
 
+            
                 
                 #parcours des lignes en partant du bas, on ignore la ligne où est la cible
                 for row in range(max(self.bubble_properties.keys()),target_row,-1):
@@ -614,16 +615,14 @@ init python:
             for i in range(int(y)+diff_size,int(y)+self.BUBBLE_REAL_SIZE):
 
                 x_bubble_lancee=a*i+bmin
-                
-                
                 #si on est à moins de distance que le rayon (<=> on est dans le cercle)
                 if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
-                    
                     return True
+
                 x_bubble_lancee=a*i+bmax
                 if self.compute_distance(x+self.BUBBLE_IMAGE_SIZE/2,y+self.BUBBLE_IMAGE_SIZE/2,x_bubble_lancee,i)<self.BUBBLE_REAL_SIZE/2:
-                    
                     return True
+
             return False
            
     
@@ -811,6 +810,7 @@ init python:
         
 
         def check_target(self, row, col):
+           
             if (row in self.bubble_properties and col  in self.bubble_properties[row] ):
                 if self.target_pos is not None and self.target_row<row:
                     self.target_pos=None
@@ -839,6 +839,7 @@ init python:
             x1_center = x1 + self.BUBBLE_IMAGE_SIZE/2
             y1_center = y1 + self.BUBBLE_IMAGE_SIZE/2
 
+           
             if angle != 0:
                 # Pour les autres angles
                 angle_radians = math.radians(angle)
