@@ -1126,11 +1126,6 @@ label start_bubble_shooter_game:
     call screen bubble_shooter_game
 
 
-label after_bubble_shooter_game:
-    stop music
-    window auto  
-    call screen mini_games
-
 
 #start bubble shooter game 
 screen bubble_shooter_game():

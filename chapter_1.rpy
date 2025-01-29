@@ -302,14 +302,57 @@ label entree_entrepot :
     ed "Il veut me bouffer !"
     jump start_snake_game
 
-
-
-    
 label after_snake_game:
     stop music
     window auto  
     if mini_game==False:
         scene bg entree entrepot
+        show sylvie mains levees at right with dissolve
+        show ed chemise sourire at left with dissolve
+        sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+        show ed chemise heureux at left with dissolve
+        ed "C'est bon, je suis qualifié ?"
+        show sylvie sourire at right with dissolve
+        sylvie "Hélas non, il y a une deuxième épreuve..."
+        show ed chemise decu at left with dissolve
+        ed "Ah."
+        show ed chemise main levee at left with dissolve
+        ed "La prochaine épreuve sera aussi dangereuse ?"
+        show ed chemise surpris at left with dissolve
+        ed "C'était chaud là, quand même !"
+        show sylvie une main tablette at right with dissolve
+        sylvie "Vous avez déjà fait du bowling ?"
+        show ed chemise sceptique at left with dissolve
+        ed "Euh... oui."
+        sylvie "Et vous avez trouvé ça dangereux ?"
+        ed "Euh... non."
+        show sylvie deux mains tablette at right with dissolve
+        sylvie "La prochaine épreuve est une sorte de bowling."
+        show ed chemise sourire at left with dissolve
+        sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+        ed "Dans ce cas, oui."
+
+
+        scene bg entree entrepot 2 with Pixellate(3,5)
+        show sylvie mains levees at right with dissolve
+        show ed chemise sourire at left with dissolve
+        sylvie "Nous y voilà !"
+        show sylvie une main tablette at right with dissolve
+        sylvie "N'ayez crainte, tout va bien se passer !"
+        scene bg interieur entrepot 2
+        show ed chemise surpris at right with vpunch
+        ed "{i}NOM D'UN PISSENLIT !{/i}"
+        show ed chemise surpris at right with vpunch
+        ed "C'est quoi ce délire ?!"
+        show ed chemise surpris at right with vpunch
+        ed "Ça n'a rien à avoir avec un bowling !"
+        jump start_bubble_shooter_game
+    
+label after_bubble_shooter_game:
+    stop music
+    window auto  
+    if mini_game==False:
+        scene bg entree entrepot 2
         show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
