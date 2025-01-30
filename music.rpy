@@ -15,9 +15,12 @@ init:
     define hahaha_sound="audio/sound/hahaha.mp3"
     define humhum_sound="audio/sound/humhum.mp3"
     define what_sound="audio/sound/what.mp3"
-    define hahaha2_sound="audio/sound/hahaha2.mp3"
+    define hahaha_woman_sound="audio/sound/hahaha_woman.mp3"
     define huh_sound="audio/sound/huh.mp3"
     define wow_sound="audio/sound/wow.mp3"
-
+    define yeah_sound="audio/sound/yeah.mp3"
+    define sigh_sound="audio/sound/sigh.mp3"
+    define hum_sound="audio/sound/hum.mp3"
+    define ok_sound="audio/sound/ok.mp3"
 
 

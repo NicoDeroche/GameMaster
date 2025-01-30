@@ -604,7 +604,7 @@ screen about():
             if gui.about:
                 text "[gui.about!t]\n"
 
-            text _("Créé par Nico Deroche\n\nMoteur du jeu : Ren'Py\n\nPolices de caractères :\nJD Scarabeo - JD Code - ShortStack\ntéléchargées sur dafont.com\n\nMusiques :\nRock and a Hard Space - Synapse - Physical science\ntéléchargés sur freeSFX.co.uk\n\nArrière-plans réalisés avec My Sweet Home 3D\nModèles 3D téléchargés sur différents sites\nou réalisés avec Blender par l'auteur du jeu")
+            text _("Créé par Nico Deroche\n\nMoteur du jeu : Ren'Py\n\nPolices de caractères :\nJD Scarabeo - JD Code - ShortStack\ntéléchargées sur dafont.com\n\nMusiques :\nRock and a Hard Space - Synapse - Physical science\ntéléchargés sur freeSFX.co.uk et Pixabay\n\nArrière-plans réalisés avec My Sweet Home 3D\nModèles 3D téléchargés sur différents sites\nou réalisés avec Blender par l'auteur du jeu")
 
 
 style about_label is gui_label

@@ -62,8 +62,8 @@ translate english strings:
     new "Main menu"
 
     # game/screens.rpy:583
-    old "Créé par Nico Deroche\n\nMoteur du jeu : Ren'Py\n\nPolices de caractères :\nJD Scarabeo - JD Code - ShortStack\ntéléchargées sur dafont.com\n\nMusiques :\nRock and a Hard Space - Synapse - Physical science\ntéléchargés sur freeSFX.co.uk\n\nArrière-plans réalisés avec My Sweet Home 3D\nModèles 3D téléchargés sur différents sites\nou réalisés avec Blender par l'auteur du jeu"
-    new "Created by Nico Deroche\n\nGame engine : Ren'Py\n\nCharacter fonts :\nJD Scarabeo - JD Code - ShortStack\ndownloaded from dafont.com\n\nMusic :\nRock and a Hard Space - Synapse - Physical science\ndownloaded from freeSFX.co.uk\n\nBackgrounds made with My Sweet Home 3D\nModels downloaded from various sites\nor made with Blender by the author of the game"
+    old "Créé par Nico Deroche\n\nMoteur du jeu : Ren'Py\n\nPolices de caractères :\nJD Scarabeo - JD Code - ShortStack\ntéléchargées sur dafont.com\n\nMusiques :\nRock and a Hard Space - Synapse - Physical science\ntéléchargés sur freeSFX.co.uk et Pixabay\n\nArrière-plans réalisés avec My Sweet Home 3D\nModèles 3D téléchargés sur différents sites\nou réalisés avec Blender par l'auteur du jeu"
+    new "Created by Nico Deroche\n\nGame engine : Ren'Py\n\nCharacter fonts :\nJD Scarabeo - JD Code - ShortStack\ndownloaded from dafont.com\n\nMusic :\nRock and a Hard Space - Synapse - Physical science\ndownloaded from freeSFX.co.uk and Pixabay\n\nBackgrounds made with My Sweet Home 3D\nModels downloaded from various sites\nor made with Blender by the author of the game"
 
 
 

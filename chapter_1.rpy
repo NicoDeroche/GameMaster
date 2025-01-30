@@ -66,6 +66,7 @@ label start_chapter_1:
     show smartphone at shake
     play music ringtone
     pause 2
+    play sound hum_sound
     ed "Hum ?"
     ed "Je dors !"
     ed "Elle insiste, la sadique..."
@@ -78,12 +79,13 @@ label start_chapter_1:
     show julie parle at right with dissolve
     julie "Salut frangin, ça roule ?"
     julie "Je venais juste aux nouvelles..."
-    play sound huh_sound
+   
     show ed pyjama sceptique at left with dissolve
     ed "A propos de quoi ?"
     show julie surprise at right with dissolve
     julie "Des sélections de {b}Game Master{/b}, bien sûr !"
     julie "Il y a du monde ?"
+    play sound huh_sound
     ed "Les sélections de Game Mast..."
     play sound what_sound
     show ed pyjama surpris at left with vpunch
@@ -94,6 +96,7 @@ label start_chapter_1:
     show julie colere at right with vpunch
     julie "TU RIGOLES ?!!!"
     julie "Les candidats sont attendus à 10h, et il est 9h30 !"
+    play sound ok_sound
     show ed pyjama pense  at left with dissolve
     ed "Le rendez-vous est bien dans la zone industrielle ?"
     show julie surprise at right with dissolve
@@ -133,7 +136,7 @@ label chaussuresTrouvees :
     scene bg maison jour
   
     show chaussures at positionChaussures with dissolve
-    play sound hahaha2_sound
+    play sound yeah_sound
     show ed chemise heureux at left with dissolve
     ed "Ah, les voilà !"
     ed "Let's a go !"
@@ -156,9 +159,9 @@ label chaussuresTrouvees :
     chris "Toi aussi tu es à la bourre ?"
     show chris bras croises at right with dissolve
     chris "Ma voiture est tombée en panne à 10 kms d'ici."
-    play sound huh_sound
     show ed chemise sceptique at left with dissolve
     chris "J'ai été obligé de venir en courant..."
+    play sound huh_sound
     show chris mains poches at right with dissolve
     chris "Et toi, qu'est-ce qui t'est arrivé ?"
     show ed chemise gene at left with dissolve
@@ -209,20 +212,24 @@ label fin_explication:
     show sylvie une main tablette at right with dissolve
     sylvie "Le principe est simple :\nà chaque épreuve, vous devrez affronter des robots conçus par B-Tech."
     show sylvie deux mains tablette at right with dissolve
-    play sound hahaha2_sound
+    play sound yeah_sound
     show ed chemise heureux at left with dissolve
     ed "Des robots géants, c'est trop cool !"
     play sound humhum_sound
     show ed chemise main levee at left with dissolve
     ed "Mais, euh... Ce n'est pas un tournoi de jeux vidéo ?"
+    play sound hahaha_woman_sound
     show sylvie mains levees at right with dissolve
     sylvie "Je pense qu'il y a méprise..."
     show ed chemise sceptique at left with dissolve
     sylvie "Pour que ce soit plus fun, les épreuves sont inspirées de jeux vidéo célèbres."
     sylvie "Mais les créatures que vous affronterez seront bien réelles !"
     show sylvie deux mains tablette at right with dissolve
+    play sound ok_sound
+    show ed chemise pense at left with dissolve
+    ed "Je vois..."
     show ed chemise surpris at left with dissolve
-    ed "Ah... Ce n'est pas un peu dangereux ?"
+    ed "Mais... Ce n'est pas un peu dangereux ?"
 
     show sylvie une main tablette at right with dissolve
     sylvie "Votre mental et votre physique seront mis à rude épreuve, c'est certain."
@@ -259,6 +266,7 @@ label fin_explication:
     show ed chemise pense at left with dissolve
     menu:
         "Ok, je signe.\n Si c'est basé sur les jeux vidéo, j'ai mes chances.":
+            play sound ok_sound
             jump entree_entrepot
 
         "Non, désolé, tout ceci me semble un peu trop dangereux.":
@@ -271,6 +279,7 @@ label again_entree :
 
     menu:
         "Bon d'accord, je signe.":
+            play sound ok_sound
             jump entree_entrepot
 
         "Non, j'ai trop peur.":
@@ -295,7 +304,7 @@ label entree_entrepot :
     play sound snake_coming_sound
     snake "Sssssssssssssss"
     #show snake at snakeMove
-    play sound hahaha2_sound
+    play sound yeah_sound
     show ed chemise heureux at right with dissolve
     ed "Et en plus il fait du bruit et il bouge !"
     
@@ -321,19 +330,23 @@ label after_snake_game:
     window auto  
     if mini_game==False:
         scene bg entree entrepot
+        play sound win_sound
         show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
         sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+        play sound yeah_sound
         show ed chemise heureux at left with dissolve
         ed "C'est bon, je suis qualifié ?"
         show sylvie sourire at right with dissolve
         sylvie "Hélas non, il y a une deuxième épreuve..."
+        play sound sigh_sound
         show ed chemise decu at left with dissolve
         ed "Ah."
         show ed chemise main levee at left with dissolve
         ed "La prochaine épreuve sera aussi dangereuse ?"
         show ed chemise surpris at left with dissolve
         ed "C'était chaud là, quand même !"
+        play sound hahaha_woman_sound
         show sylvie une main tablette at right with dissolve
         sylvie "Vous avez déjà fait du bowling ?"
         play sound huh_sound
@@ -345,6 +358,7 @@ label after_snake_game:
         sylvie "La prochaine épreuve est une sorte de bowling."
         show ed chemise sourire at left with dissolve
         sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+        play sound ok_sound
         ed "Dans ce cas, oui."
 
 
@@ -369,10 +383,12 @@ label after_bubble_shooter_game:
     window auto  
     if mini_game==False:
         scene bg entree entrepot 2
+        play sound win_sound
         show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
         hide sylvie
+        play sound wow_sound
         chris "Bien joué mec !"
         show chris bras croises at right with dissolve
         chris "Tu as un physique de crevette, mais je savais que tu allais assurer !"
