@@ -439,7 +439,7 @@ translate spanish entree_entrepot_3793e90e:
 # game/chapter_1.rpy:286
 translate spanish after_snake_game_703d47b2:
 
-    # sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
+    # sylvie "Bravo Monsieur Pinson, vous êtes qualifiés !"
     sylvie "¡Bien hecho Monsieur Pinson, está cualificado!"
 
 # game/chapter_1.rpy:288
@@ -463,7 +463,7 @@ translate spanish after_snake_game_2b301e32:
 # game/chapter_1.rpy:296
 translate spanish after_snake_game_9415538f:
 
-    # sylvie "Mr Tonga a également réussi cette épreuve."
+    # sylvie "Monsieur Tonga a également réussi cette épreuve."
     sylvie "Monsieur Tonga también ha pasado esta prueba."
 
 # game/chapter_1.rpy:297
@@ -566,49 +566,49 @@ translate spanish fin_explication_c4b2d259:
     # chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
     chris "El ganador del concurso se va a casa con {b}100.000€{/b},¿verdad?"
 
-# TODO: Translation updated at 2025-01-31 13:03
+
 
 # game/chapter_1.rpy:230
 translate spanish fin_explication_b8a81da8:
 
     # ed "Je vois..."
-    ed "Je vois..."
+    ed "Ya veo..."
 
 # game/chapter_1.rpy:232
 translate spanish fin_explication_0ed91c77:
 
     # ed "Mais... Ce n'est pas un peu dangereux ?"
-    ed "Mais... Ce n'est pas un peu dangereux ?"
+    ed "Pero... ¿No es un poco peligroso?"
 
 # game/chapter_1.rpy:266
 translate spanish fin_explication_f5881cda:
 
     # sylvie "Vous avez déjà fait du bowling ?"
-    sylvie "Vous avez déjà fait du bowling ?"
+    sylvie "¿Alguna vez has jugado a los bolos?"
 
 # game/chapter_1.rpy:269
 translate spanish fin_explication_c290ea77:
 
     # ed "Euh... oui."
-    ed "Euh... oui."
+    ed "Er... sí."
 
 # game/chapter_1.rpy:270
 translate spanish fin_explication_e7a9be5c:
 
     # sylvie "Et vous avez trouvé ça dangereux ?"
-    sylvie "Et vous avez trouvé ça dangereux ?"
+    sylvie "¿Y lo encontraste peligroso?"
 
 # game/chapter_1.rpy:271
 translate spanish fin_explication_5062125f:
 
     # ed "Euh... non."
-    ed "Euh... non."
+    ed "Er... no."
 
 # game/chapter_1.rpy:273
 translate spanish fin_explication_121f9dbb:
 
     # sylvie "La première épreuve est une sorte de bowling."
-    sylvie "La première épreuve est une sorte de bowling."
+    sylvie "La primera prueba es un tipo de bolos."
 
 # game/chapter_1.rpy:305
 translate spanish entree_entrepot_31408267:
@@ -620,37 +620,39 @@ translate spanish entree_entrepot_31408267:
 translate spanish entree_entrepot_e33d4982:
 
     # ed "C'est quoi ce délire ?!"
-    ed "C'est quoi ce délire ?!"
+    ed "¡¿Qué demonios?!"
 
 # game/chapter_1.rpy:309
 translate spanish entree_entrepot_57b135a5:
 
     # ed "Ça n'a rien à avoir avec un bowling !"
-    ed "Ça n'a rien à avoir avec un bowling !"
+    ed "¡No tiene nada que ver con los bolos!"
 
 # game/chapter_1.rpy:311
 translate spanish entree_entrepot_ce7e20a5:
 
     # ed "Visiblement, il faut que je monte sur ce éléphant..."
-    ed "Visiblement, il faut que je monte sur ce éléphant..."
+    ed "Aparentemente, tengo que subirme a ese elefante..."
 
 # game/chapter_1.rpy:327
 translate spanish after_bubble_shooter_game_271a99f6:
 
-    # sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
-    sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+    # sylvie "Bravo Monsieur Pinson, vous avez terminé l'épreuve !"
+    sylvie "¡Bien hecho Monsieur Pinson, ha completado la prueba!"
+
+
 
 # game/chapter_1.rpy:330
 translate spanish after_bubble_shooter_game_f8ee7d0e:
 
     # ed "C'est bon, je suis qualifié ?"
-    ed "C'est bon, je suis qualifié ?"
+    ed "¿Eso es todo, estoy calificado?"
 
 # game/chapter_1.rpy:333
 translate spanish after_bubble_shooter_game_1ff425ea:
 
     # sylvie "Hélas non, il y a une deuxième épreuve..."
-    sylvie "Hélas non, il y a une deuxième épreuve..."
+    sylvie "Desafortunadamente no, hay una segunda ronda..."
 
 # game/chapter_1.rpy:336
 translate spanish after_bubble_shooter_game_af491a9a:
@@ -662,61 +664,56 @@ translate spanish after_bubble_shooter_game_af491a9a:
 translate spanish after_bubble_shooter_game_f202a5c0:
 
     # ed "La première épreuve était assez facile, ça va..."
-    ed "La première épreuve était assez facile, ça va..."
+    ed "La primera prueba fue bastante fácil, está bien..."
 
 # game/chapter_1.rpy:341
 translate spanish after_bubble_shooter_game_44ae805a:
 
     # sylvie "La deuxième sera un peu plus... sportive."
-    sylvie "La deuxième sera un peu plus... sportive."
+    sylvie "La segunda será un poco más... deportiva."
 
 # game/chapter_1.rpy:344
 translate spanish after_bubble_shooter_game_3b3154f3:
 
     # ed "Ah ?"
-    ed "Ah ?"
+    ed "¿Ah?"
 
 # game/chapter_1.rpy:346
 translate spanish after_bubble_shooter_game_da39aee9:
 
     # sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
-    sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+    sylvie "¿Me acompañas al almacén de al lado?"
 
 # game/chapter_1.rpy:348
 translate spanish after_bubble_shooter_game_4243306d:
 
-    # ed "Allons-y..."
-    ed "Allons-y..."
+    # ed "Let's a go !"
+    ed "Let's a go !"
 
-# game/chapter_1.rpy:353
-translate spanish after_bubble_shooter_game_13b71e7c:
-
-    # sylvie "Nous y voilà !"
-    sylvie "Nous y voilà !"
 
 # game/chapter_1.rpy:355
 translate spanish after_bubble_shooter_game_b42bc1da:
 
     # sylvie "N'ayez crainte, tout va bien se passer !"
-    sylvie "N'ayez crainte, tout va bien se passer !"
+    sylvie "¡No te preocupes, todo va a salir bien!"
 
 # game/chapter_1.rpy:361
 translate spanish after_bubble_shooter_game_fba0e055:
 
     # ed "J'hallucine !\nUn robot serpent !"
-    ed "J'hallucine !\nUn robot serpent !"
+    ed "¡Estoy alucinando!\n¡Un robot serpiente!"
 
 # game/chapter_1.rpy:363
 translate spanish after_bubble_shooter_game_7b9a101c:
 
     # ed "Il y a aussi une pomme..."
-    ed "Il y a aussi une pomme..."
+    ed "También hay una manzana..."
 
 # game/chapter_1.rpy:364
 translate spanish after_bubble_shooter_game_735db399:
 
     # ed "C'est comme dans ce vieux jeu sur portable."
-    ed "C'est comme dans ce vieux jeu sur portable."
+    ed "Es como ese viejo juego de móvil."
 
 # game/chapter_1.rpy:368
 translate spanish after_bubble_shooter_game_12e9454a:
@@ -728,13 +725,13 @@ translate spanish after_bubble_shooter_game_12e9454a:
 translate spanish after_bubble_shooter_game_9d73a742:
 
     # ed "Et en plus il fait du bruit et il bouge !"
-    ed "Et en plus il fait du bruit et il bouge !"
+    ed "¡Es más, hace ruido y se mueve!"
 
 # game/chapter_1.rpy:374
 translate spanish after_bubble_shooter_game_6d99fd3a:
 
     # ed "Trop stylé !"
-    ed "Trop stylé !"
+    ed "¡Qué guay!"
 
 # game/chapter_1.rpy:378
 translate spanish after_bubble_shooter_game_12e9454a_1:
@@ -746,7 +743,7 @@ translate spanish after_bubble_shooter_game_12e9454a_1:
 translate spanish after_bubble_shooter_game_691821d8:
 
     # ed "Euh... Attends..."
-    ed "Euh... Attends..."
+    ed "Er... Espera..."
 
 # game/chapter_1.rpy:386
 translate spanish after_bubble_shooter_game_6495fa4e:
@@ -758,5 +755,5 @@ translate spanish after_bubble_shooter_game_6495fa4e:
 translate spanish after_bubble_shooter_game_3793e90e:
 
     # ed "Il veut me bouffer !"
-    ed "Il veut me bouffer !"
+    ed "¡Quiere comerme!"
 

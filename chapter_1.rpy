@@ -323,7 +323,7 @@ label after_bubble_shooter_game:
         play sound win_sound
         show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
-        sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+        sylvie "Bravo Monsieur Pinson, vous avez terminé l'épreuve !"
         play sound yeah_sound
         show ed chemise heureux at left with dissolve
         ed "C'est bon, je suis qualifié ?"
@@ -344,7 +344,7 @@ label after_bubble_shooter_game:
         show sylvie une main tablette at right with dissolve
         sylvie "Vous m'accompagnez à l'entrepôt voisin ?" 
         play sound ok_sound
-        ed "Allons-y..."
+        ed "Let's a go !"
 
         scene bg entree entrepot 2 with Pixellate(3,5)
         show ed chemise sourire at left with dissolve
@@ -396,7 +396,7 @@ label after_snake_game:
         play sound win_sound
         show sylvie mains levees at right with dissolve
         show ed chemise grand sourire at left with dissolve
-        sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
+        sylvie "Bravo Monsieur Pinson, vous êtes qualifiés !"
         hide sylvie
         play sound wow_sound
         chris "Bien joué mec !"
@@ -407,7 +407,7 @@ label after_snake_game:
         hide chris
         show sylvie deux mains tablette at right with dissolve
         show ed chemise sourire at left with dissolve
-        sylvie "Mr Tonga a également réussi cette épreuve."
+        sylvie "Monsieur Tonga a également réussi cette épreuve."
         show sylvie sourire at right with dissolve
         sylvie "Il me reste quelques candidats à faire passer."
         sylvie "L'hélicoptère viendra chercher les compétiteurs sélectionnés d'ici 15 mn."

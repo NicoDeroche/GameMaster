@@ -635,7 +635,7 @@ translate english entree_entrepot_57b135a5:
 translate english entree_entrepot_ce7e20a5:
 
     # ed "Visiblement, il faut que je monte sur ce éléphant..."
-    ed "Obviously, I need to get on that elephant..."
+    ed "Apparently, I need to get on that elephant..."
 
 # game/chapter_1.rpy:327
 translate english after_bubble_shooter_game_271a99f6:
@@ -701,7 +701,7 @@ translate english after_bubble_shooter_game_b42bc1da:
 translate english after_bubble_shooter_game_fba0e055:
 
     # ed "J'hallucine !\nUn robot serpent !"
-    ed "I'm hallucinating! A snake robot!"
+    ed "I'm hallucinating!\nA snake robot!"
 
 # game/chapter_1.rpy:363
 translate english after_bubble_shooter_game_7b9a101c:
