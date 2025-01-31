@@ -2,8 +2,8 @@
 translate english strings:
 
     # game/snake_game.rpy:97
-    old "Attention, ça va commencer !\n\nVous gagnez si le serpent ne peut plus bouger.\nUtilisez les flèches du clavier ou les boutons pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu."
-    new "Watch out, it's about to start!\n\nYou win if the snake can't move.\nUse the arrow keys or buttons to move around.\n\nPress Enter or Left Click to start the game."
+    old "Attention, ça va commencer !\n\nA vous de trouver comment gagner...\n\nUtilisez les flèches du clavier ou les boutons pour vous déplacer.\n\nAppuyez sur Entrée ou Clic Gauche pour lancer le jeu."
+    new "Watch out, it's about to start!\n\nIt's up to you to find out how to win...\n\nUse the arrow keys or buttons to move around.\n\nPress Enter or Left Click to start the game."
 
 
     # game/snake_game.rpy:251

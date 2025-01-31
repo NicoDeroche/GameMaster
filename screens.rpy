@@ -661,6 +661,14 @@ screen mini_games():
                 spacing gui.slot_spacing
 
           
+                button:
+                    action   Jump("start_bubble_shooter_game")  
+
+                    has vbox
+
+                    add "gui/bubble_shooter_game.png" xalign 0.5
+                    text "Bubble Shooter Game":
+                        style "slot_name_text"
 
                 button:
                     action Jump("start_snake_game") 
@@ -674,14 +682,7 @@ screen mini_games():
 
            
 
-                button:
-                    action   Jump("start_bubble_shooter_game")  
-
-                    has vbox
-
-                    add "gui/bubble_shooter_game.png" xalign 0.5
-                    text "Bubble Shooter Game":
-                        style "slot_name_text"
+                
 
            
 

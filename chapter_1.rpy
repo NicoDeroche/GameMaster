@@ -262,7 +262,15 @@ label fin_explication:
     ed "D'accident ?"
     show sylvie mains levees ecran blanc at right with dissolve
     sylvie "Je vous l'ai dit, cette compétition n'est pas sans risque."
+    show sylvie une main tablette at right with dissolve
+    sylvie "Vous avez déjà fait du bowling ?"
+    play sound huh_sound
+    show ed chemise sceptique at left with dissolve
+    ed "Euh... oui."
+    sylvie "Et vous avez trouvé ça dangereux ?"
+    ed "Euh... non."
     show sylvie deux mains tablette at right with dissolve
+    sylvie "La première épreuve est une sorte de bowling."
     show ed chemise pense at left with dissolve
     menu:
         "Ok, je signe.\n Si c'est basé sur les jeux vidéo, j'ai mes chances.":
@@ -291,41 +299,24 @@ label entree_entrepot :
     sylvie "Merci, tout est en ordre."
     show sylvie une main tablette at right with dissolve
     sylvie "Amusez-vous bien !"
-    scene bg interieur entrepot
-    #show apple big at applePos with dissolve
-    #show snake at snakePos with dissolve
-    show ed chemise grand sourire at right with dissolve
-    ed "J'hallucine !\nUn robot serpent !"
-    show ed chemise pense at right with dissolve
-    ed "Il y a aussi une pomme..."
-    ed "C'est comme dans ce vieux jeu sur portable."
-    scene bg interieur entrepot bis
-    show ed chemise pense at right
-    play sound snake_coming_sound
-    snake "Sssssssssssssss"
-    #show snake at snakeMove
-    play sound yeah_sound
-    show ed chemise heureux at right with dissolve
-    ed "Et en plus il fait du bruit et il bouge !"
-    
-    ed "Trop stylé !"
-    scene bg interieur entrepot ter
-    show ed chemise heureux at right
-    play sound snake_coming_sound
-    snake "Sssssssssssssss"
-    show ed chemise heureux at right
-    play sound huh_sound
-    show ed chemise sceptique at right with dissolve
- 
-    ed "Euh... Attends..."
+    scene bg interieur entrepot 2
     play sound what_sound
-    show ed chemise surpris at right with vpunch
-    ed "{i}NOM D'UN SALSIFIS !{/i}"
-    show ed chemise surpris at right with vpunch
-    ed "Il veut me bouffer !"
-    jump start_snake_game
+    show ed chemise surpris at left with vpunch
+    ed "{i}NOM D'UNE PAPETERIE !{/i}"
+    show ed chemise surpris at left with vpunch
+    ed "C'est quoi ce délire ?!"
+    show ed chemise surpris at left with vpunch
+    ed "Ça n'a rien à avoir avec un bowling !"
+    show ed chemise pense at left
+    ed "Visiblement, il faut que je monte sur ce éléphant..."
+    jump start_bubble_shooter_game
 
-label after_snake_game:
+
+
+
+    
+
+label after_bubble_shooter_game:
     stop music
     window auto  
     if mini_game==False:
@@ -337,48 +328,70 @@ label after_snake_game:
         play sound yeah_sound
         show ed chemise heureux at left with dissolve
         ed "C'est bon, je suis qualifié ?"
+        play sound hahaha_woman_sound
         show sylvie sourire at right with dissolve
         sylvie "Hélas non, il y a une deuxième épreuve..."
         play sound sigh_sound
         show ed chemise decu at left with dissolve
         ed "Ah."
-        show ed chemise main levee at left with dissolve
-        ed "La prochaine épreuve sera aussi dangereuse ?"
-        show ed chemise surpris at left with dissolve
-        ed "C'était chaud là, quand même !"
-        play sound hahaha_woman_sound
-        show sylvie une main tablette at right with dissolve
-        sylvie "Vous avez déjà fait du bowling ?"
+        show ed chemise sourire at left with dissolve
+        ed "La première épreuve était assez facile, ça va..."
+        show ed chemise sourire at left with dissolve
+        show sylvie deux mains tablette at right with dissolve
+        sylvie "La deuxième sera un peu plus... sportive."
         play sound huh_sound
         show ed chemise sceptique at left with dissolve
-        ed "Euh... oui."
-        sylvie "Et vous avez trouvé ça dangereux ?"
-        ed "Euh... non."
-        show sylvie deux mains tablette at right with dissolve
-        sylvie "La prochaine épreuve est une sorte de bowling."
-        show ed chemise sourire at left with dissolve
-        sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+        ed "Ah ?"
+        show sylvie une main tablette at right with dissolve
+        sylvie "Vous m'accompagnez à l'entrepôt voisin ?" 
         play sound ok_sound
-        ed "Dans ce cas, oui."
-
+        ed "Allons-y..."
 
         scene bg entree entrepot 2 with Pixellate(3,5)
         show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
         sylvie "Nous y voilà !"
-        show sylvie une main tablette at right with dissolve
+        show sylvie deux mains tablette at right with dissolve
         sylvie "N'ayez crainte, tout va bien se passer !"
-        scene bg interieur entrepot 2
+        
+        scene bg interieur entrepot
+        #show apple big at applePos with dissolve
+        #show snake at snakePos with dissolve
+        show ed chemise grand sourire at right with dissolve
+        ed "J'hallucine !\nUn robot serpent !"
+        show ed chemise pense at right with dissolve
+        ed "Il y a aussi une pomme..."
+        ed "C'est comme dans ce vieux jeu sur portable."
+        scene bg interieur entrepot bis
+        show ed chemise pense at right
+        play sound snake_coming_sound
+        snake "Sssssssssssssss"
+        #show snake at snakeMove
+        play sound yeah_sound
+        show ed chemise heureux at right with dissolve
+        ed "Et en plus il fait du bruit et il bouge !"
+        
+        ed "Trop stylé !"
+        scene bg interieur entrepot ter
+        show ed chemise heureux at right
+        play sound snake_coming_sound
+        snake "Sssssssssssssss"
+        show ed chemise heureux at right
+        play sound huh_sound
+        show ed chemise sceptique at right with dissolve
+    
+        ed "Euh... Attends..."
         play sound what_sound
         show ed chemise surpris at right with vpunch
-        ed "{i}NOM D'UNE PAPETERIE !{/i}"
+        ed "{i}NOM D'UN SALSIFIS !{/i}"
         show ed chemise surpris at right with vpunch
-        ed "C'est quoi ce délire ?!"
-        show ed chemise surpris at right with vpunch
-        ed "Ça n'a rien à avoir avec un bowling !"
-        jump start_bubble_shooter_game
+        ed "Il veut me bouffer !"
+        jump start_snake_game
+
+       
+        
     
-label after_bubble_shooter_game:
+label after_snake_game:
     stop music
     window auto  
     if mini_game==False:
