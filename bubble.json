@@ -87,6 +87,15 @@
         ],
         "properties": "bottom_right"
     },
+    "after_bubble_shooter_game_b42bc1da": {
+        "area": [
+            426,
+            30,
+            373,
+            150
+        ],
+        "properties": "bottom_right"
+    },
     "after_bubble_shooter_game_bab4633c": {
         "area": [
             426,

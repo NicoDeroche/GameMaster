@@ -566,3 +566,197 @@ translate spanish fin_explication_c4b2d259:
     # chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
     chris "El ganador del concurso se va a casa con {b}100.000€{/b},¿verdad?"
 
+# TODO: Translation updated at 2025-01-31 13:03
+
+# game/chapter_1.rpy:230
+translate spanish fin_explication_b8a81da8:
+
+    # ed "Je vois..."
+    ed "Je vois..."
+
+# game/chapter_1.rpy:232
+translate spanish fin_explication_0ed91c77:
+
+    # ed "Mais... Ce n'est pas un peu dangereux ?"
+    ed "Mais... Ce n'est pas un peu dangereux ?"
+
+# game/chapter_1.rpy:266
+translate spanish fin_explication_f5881cda:
+
+    # sylvie "Vous avez déjà fait du bowling ?"
+    sylvie "Vous avez déjà fait du bowling ?"
+
+# game/chapter_1.rpy:269
+translate spanish fin_explication_c290ea77:
+
+    # ed "Euh... oui."
+    ed "Euh... oui."
+
+# game/chapter_1.rpy:270
+translate spanish fin_explication_e7a9be5c:
+
+    # sylvie "Et vous avez trouvé ça dangereux ?"
+    sylvie "Et vous avez trouvé ça dangereux ?"
+
+# game/chapter_1.rpy:271
+translate spanish fin_explication_5062125f:
+
+    # ed "Euh... non."
+    ed "Euh... non."
+
+# game/chapter_1.rpy:273
+translate spanish fin_explication_121f9dbb:
+
+    # sylvie "La première épreuve est une sorte de bowling."
+    sylvie "La première épreuve est une sorte de bowling."
+
+# game/chapter_1.rpy:305
+translate spanish entree_entrepot_31408267:
+
+    # ed "{i}NOM D'UNE PAPETERIE !{/i}"
+    ed "{i}NOM D'UNE PAPETERIE !{/i}"
+
+# game/chapter_1.rpy:307
+translate spanish entree_entrepot_e33d4982:
+
+    # ed "C'est quoi ce délire ?!"
+    ed "C'est quoi ce délire ?!"
+
+# game/chapter_1.rpy:309
+translate spanish entree_entrepot_57b135a5:
+
+    # ed "Ça n'a rien à avoir avec un bowling !"
+    ed "Ça n'a rien à avoir avec un bowling !"
+
+# game/chapter_1.rpy:311
+translate spanish entree_entrepot_ce7e20a5:
+
+    # ed "Visiblement, il faut que je monte sur ce éléphant..."
+    ed "Visiblement, il faut que je monte sur ce éléphant..."
+
+# game/chapter_1.rpy:327
+translate spanish after_bubble_shooter_game_271a99f6:
+
+    # sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+    sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+
+# game/chapter_1.rpy:330
+translate spanish after_bubble_shooter_game_f8ee7d0e:
+
+    # ed "C'est bon, je suis qualifié ?"
+    ed "C'est bon, je suis qualifié ?"
+
+# game/chapter_1.rpy:333
+translate spanish after_bubble_shooter_game_1ff425ea:
+
+    # sylvie "Hélas non, il y a une deuxième épreuve..."
+    sylvie "Hélas non, il y a une deuxième épreuve..."
+
+# game/chapter_1.rpy:336
+translate spanish after_bubble_shooter_game_af491a9a:
+
+    # ed "Ah."
+    ed "Ah."
+
+# game/chapter_1.rpy:338
+translate spanish after_bubble_shooter_game_f202a5c0:
+
+    # ed "La première épreuve était assez facile, ça va..."
+    ed "La première épreuve était assez facile, ça va..."
+
+# game/chapter_1.rpy:341
+translate spanish after_bubble_shooter_game_44ae805a:
+
+    # sylvie "La deuxième sera un peu plus... sportive."
+    sylvie "La deuxième sera un peu plus... sportive."
+
+# game/chapter_1.rpy:344
+translate spanish after_bubble_shooter_game_3b3154f3:
+
+    # ed "Ah ?"
+    ed "Ah ?"
+
+# game/chapter_1.rpy:346
+translate spanish after_bubble_shooter_game_da39aee9:
+
+    # sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+    sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+
+# game/chapter_1.rpy:348
+translate spanish after_bubble_shooter_game_4243306d:
+
+    # ed "Allons-y..."
+    ed "Allons-y..."
+
+# game/chapter_1.rpy:353
+translate spanish after_bubble_shooter_game_13b71e7c:
+
+    # sylvie "Nous y voilà !"
+    sylvie "Nous y voilà !"
+
+# game/chapter_1.rpy:355
+translate spanish after_bubble_shooter_game_b42bc1da:
+
+    # sylvie "N'ayez crainte, tout va bien se passer !"
+    sylvie "N'ayez crainte, tout va bien se passer !"
+
+# game/chapter_1.rpy:361
+translate spanish after_bubble_shooter_game_fba0e055:
+
+    # ed "J'hallucine !\nUn robot serpent !"
+    ed "J'hallucine !\nUn robot serpent !"
+
+# game/chapter_1.rpy:363
+translate spanish after_bubble_shooter_game_7b9a101c:
+
+    # ed "Il y a aussi une pomme..."
+    ed "Il y a aussi une pomme..."
+
+# game/chapter_1.rpy:364
+translate spanish after_bubble_shooter_game_735db399:
+
+    # ed "C'est comme dans ce vieux jeu sur portable."
+    ed "C'est comme dans ce vieux jeu sur portable."
+
+# game/chapter_1.rpy:368
+translate spanish after_bubble_shooter_game_12e9454a:
+
+    # snake "Sssssssssssssss"
+    snake "Sssssssssssssss"
+
+# game/chapter_1.rpy:372
+translate spanish after_bubble_shooter_game_9d73a742:
+
+    # ed "Et en plus il fait du bruit et il bouge !"
+    ed "Et en plus il fait du bruit et il bouge !"
+
+# game/chapter_1.rpy:374
+translate spanish after_bubble_shooter_game_6d99fd3a:
+
+    # ed "Trop stylé !"
+    ed "Trop stylé !"
+
+# game/chapter_1.rpy:378
+translate spanish after_bubble_shooter_game_12e9454a_1:
+
+    # snake "Sssssssssssssss"
+    snake "Sssssssssssssss"
+
+# game/chapter_1.rpy:383
+translate spanish after_bubble_shooter_game_691821d8:
+
+    # ed "Euh... Attends..."
+    ed "Euh... Attends..."
+
+# game/chapter_1.rpy:386
+translate spanish after_bubble_shooter_game_6495fa4e:
+
+    # ed "{i}NOM D'UN SALSIFIS !{/i}"
+    ed "{i}NOM D'UN SALSIFIS !{/i}"
+
+# game/chapter_1.rpy:388
+translate spanish after_bubble_shooter_game_3793e90e:
+
+    # ed "Il veut me bouffer !"
+    ed "Il veut me bouffer !"
+

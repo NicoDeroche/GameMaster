@@ -561,11 +561,199 @@ translate english fin_explication_90322c1f:
     # sylvie "Tout à fait."
     sylvie "Absolutely."
 
-# TODO: Translation updated at 2025-01-02 09:19
+
 
 # game/chapter_1.rpy:216
 translate english fin_explication_c4b2d259:
 
     # chris "Le gagnant de la compétition repart bien avec {b}100 000 €{/b} ?"
     chris "The winner of the competition goes home with {b}€100,000{/b}, right?"
+
+
+# game/chapter_1.rpy:230
+translate english fin_explication_b8a81da8:
+
+    # ed "Je vois..."
+    ed "I see..."
+
+# game/chapter_1.rpy:232
+translate english fin_explication_0ed91c77:
+
+    # ed "Mais... Ce n'est pas un peu dangereux ?"
+    ed "But... Isn't it a bit dangerous?"
+
+# game/chapter_1.rpy:266
+translate english fin_explication_f5881cda:
+
+    # sylvie "Vous avez déjà fait du bowling ?"
+    sylvie "Have you ever been bowling?"
+
+# game/chapter_1.rpy:269
+translate english fin_explication_c290ea77:
+
+    # ed "Euh... oui."
+    ed "Uh... yes."
+
+# game/chapter_1.rpy:270
+translate english fin_explication_e7a9be5c:
+
+    # sylvie "Et vous avez trouvé ça dangereux ?"
+    sylvie "And did you find it dangerous?"
+
+
+# game/chapter_1.rpy:271
+translate english fin_explication_5062125f:
+
+    # ed "Euh... non."
+    ed "Uh... no."
+
+# game/chapter_1.rpy:273
+translate english fin_explication_121f9dbb:
+
+    # sylvie "La première épreuve est une sorte de bowling."
+    sylvie "The first test is a kind of bowling."
+
+# game/chapter_1.rpy:305
+translate english entree_entrepot_31408267:
+
+    # ed "{i}NOM D'UNE PAPETERIE !{/i}"
+    ed "{i}NOM D'UNE PAPETERIE !{/i}"
+
+# game/chapter_1.rpy:307
+translate english entree_entrepot_e33d4982:
+
+    # ed "C'est quoi ce délire ?!"
+    ed "What the hell?!"
+
+# game/chapter_1.rpy:309
+translate english entree_entrepot_57b135a5:
+
+    # ed "Ça n'a rien à avoir avec un bowling !"
+    ed "It's got nothing to do with bowling!"
+
+# game/chapter_1.rpy:311
+translate english entree_entrepot_ce7e20a5:
+
+    # ed "Visiblement, il faut que je monte sur ce éléphant..."
+    ed "Obviously, I need to get on that elephant..."
+
+# game/chapter_1.rpy:327
+translate english after_bubble_shooter_game_271a99f6:
+
+    # sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
+    sylvie "Good job Mr Pinson, you've completed the test!"
+
+# game/chapter_1.rpy:330
+translate english after_bubble_shooter_game_f8ee7d0e:
+
+    # ed "C'est bon, je suis qualifié ?"
+    ed "That's it, I'm qualified?"
+
+# game/chapter_1.rpy:333
+translate english after_bubble_shooter_game_1ff425ea:
+
+    # sylvie "Hélas non, il y a une deuxième épreuve..."
+    sylvie "Alas no, there's a second round..."
+
+# game/chapter_1.rpy:336
+translate english after_bubble_shooter_game_af491a9a:
+
+    # ed "Ah."
+    ed "Ah."
+
+# game/chapter_1.rpy:338
+translate english after_bubble_shooter_game_f202a5c0:
+
+    # ed "La première épreuve était assez facile, ça va..."
+    ed "The first test was pretty easy, it's okay..."
+
+# game/chapter_1.rpy:341
+translate english after_bubble_shooter_game_44ae805a:
+
+    # sylvie "La deuxième sera un peu plus... sportive."
+    sylvie "The second will be a little more... athletic."
+
+# game/chapter_1.rpy:344
+translate english after_bubble_shooter_game_3b3154f3:
+
+    # ed "Ah ?"
+    ed "Ah ?"
+
+# game/chapter_1.rpy:346
+translate english after_bubble_shooter_game_da39aee9:
+
+    # sylvie "Vous m'accompagnez à l'entrepôt voisin ?"
+    sylvie "Will you accompany me to the warehouse next door?"
+
+# game/chapter_1.rpy:348
+translate english after_bubble_shooter_game_4243306d:
+
+    # ed "Allons-y..."
+    ed "Let's go..."
+
+
+# game/chapter_1.rpy:355
+translate english after_bubble_shooter_game_b42bc1da:
+
+    # sylvie "N'ayez crainte, tout va bien se passer !"
+    sylvie "Don't worry, everything's going to be fine!"
+
+translate english after_bubble_shooter_game_fba0e055:
+
+    # ed "J'hallucine !\nUn robot serpent !"
+    ed "I'm hallucinating! A snake robot!"
+
+# game/chapter_1.rpy:363
+translate english after_bubble_shooter_game_7b9a101c:
+
+    # ed "Il y a aussi une pomme..."
+    ed "There's also an apple..."
+
+# game/chapter_1.rpy:364
+translate english after_bubble_shooter_game_735db399:
+
+    # ed "C'est comme dans ce vieux jeu sur portable."
+    ed "It's just like that old mobile game."
+
+# game/chapter_1.rpy:368
+translate english after_bubble_shooter_game_12e9454a:
+
+    # snake "Sssssssssssssss"
+    snake "Sssssssssssssss"
+
+# game/chapter_1.rpy:372
+translate english after_bubble_shooter_game_9d73a742:
+
+    # ed "Et en plus il fait du bruit et il bouge !"
+    ed "And it moves and makes noise!"
+
+# game/chapter_1.rpy:374
+translate english after_bubble_shooter_game_6d99fd3a:
+
+    # ed "Trop stylé !"
+    ed "So cool!"
+
+# game/chapter_1.rpy:378
+translate english after_bubble_shooter_game_12e9454a_1:
+
+    # snake "Sssssssssssssss"
+    snake "Sssssssssssssss"
+
+# game/chapter_1.rpy:383
+translate english after_bubble_shooter_game_691821d8:
+
+    # ed "Euh... Attends..."
+    ed "Uh... Wait..."
+
+# game/chapter_1.rpy:386
+translate english after_bubble_shooter_game_6495fa4e:
+
+    # ed "{i}NOM D'UN SALSIFIS !{/i}"
+    ed "{i}NOM D'UN SALSIFIS !{/i}"
+
+# game/chapter_1.rpy:388
+translate english after_bubble_shooter_game_3793e90e:
+
+    # ed "Il veut me bouffer !"
+    ed "It wants to eat me!"
 

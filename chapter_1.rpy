@@ -264,7 +264,6 @@ label fin_explication:
     sylvie "Je vous l'ai dit, cette compétition n'est pas sans risque."
     show sylvie une main tablette at right with dissolve
     sylvie "Vous avez déjà fait du bowling ?"
-    play sound huh_sound
     show ed chemise sceptique at left with dissolve
     ed "Euh... oui."
     sylvie "Et vous avez trouvé ça dangereux ?"
@@ -334,7 +333,7 @@ label after_bubble_shooter_game:
         play sound sigh_sound
         show ed chemise decu at left with dissolve
         ed "Ah."
-        show ed chemise sourire at left with dissolve
+        show ed chemise grand sourire at left with dissolve
         ed "La première épreuve était assez facile, ça va..."
         show ed chemise sourire at left with dissolve
         show sylvie deux mains tablette at right with dissolve
@@ -348,9 +347,7 @@ label after_bubble_shooter_game:
         ed "Allons-y..."
 
         scene bg entree entrepot 2 with Pixellate(3,5)
-        show sylvie mains levees at right with dissolve
         show ed chemise sourire at left with dissolve
-        sylvie "Nous y voilà !"
         show sylvie deux mains tablette at right with dissolve
         sylvie "N'ayez crainte, tout va bien se passer !"
         
@@ -398,7 +395,7 @@ label after_snake_game:
         scene bg entree entrepot 2
         play sound win_sound
         show sylvie mains levees at right with dissolve
-        show ed chemise sourire at left with dissolve
+        show ed chemise grand sourire at left with dissolve
         sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
         hide sylvie
         play sound wow_sound
