@@ -257,7 +257,7 @@ init python:
             self.snake_sound_accumulated_time+= dtime
 
 
-            if self.snake_sound_accumulated_time >= self.SNAKE_SOUND_DURATION:
+            if self.snake_sound_accumulated_time >= self.SNAKE_SOUND_DURATION and not self.end_game:
                 self.snake_sound_accumulated_time -= self.SNAKE_SOUND_DURATION
                 renpy.sound.play(snake_coming_sound)
 

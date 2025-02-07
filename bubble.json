@@ -26,6 +26,15 @@
         ],
         "properties": "bottom_right"
     },
+    "after_bubble_shooter_game_1ad36469": {
+        "area": [
+            426,
+            60,
+            373,
+            150
+        ],
+        "properties": "bottom_right"
+    },
     "after_bubble_shooter_game_271a99f6": {
         "area": [
             426,
@@ -43,12 +52,28 @@
             120
         ]
     },
+    "after_bubble_shooter_game_3b3154f3": {
+        "area": [
+            320,
+            30,
+            159,
+            120
+        ]
+    },
     "after_bubble_shooter_game_49661b4f": {
         "area": [
             480,
             30,
             426,
             150
+        ]
+    },
+    "after_bubble_shooter_game_4d4b48d1": {
+        "area": [
+            320,
+            30,
+            213,
+            120
         ]
     },
     "after_bubble_shooter_game_691821d8": {
@@ -87,6 +112,14 @@
         ],
         "properties": "bottom_right"
     },
+    "after_bubble_shooter_game_af491a9a": {
+        "area": [
+            320,
+            30,
+            213,
+            120
+        ]
+    },
     "after_bubble_shooter_game_b42bc1da": {
         "area": [
             426,
@@ -110,6 +143,14 @@
             30,
             373,
             120
+        ]
+    },
+    "after_bubble_shooter_game_f202a5c0": {
+        "area": [
+            320,
+            30,
+            426,
+            150
         ]
     },
     "after_bubble_shooter_game_f8ee7d0e": {
@@ -358,8 +399,17 @@
             426,
             30,
             373,
-            120
+            180
         ]
+    },
+    "after_snake_game_caddd58b": {
+        "area": [
+            480,
+            30,
+            320,
+            150
+        ],
+        "properties": "bottom_right"
     },
     "after_snake_game_d903cf42": {
         "area": [
@@ -732,12 +782,12 @@
     },
     "entree_entrepot_31408267": {
         "area": [
-            320,
-            30,
             373,
+            330,
+            320,
             150
         ],
-        "properties": "bottom_left"
+        "properties": "top_left"
     },
     "entree_entrepot_4d7a4408": {
         "area": [
@@ -820,6 +870,14 @@
             30,
             319,
             120
+        ]
+    },
+    "entree_entrepot_e33d4982": {
+        "area": [
+            373,
+            330,
+            320,
+            150
         ]
     },
     "entree_entrepot_ebc2bdaa": {

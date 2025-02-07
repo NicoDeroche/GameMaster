@@ -421,6 +421,7 @@ label after_snake_game:
         ed "Je n'ai pas pris de sac !"
 
         stop music
+        play sound win_sound
         window hide  # Hide the window and quick menu while in mini game
         call screen end_chapter_1
     else :
