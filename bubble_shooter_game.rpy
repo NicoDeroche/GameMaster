@@ -91,7 +91,6 @@ init python:
             Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
             ,Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
             ,Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
-            ,Image("images/bubble_shooter_game/red_bubble.png"),Image("images/bubble_shooter_game/green_bubble.png"),Image("images/bubble_shooter_game/blue_bubble.png"),Image("images/bubble_shooter_game/purple_bubble.png")
             ,Image("images/bubble_shooter_game/red_bubble_2.png"),Image("images/bubble_shooter_game/green_bubble_2.png"),Image("images/bubble_shooter_game/blue_bubble_2.png"),Image("images/bubble_shooter_game/purple_bubble_2.png")        
             ,Image("images/bubble_shooter_game/red_bubble_3.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_3.png"),Image("images/bubble_shooter_game/purple_bubble_3.png")        
             ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
@@ -99,7 +98,7 @@ init python:
 
             self.SHADOW_IMAGE=Image("images/bubble_shooter_game/shadow.png")
             self.BUBBLE_COLOR_EXPLOSE=4
-            self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=20
+            self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=16
             
             self.CANNON_BASE_IMAGE=[Image("images/bubble_shooter_game/elephant.png"),Image("images/bubble_shooter_game/elephant_red.png"),Image("images/bubble_shooter_game/elephant_green.png"),Image("images/bubble_shooter_game/elephant_blue.png"),Image("images/bubble_shooter_game/elephant_purple.png")]
             self.CANNON_IMAGE=[Image("images/bubble_shooter_game/canon.png"),Image("images/bubble_shooter_game/canon_red.png"),Image("images/bubble_shooter_game/canon_green.png"),Image("images/bubble_shooter_game/canon_blue.png"),Image("images/bubble_shooter_game/canon_purple.png")]
@@ -133,14 +132,14 @@ init python:
 
             self.last_bubble_launch=0
             #temps entre les lancements des bubbles
-            self.BUBBLE_LAUNCH_DELAY=2
+            self.BUBBLE_LAUNCH_DELAY=3
             self.last_iteration_time=0
             # temps entre chaque deplacement d'une bubble
             self.BUBBLE_TIME_DELAY = 0.01
             #temps maximal pour une bubble pour arriver à la cible la plus lointaine
             self.MAX_TIME = 1
             #temps entre chaque animation d'explosion
-            self.EXPLODE_DELAY=0.1
+            self.EXPLODE_DELAY=0.2
             self.last_explode_step=0
 
             # The time of the past render-frame.
