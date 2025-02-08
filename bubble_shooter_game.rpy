@@ -97,6 +97,7 @@ init python:
             ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
             ]
 
+            self.SHADOW_IMAGE=Image("images/bubble_shooter_game/shadow.png")
             self.BUBBLE_COLOR_EXPLOSE=4
             self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=20
             
@@ -252,7 +253,7 @@ init python:
 
 
         # dessin de la bubble
-        def draw_bubble( self, render, width, height, st, at, color, xpos, ypos):
+        def draw_bubble( self, render, width, height, st, at, color, xpos, ypos, drawShadow):
             if(color.value<len(self.BUBBLE_IMAGES)):
                 # Render the bubble image
                 bubble = renpy.render(self.BUBBLE_IMAGES[color.value], width, height, st, at)
@@ -260,6 +261,14 @@ init python:
                 # renpy.render returns a Render object, which we can
                 # blit to the Render we're making
                 render.blit(bubble, (xpos, ypos))
+
+                if drawShadow:
+                    # Render the bubble shadow image
+                    shadow = renpy.render(self.SHADOW_IMAGE, width, height, st, at)
+                        
+                    # renpy.render returns a Render object, which we can
+                    # blit to the Render we're making
+                    render.blit(shadow, (xpos, ypos))
         
         # This draws  buttons
         def draw_buttons(self, render, width, height, st, at):
@@ -342,7 +351,7 @@ init python:
                             self.current_bubble_x= self.launch_coords[0] + (self.target_pos[0] - self.launch_coords[0]) * self.current_iteration / self.iteration_number  # Calculate x position
                             self.current_bubble_y = self.launch_coords[1] + (self.target_pos[1] - self.launch_coords[1]) * self.current_iteration / self.iteration_number  # Calculate y position
 
-                    self.draw_bubble(render, width, height, st, at, self.current_bubble_color, self.current_bubble_x, self.current_bubble_y)
+                    self.draw_bubble(render, width, height, st, at, self.current_bubble_color, self.current_bubble_x, self.current_bubble_y,False)
                
                    
 
@@ -361,7 +370,7 @@ init python:
                     (x,y)=self.compute_target_candidate_bubble_position(row,col)
                     #(x,y)=position en haut à gauche du carré englobant la bubble
                     self.draw_bubble( render, width, height, st, at,  self.bubble_properties[row][col],
-                    x,y         )
+                    x,y   ,True      )
                     
                     if draw_explode_step:
                         if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value+self.BUBBLE_COLOR_EXPLOSE >= len(self.BUBBLE_IMAGES):
