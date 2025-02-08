@@ -149,7 +149,10 @@ init python:
             #position du lancement (gauche ou droite)
             self.launch_position=CannonPositionEnum.DOWN
             self.last_launch_position=CannonPositionEnum.TOP
+
             self.current_bubble_color =  random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+  
+         
             self.current_iteration= None
             self.current_bubble_x = None
             self.current_bubble_y = None
@@ -192,6 +195,12 @@ init python:
             self.angles=[0,0,0]  
             #c'est au tour du joueur
             self.player_turn=True
+
+            if mini_game==True:
+                self.current_bubble_color =  random.choice([ColorEnum.RED,ColorEnum.GREEN,ColorEnum.BLUE,ColorEnum.PURPLE])    # Randomly choose a color for the bubble
+            else:
+                self.current_bubble_color =  ColorEnum.BLUE 
+
             self.compute_player_target_candidate_bubble_position()
 
             
