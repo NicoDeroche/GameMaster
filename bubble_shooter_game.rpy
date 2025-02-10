@@ -96,12 +96,13 @@ init python:
             ,Image("images/bubble_shooter_game/red_bubble_4.png"),Image("images/bubble_shooter_game/green_bubble_3.png"),Image("images/bubble_shooter_game/blue_bubble_4.png"),Image("images/bubble_shooter_game/purple_bubble_4.png")          
             ]
 
-            self.SHADOW_IMAGE=Image("images/bubble_shooter_game/shadow.png")
+
             self.BUBBLE_COLOR_EXPLOSE=4
             self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=16
             
+            self.CANNON_IMAGES=[Image("images/bubble_shooter_game/elephant_rotation_m35.png"),Image("images/bubble_shooter_game/elephant_rotation_m30.png"),Image("images/bubble_shooter_game/elephant_rotation_m25.png"),Image("images/bubble_shooter_game/elephant_rotation_m20.png"),Image("images/bubble_shooter_game/elephant_rotation_m15.png"),Image("images/bubble_shooter_game/elephant_rotation_m10.png"),Image("images/bubble_shooter_game/elephant_rotation_m5.png"),Image("images/bubble_shooter_game/elephant_rotation_0.png"),Image("images/bubble_shooter_game/elephant_rotation_5.png"),Image("images/bubble_shooter_game/elephant_rotation_10.png"),Image("images/bubble_shooter_game/elephant_rotation_15.png"),Image("images/bubble_shooter_game/elephant_rotation_20.png"),Image("images/bubble_shooter_game/elephant_rotation_25.png"),Image("images/bubble_shooter_game/elephant_rotation_30.png"),Image("images/bubble_shooter_game/elephant_rotation_35.png")]
             self.CANNON_BASE_IMAGE=[Image("images/bubble_shooter_game/elephant.png"),Image("images/bubble_shooter_game/elephant_red.png"),Image("images/bubble_shooter_game/elephant_green.png"),Image("images/bubble_shooter_game/elephant_blue.png"),Image("images/bubble_shooter_game/elephant_purple.png")]
-            self.CANNON_IMAGE=[Image("images/bubble_shooter_game/canon.png"),Image("images/bubble_shooter_game/canon_red.png"),Image("images/bubble_shooter_game/canon_green.png"),Image("images/bubble_shooter_game/canon_blue.png"),Image("images/bubble_shooter_game/canon_purple.png")]
+            #self.CANNON_IMAGE=[Image("images/bubble_shooter_game/canon.png"),Image("images/bubble_shooter_game/canon_red.png"),Image("images/bubble_shooter_game/canon_green.png"),Image("images/bubble_shooter_game/canon_blue.png"),Image("images/bubble_shooter_game/canon_purple.png")]
             self.TARGET_IMAGE=Image("images/bubble_shooter_game/target.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
 
@@ -109,12 +110,15 @@ init python:
             self.buttons_pushed = [Image("images/bubble_shooter_game/up_pushed.png"),Image("images/bubble_shooter_game/down_pushed.png")]
  
 
+
+
             #au joueur de jouer
             self.player_turn=False
      
             self.SCREEN_HEIGHT= 720  
             self.SCREEN_WIDTH = 1280
-            self.CANNON_BASE_WIDTH=140
+            self.CANNON_WIDTH=200
+            self.CANNON_HEIGHT=250
 
             #ligne paire = 17 bubbles, ligne impaire = 18 bubbles
             self.MAX_LINE_SIZE = int(( self.SCREEN_HEIGHT-self.BORDER_WIDTH*2)/(self.BUBBLE_IMAGE_SIZE))
@@ -203,6 +207,10 @@ init python:
 
             self.compute_player_target_candidate_bubble_position()
 
+
+        #permet de définir l'image de l'éléphant à afficher
+        def arrondir_5(self,angle):
+            return round(angle / 5)
             
     
         def game_over(self):
@@ -237,23 +245,12 @@ init python:
             self.bubble_properties[row][col] = color  # Set color for the bubble at specific row and column
 
 
-        #draw cannon
-        def draw_cannon( self, render, width, height, st, at, xpos, ypos,angle,color):
-            # Render the cannon  image
-            cannon= renpy.render(Transform(self.CANNON_IMAGE[color],rotate=angle), width, height, st, at)
-            # renpy.render returns a Render object, which we can
-            # blit to the Render we're making
-            render.blit(cannon, (xpos, ypos))
-
-
-               
-
-
         # dessin du socle du canon
-        def draw_cannon_base( self, render, width, height, st, at, xpos, ypos,color):
+        def draw_cannon( self, render, width, height, st, at, xpos, ypos,angle, color):
 
+            angle_arrondi=self.arrondir_5(angle)+7
             # Render the cannon base image
-            cannon_base= renpy.render(Transform(self.CANNON_BASE_IMAGE[color]), width, height, st, at)
+            cannon_base= renpy.render(self.CANNON_IMAGES[angle_arrondi], width, height, st, at)
      
             # renpy.render returns a Render object, which we can
             # blit to the Render we're making
@@ -261,7 +258,7 @@ init python:
 
 
         # dessin de la bubble
-        def draw_bubble( self, render, width, height, st, at, color, xpos, ypos, drawShadow):
+        def draw_bubble( self, render, width, height, st, at, color, xpos, ypos):
             if(color.value<len(self.BUBBLE_IMAGES)):
                 # Render the bubble image
                 bubble = renpy.render(self.BUBBLE_IMAGES[color.value], width, height, st, at)
@@ -270,13 +267,7 @@ init python:
                 # blit to the Render we're making
                 render.blit(bubble, (xpos, ypos))
 
-                if drawShadow:
-                    # Render the bubble shadow image
-                    shadow = renpy.render(self.SHADOW_IMAGE, width, height, st, at)
-                        
-                    # renpy.render returns a Render object, which we can
-                    # blit to the Render we're making
-                    render.blit(shadow, (xpos, ypos))
+               
         
         # This draws  buttons
         def draw_buttons(self, render, width, height, st, at):
@@ -359,7 +350,7 @@ init python:
                             self.current_bubble_x= self.launch_coords[0] + (self.target_pos[0] - self.launch_coords[0]) * self.current_iteration / self.iteration_number  # Calculate x position
                             self.current_bubble_y = self.launch_coords[1] + (self.target_pos[1] - self.launch_coords[1]) * self.current_iteration / self.iteration_number  # Calculate y position
 
-                    self.draw_bubble(render, width, height, st, at, self.current_bubble_color, self.current_bubble_x, self.current_bubble_y,False)
+                    self.draw_bubble(render, width, height, st, at, self.current_bubble_color, self.current_bubble_x, self.current_bubble_y)
                
                    
 
@@ -378,7 +369,7 @@ init python:
                     (x,y)=self.compute_target_candidate_bubble_position(row,col)
                     #(x,y)=position en haut à gauche du carré englobant la bubble
                     self.draw_bubble( render, width, height, st, at,  self.bubble_properties[row][col],
-                    x,y   ,True      )
+                    x,y         )
                     
                     if draw_explode_step:
                         if col in  self.bubble_properties[row] and self.bubble_properties[row][col].value+self.BUBBLE_COLOR_EXPLOSE >= len(self.BUBBLE_IMAGES):
@@ -978,23 +969,20 @@ init python:
             color=0
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.DOWN  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
-            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,height-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,color)
-            self.draw_cannon(render, width, height, st, at,width-260,height-250,self.angles[0],color)
+            self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,height-self.BORDER_WIDTH-self.CANNON_HEIGHT+60,self.angles[0],color)
 
             color=0
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.TOP  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
-            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,self.BORDER_WIDTH,color)
-            self.draw_cannon(render, width, height, st, at,width-260,-90,self.angles[1],color)
-
+            self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,self.BORDER_WIDTH-60,self.angles[1],color)
+      
             color=0
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.MIDDLE  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
-            self.draw_cannon_base(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_BASE_WIDTH,self.BORDER_WIDTH+self.BUBBLE_IMAGE_SIZE*4,color)
-            self.draw_cannon(render, width, height, st, at,width-260,height/2-170,self.angles[2],color)
-                
+            self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,height/2 - self.CANNON_HEIGHT/2,self.angles[2],color)
+            
 
-            #self.dessiner_trajectoire(render, width, height, st, at)
+            self.dessiner_trajectoire(render, width, height, st, at)
 
             if self.should_draw_buttons:
                 #draw the buttons
