@@ -974,7 +974,7 @@ init python:
             color=0
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.TOP  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
-            self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,self.BORDER_WIDTH-60,self.angles[1],color)
+            self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,self.BORDER_WIDTH-50,self.angles[1],color)
       
             color=0
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.MIDDLE  and self.launch_coords is not None and self.current_bubble_color is not None:
