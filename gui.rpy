@@ -214,9 +214,9 @@ define gui.navigation_button_text_font = "gui/jd_code.ttf"
 define gui.navigation_button_text_size = 35
 define gui.navigation_button_text_xalign = 0.5
 define gui.navigation_button_text_yalign = 0.5
-define gui.navigation_button_text_idle_color = '#77d079'
-define gui.navigation_button_text_hover_color = "#55d0a2"
-define gui.navigation_button_text_insensitive_color = '#77d079'
+define gui.navigation_button_text_idle_color = '#93d095'
+define gui.navigation_button_text_hover_color = "#84d0b4"
+define gui.navigation_button_text_insensitive_color = '#93d095'
 
 
 ## Boutons pour les choix ######################################################

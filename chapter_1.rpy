@@ -429,7 +429,7 @@ label after_snake_game:
 
 screen show_chapter_1 :
 
-    add Text(_("Chapitre 1 : Serpent mécanique"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
+    add Text(_("Chapitre 1 : Serpent mécanique"), font='gui/jd_code.ttf', size=50, color="#93d095")  xalign 0.5 yalign 0.5 
     timer 2 action [Hide("show_chapter_1")]
 
 
@@ -438,7 +438,7 @@ screen end_chapter_1():
 
     
     add Image("images/snake_game/mini_game_end_background.png") xalign 0.5 yalign 0.5 
-    add Text(_("GENIAL !!!!\nVous avez terminé le Chapitre 1 de Game Master !\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, si vous en voulez plus,\nmerci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#77d079")  xalign 0.5 yalign 0.5 
+    add Text(_("GENIAL !!!!\nVous avez terminé le Chapitre 1 de Game Master !\n\nMerci d'avoir joué à ce jeu !\nS'il vous a plu, si vous en voulez plus,\nmerci de mettre un commentaire sur itch.io, ça me boostera !"), font='gui/jd_code.ttf', size=50, color="#93d095")  xalign 0.5 yalign 0.5 
     textbutton _("Menu principal"):
         style "main_menu_button"
 
