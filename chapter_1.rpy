@@ -352,8 +352,7 @@ label after_bubble_shooter_game:
         sylvie "N'ayez crainte, tout va bien se passer !"
         
         scene bg interieur entrepot
-        #show apple big at applePos with dissolve
-        #show snake at snakePos with dissolve
+
         show ed chemise grand sourire at right with dissolve
         ed "J'hallucine !\nUn robot serpent !"
         show ed chemise pense at right with dissolve
@@ -363,7 +362,7 @@ label after_bubble_shooter_game:
         show ed chemise pense at right
         play sound snake_coming_sound
         snake "Sssssssssssssss"
-        #show snake at snakeMove
+ 
         play sound yeah_sound
         show ed chemise heureux at right with dissolve
         ed "Et en plus il fait du bruit et il bouge !"
