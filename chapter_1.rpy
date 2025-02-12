@@ -255,7 +255,7 @@ label fin_explication:
     show sylvie sourire at right with dissolve
     show ed chemise sourire at left with dissolve
     ed "Je suis là..."
-    
+    show sylvie signature at right with dissolve
     sylvie "Veuillez signer cette décharge. C'est pour nous couvrir en cas d'accident."
     play sound huh_sound
     show ed chemise surpris at left with dissolve

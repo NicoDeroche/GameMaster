@@ -980,7 +980,7 @@ init python:
             self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,height/2 - self.CANNON_HEIGHT/2,self.angles[2],color)
             
 
-            self.dessiner_trajectoire(render, width, height, st, at)
+            #self.dessiner_trajectoire(render, width, height, st, at)
 
             if self.should_draw_buttons:
                 #draw the buttons
