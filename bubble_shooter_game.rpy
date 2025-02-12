@@ -1,11 +1,6 @@
 init python:
 
 
-#TODO 
-#traductions credits, bubble shooter, histoire
-#intersections imprecises
-
-
     import random
     from enum import Enum
     import pygame
@@ -65,8 +60,8 @@ init python:
 
             renpy.Displayable.__init__(self)
             
-            self.logger = logging.getLogger(__name__)
-            logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
+            #self.logger = logging.getLogger(__name__)
+            #logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
             
             self.BORDER_WIDTH = 10  # Width of the border
             self.BORDER_COLOR = (128, 128, 128)  # Color of the border
@@ -247,7 +242,10 @@ init python:
 
         # dessin du socle du canon
         def draw_cannon( self, render, width, height, st, at, xpos, ypos,angle, color):
-
+            if angle>35:
+                angle=35
+            if angle<-35:
+                angle=-35
             angle_arrondi=self.arrondir_5(angle)+7
             # Render the cannon base image
             cannon_base= renpy.render(self.CANNON_IMAGES[angle_arrondi], width, height, st, at)
@@ -386,7 +384,7 @@ init python:
                 return (col-1,col)
 
         def explode_orphans(self, row, col):
-            #self.logger.debug(f'test explode {row} {col} ')
+            
             if row!=1 and row in self.bubble_properties and col in self.bubble_properties[row] and self.bubble_properties[row][col].value<=self.BUBBLE_COLOR_EXPLOSE :
                 #parents
                 (col_parent_gauche,col_parent_droite)=self.get_parents(row,col)
@@ -452,7 +450,6 @@ init python:
 
 
         def identify_bubble_to_target(self):
-            
             self.target_row =None
             self.target_col=None
             self.target_pos=None
@@ -470,9 +467,8 @@ init python:
                     self.iterate_col_to_find_candidate(row,False)
               
 
-            if self.target_row is None:
+            if self.target_row is None or self.target_row==self.MAX_LINE_NUMBER :
                 #candidat par défaut
-                
                 self.identify_bubble_to_target_ignore_color()
             
 
@@ -511,8 +507,8 @@ init python:
             # et pas de voisin en train d'exploser
             verification_ligne_courante_ok = row not in self.bubble_properties or\
             ( col not in self.bubble_properties[row] \
-            and ((col-1) not in self.bubble_properties[row] or ((ignore_color or self.bubble_properties[row][col-1] != color) and self.bubble_properties[row][col-1].value<5)) \
-            and ((col+1) not in self.bubble_properties[row] or ((ignore_color or  self.bubble_properties[row][col+1] != color) and self.bubble_properties[row][col+1].value<5)))
+            and ((col-1) not in self.bubble_properties[row] or ((ignore_color or self.bubble_properties[row][col-1] != color) and self.bubble_properties[row][col-1].value<=self.BUBBLE_COLOR_EXPLOSE)) \
+            and ((col+1) not in self.bubble_properties[row] or ((ignore_color or  self.bubble_properties[row][col+1] != color) and self.bubble_properties[row][col+1].value<=self.BUBBLE_COLOR_EXPLOSE)))
             # MAX_LINE_SIZE uniquement pour les lignes paires (not odd)
             verification_derniere_colonne_ok=(col != self.MAX_LINE_SIZE or not self.is_odd(row))
             # et ligne 1 ou ((au moins un parent) et (pas de parent gauche ou couleur parent gauche != couleur) et (pas de parent droite ou couleur parent droite != couleur))
@@ -542,19 +538,21 @@ init python:
                 #equation de la droite passant par les deux points
                 # on enlève le self.BUBBLE_IMAGE_SIZE pour avoir la position "haute" des bubbles, qui peuvent intersectées
                 if not self.iterate_to_check_if_intersection(self.launch_coords, candidate_position,row,col):
-                    #c'est une bubble lancée par l'IA qui touche la ligne rouge ==> c'est gagné!
-                    if row==self.MAX_LINE_NUMBER:
-                        self.end_game=True
-                        self.victory=True
-                        renpy.music.stop()
-                        renpy.sound.play(win_sound)
-                        self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
+                    
 
-                    #on privilegie près du centre, pour embêter le joueur
-                    if (self.wait_for_start and self.target_row is None) or (not self.wait_for_start and ( self.target_row is None or  math.fabs(col-self.MAX_LINE_SIZE/2)<math.fabs(self.target_col-self.MAX_LINE_SIZE/2))):
+                    #on privilegie près du centre, pour embêter le joueur (sauf si ignore color)
+                    if (self.wait_for_start and self.target_row is None) or (not self.wait_for_start and (self.target_row is None or  ((not ignore_color) and math.fabs(col-self.MAX_LINE_SIZE/2)<math.fabs(self.target_col-self.MAX_LINE_SIZE/2)))):
                         
                         self.target_row=row
                         self.target_col=col
+
+                        #c'est une bubble lancée par l'IA qui touche la ligne rouge ==> c'est gagné!
+                        if row==self.MAX_LINE_NUMBER and ignore_color:
+                            self.end_game=True
+                            self.victory=True
+                            renpy.music.stop()
+                            renpy.sound.play(win_sound)
+                            self.information_text=_("GAGNÉ !\nAppuyez sur Entrée ou Clic gauche.")
             
 
         def iterate_to_check_if_intersection(self,launch_coords, target_pos,target_row,target_col):
@@ -872,7 +870,7 @@ init python:
                     
                 for col in range(1,self.MAX_LINE_SIZE+1):
                     # candidat si intersecte
-                    if angle==0:
+                    if angle<3 and angle>-3:
                         
                         if ((row%2==1) and col==self.MAX_LINE_SIZE/2) or ((row%2==0)\
                         and (col==self.MAX_LINE_SIZE/2 or col==self.MAX_LINE_SIZE/2+1)) :
