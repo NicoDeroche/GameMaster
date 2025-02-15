@@ -95,9 +95,12 @@ init python:
             self.BUBBLE_COLOR_EXPLOSE=4
             self.BUBBLE_COLOR_EXPLOSE_NOT_ORPHAN=16
             
-            self.CANNON_IMAGES=[Image("images/bubble_shooter_game/elephant_rotation_m35.png"),Image("images/bubble_shooter_game/elephant_rotation_m30.png"),Image("images/bubble_shooter_game/elephant_rotation_m25.png"),Image("images/bubble_shooter_game/elephant_rotation_m20.png"),Image("images/bubble_shooter_game/elephant_rotation_m15.png"),Image("images/bubble_shooter_game/elephant_rotation_m10.png"),Image("images/bubble_shooter_game/elephant_rotation_m5.png"),Image("images/bubble_shooter_game/elephant_rotation_0.png"),Image("images/bubble_shooter_game/elephant_rotation_5.png"),Image("images/bubble_shooter_game/elephant_rotation_10.png"),Image("images/bubble_shooter_game/elephant_rotation_15.png"),Image("images/bubble_shooter_game/elephant_rotation_20.png"),Image("images/bubble_shooter_game/elephant_rotation_25.png"),Image("images/bubble_shooter_game/elephant_rotation_30.png"),Image("images/bubble_shooter_game/elephant_rotation_35.png")]
-            self.CANNON_BASE_IMAGE=[Image("images/bubble_shooter_game/elephant.png"),Image("images/bubble_shooter_game/elephant_red.png"),Image("images/bubble_shooter_game/elephant_green.png"),Image("images/bubble_shooter_game/elephant_blue.png"),Image("images/bubble_shooter_game/elephant_purple.png")]
-            #self.CANNON_IMAGE=[Image("images/bubble_shooter_game/canon.png"),Image("images/bubble_shooter_game/canon_red.png"),Image("images/bubble_shooter_game/canon_green.png"),Image("images/bubble_shooter_game/canon_blue.png"),Image("images/bubble_shooter_game/canon_purple.png")]
+            self.CANNON_IMAGES=[Image("images/bubble_shooter_game/grey_elephant_rotation_m35.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_m30.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_m25.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_m20.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_m15.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_m10.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_m5.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_0.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_5.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_10.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_15.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_20.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_25.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_30.png"),Image("images/bubble_shooter_game/grey_elephant_rotation_35.png")
+            ,Image("images/bubble_shooter_game/red_elephant_rotation_m35.png"),Image("images/bubble_shooter_game/red_elephant_rotation_m30.png"),Image("images/bubble_shooter_game/red_elephant_rotation_m25.png"),Image("images/bubble_shooter_game/red_elephant_rotation_m20.png"),Image("images/bubble_shooter_game/red_elephant_rotation_m15.png"),Image("images/bubble_shooter_game/red_elephant_rotation_m10.png"),Image("images/bubble_shooter_game/red_elephant_rotation_m5.png"),Image("images/bubble_shooter_game/red_elephant_rotation_0.png"),Image("images/bubble_shooter_game/red_elephant_rotation_5.png"),Image("images/bubble_shooter_game/red_elephant_rotation_10.png"),Image("images/bubble_shooter_game/red_elephant_rotation_15.png"),Image("images/bubble_shooter_game/red_elephant_rotation_20.png"),Image("images/bubble_shooter_game/red_elephant_rotation_25.png"),Image("images/bubble_shooter_game/red_elephant_rotation_30.png"),Image("images/bubble_shooter_game/red_elephant_rotation_35.png")
+            ,Image("images/bubble_shooter_game/green_elephant_rotation_m35.png"),Image("images/bubble_shooter_game/green_elephant_rotation_m30.png"),Image("images/bubble_shooter_game/green_elephant_rotation_m25.png"),Image("images/bubble_shooter_game/green_elephant_rotation_m20.png"),Image("images/bubble_shooter_game/green_elephant_rotation_m15.png"),Image("images/bubble_shooter_game/green_elephant_rotation_m10.png"),Image("images/bubble_shooter_game/green_elephant_rotation_m5.png"),Image("images/bubble_shooter_game/green_elephant_rotation_0.png"),Image("images/bubble_shooter_game/green_elephant_rotation_5.png"),Image("images/bubble_shooter_game/green_elephant_rotation_10.png"),Image("images/bubble_shooter_game/green_elephant_rotation_15.png"),Image("images/bubble_shooter_game/green_elephant_rotation_20.png"),Image("images/bubble_shooter_game/green_elephant_rotation_25.png"),Image("images/bubble_shooter_game/green_elephant_rotation_30.png"),Image("images/bubble_shooter_game/green_elephant_rotation_35.png")
+            ,Image("images/bubble_shooter_game/blue_elephant_rotation_m35.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_m30.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_m25.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_m20.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_m15.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_m10.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_m5.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_0.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_5.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_10.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_15.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_20.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_25.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_30.png"),Image("images/bubble_shooter_game/blue_elephant_rotation_35.png")
+            ,Image("images/bubble_shooter_game/purple_elephant_rotation_m35.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_m30.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_m25.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_m20.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_m15.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_m10.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_m5.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_0.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_5.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_10.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_15.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_20.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_25.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_30.png"),Image("images/bubble_shooter_game/purple_elephant_rotation_35.png")
+            ]
             self.TARGET_IMAGE=Image("images/bubble_shooter_game/target.png")
             self.bubble_properties = dict()  # Map to store properties of the bubbles
 
@@ -248,7 +251,7 @@ init python:
                 angle=-35
             angle_arrondi=self.arrondir_5(angle)+7
             # Render the cannon base image
-            cannon_base= renpy.render(self.CANNON_IMAGES[angle_arrondi], width, height, st, at)
+            cannon_base= renpy.render(self.CANNON_IMAGES[angle_arrondi+color*15], width, height, st, at)
      
             # renpy.render returns a Render object, which we can
             # blit to the Render we're making
@@ -964,17 +967,17 @@ init python:
     
             #socles des canons
 
-            color=0
+            color=ColorEnum.GOLDEN.value
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.DOWN  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
             self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,height-self.BORDER_WIDTH-self.CANNON_HEIGHT+60,self.angles[0],color)
 
-            color=0
+            color=ColorEnum.GOLDEN.value
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.TOP  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
             self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,self.BORDER_WIDTH-50,self.angles[1],color)
       
-            color=0
+            color=ColorEnum.GOLDEN.value
             if self.launch_position is not None and self.launch_position==CannonPositionEnum.MIDDLE  and self.launch_coords is not None and self.current_bubble_color is not None:
                 color=self.current_bubble_color.value
             self.draw_cannon(render, width, height, st, at,width-self.BORDER_WIDTH-self.CANNON_WIDTH,height/2 - self.CANNON_HEIGHT/2,self.angles[2],color)

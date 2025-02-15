@@ -443,6 +443,15 @@
             150
         ]
     },
+    "after_snake_game_f917e034": {
+        "area": [
+            480,
+            30,
+            320,
+            150
+        ],
+        "properties": "bottom_right"
+    },
     "after_snake_game_fe81d56e": {
         "area": [
             693,

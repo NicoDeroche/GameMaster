@@ -148,7 +148,7 @@ translate english chaussuresTrouvees_35b6c6f7:
 # game/chapter_1.rpy:130
 translate english chaussuresTrouvees_4d4b48d1:
 
-    # ed "Let's a go !"
+    # ed "sLet' a go !"
     ed "Let's a go !"
 
 # game/chapter_1.rpy:146
@@ -434,11 +434,8 @@ translate english entree_entrepot_3793e90e:
     # ed "Il veut me bouffer !"
     ed "He wants to eat me!"
 
-# game/chapter_1.rpy:286
-translate english after_snake_game_703d47b2:
 
-    # sylvie "Bravo Mr Pinson, vous êtes qualifiés !"
-    sylvie "Well done Monsieur Pinson, you're qualified!"
+   
 
 # game/chapter_1.rpy:288
 translate english after_snake_game_a0e0bc88:
@@ -458,11 +455,6 @@ translate english after_snake_game_2b301e32:
     # ed "Euh... merci."
     ed "Er... thanks."
 
-# game/chapter_1.rpy:296
-translate english after_snake_game_9415538f:
-
-    # sylvie "Mr Tonga a également réussi cette épreuve."
-    sylvie "Monsieur Tonga has also passed this test."
 
 # game/chapter_1.rpy:297
 translate english after_snake_game_5bd09bea:
@@ -637,11 +629,8 @@ translate english entree_entrepot_ce7e20a5:
     # ed "Visiblement, il faut que je monte sur ce éléphant..."
     ed "Apparently, I need to get on that elephant..."
 
-# game/chapter_1.rpy:327
-translate english after_bubble_shooter_game_271a99f6:
 
-    # sylvie "Bravo Mr Pinson, vous avez terminé l'épreuve !"
-    sylvie "Good job Mr Pinson, you've completed the test!"
+    
 
 # game/chapter_1.rpy:330
 translate english after_bubble_shooter_game_f8ee7d0e:
@@ -756,4 +745,29 @@ translate english after_bubble_shooter_game_3793e90e:
 
     # ed "Il veut me bouffer !"
     ed "It wants to eat me!"
+
+# game/chapter_1.rpy:326
+translate english after_bubble_shooter_game_1ad36469:
+
+    # sylvie "Bravo Monsieur Pinson, vous avez terminé l'épreuve !"
+    sylvie "Good job Monsieur Pinson, you've completed the test!"
+
+# game/chapter_1.rpy:347
+translate english after_bubble_shooter_game_4d4b48d1:
+
+    # ed "Let's a go !"
+    ed "Let's a go !"
+
+# game/chapter_1.rpy:398
+translate english after_snake_game_f917e034:
+
+    # sylvie "Bravo Monsieur Pinson, vous êtes qualifiés !"
+    sylvie "Well done Monsieur Pinson, you're qualified!"
+
+# game/chapter_1.rpy:409
+translate english after_snake_game_caddd58b:
+
+    # sylvie "Monsieur Tonga a également réussi cette épreuve."
+    sylvie "Monsieur Tonga a également réussi cette épreuve."
+    sylvie "Monsieur Tonga has also passed this test."
 

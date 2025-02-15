@@ -436,11 +436,6 @@ translate spanish entree_entrepot_3793e90e:
     # ed "Il veut me bouffer !"
     ed "¡Quiere comerme!"
 
-# game/chapter_1.rpy:286
-translate spanish after_snake_game_703d47b2:
-
-    # sylvie "Bravo Monsieur Pinson, vous êtes qualifiés !"
-    sylvie "¡Bien hecho Monsieur Pinson, está cualificado!"
 
 # game/chapter_1.rpy:288
 translate spanish after_snake_game_a0e0bc88:
@@ -460,11 +455,6 @@ translate spanish after_snake_game_2b301e32:
     # ed "Euh... merci."
     ed "Er... gracias."
 
-# game/chapter_1.rpy:296
-translate spanish after_snake_game_9415538f:
-
-    # sylvie "Monsieur Tonga a également réussi cette épreuve."
-    sylvie "Monsieur Tonga también ha pasado esta prueba."
 
 # game/chapter_1.rpy:297
 translate spanish after_snake_game_5bd09bea:
@@ -634,12 +624,6 @@ translate spanish entree_entrepot_ce7e20a5:
     # ed "Visiblement, il faut que je monte sur ce éléphant..."
     ed "Aparentemente, tengo que subirme a ese elefante..."
 
-# game/chapter_1.rpy:327
-translate spanish after_bubble_shooter_game_271a99f6:
-
-    # sylvie "Bravo Monsieur Pinson, vous avez terminé l'épreuve !"
-    sylvie "¡Bien hecho Monsieur Pinson, ha completado la prueba!"
-
 
 
 # game/chapter_1.rpy:330
@@ -756,4 +740,30 @@ translate spanish after_bubble_shooter_game_3793e90e:
 
     # ed "Il veut me bouffer !"
     ed "¡Quiere comerme!"
+
+# TODO: Translation updated at 2025-02-15 17:28
+
+# game/chapter_1.rpy:326
+translate spanish after_bubble_shooter_game_1ad36469:
+
+    # sylvie "Bravo Monsieur Pinson, vous avez terminé l'épreuve !"
+    sylvie "¡Bien hecho Monsieur Pinson, ha completado la prueba!"
+
+# game/chapter_1.rpy:347
+translate spanish after_bubble_shooter_game_4d4b48d1:
+
+    # ed "Let's a go !"
+    ed "Let's a go !"
+
+# game/chapter_1.rpy:398
+translate spanish after_snake_game_f917e034:
+
+    # sylvie "Bravo Monsieur Pinson, vous êtes qualifiés !"
+    sylvie "¡Bien hecho Monsieur Pinson, está cualificado!"
+
+# game/chapter_1.rpy:409
+translate spanish after_snake_game_caddd58b:
+
+    # sylvie "Monsieur Tonga a également réussi cette épreuve."
+    sylvie "Monsieur Tonga también ha pasado esta prueba."
 
